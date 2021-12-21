@@ -1,9 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class RegisterState extends StatelessWidget {
+  String nameSurname="";
+  String phoneNumber="";
+  String email="";
+  String password="";
+
+  CollectionReference users= FirebaseFirestore.instance.collection('user');
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
         body: SingleChildScrollView(
       child: Container(
@@ -49,6 +58,9 @@ class RegisterState extends StatelessWidget {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(12))),
                             child: TextField(
+                              onChanged: (value){
+                                nameSurname=value;
+                              },
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: "İsim Soyisim",
@@ -66,6 +78,9 @@ class RegisterState extends StatelessWidget {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(12))),
                             child: TextField(
+                              onChanged: (value){
+                                phoneNumber=value;
+                              },
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: "Telefon Numarası",
@@ -83,6 +98,9 @@ class RegisterState extends StatelessWidget {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(12))),
                             child: TextField(
+                              onChanged: (value){
+                                email=value;
+                              },
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: "E-posta",
@@ -100,6 +118,9 @@ class RegisterState extends StatelessWidget {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(12))),
                             child: TextField(
+                              onChanged: (value){
+                                password=value;
+                              },
                               obscureText: true,
                               decoration: InputDecoration(
                                   border: InputBorder.none,
@@ -166,23 +187,34 @@ class RegisterState extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Container(
-                            margin: EdgeInsets.only(top: 100),
-                            height: MediaQuery.of(context).size.height * 0.083,
-                            alignment: Alignment.bottomCenter,
-                            decoration: BoxDecoration(
-                              color: Color.fromRGBO(240, 118, 24, 1),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "Kayıt Ol",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                          GestureDetector(
+                            onTap: () async{
+                              await users.add({
+                                'nameSurname': nameSurname,
+                                'mailAddress': email,
+                                'password': password,
+                                'phoneNumber': phoneNumber,
+                                'userPoint': "100",
+                              }).then((value) => print("user added"));
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(top: 100),
+                              height: MediaQuery.of(context).size.height * 0.083,
+                              alignment: Alignment.bottomCenter,
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(240, 118, 24, 1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "Kayıt Ol",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                             ),
-                          ),
+                          )
                         ],
                       ),
                     ),
