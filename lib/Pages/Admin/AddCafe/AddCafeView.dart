@@ -16,18 +16,19 @@ class AddCafeState extends StatefulWidget {
 class _AddCafeState extends State<AddCafeState> {
   Directory selectedDirectory;
 
-final myController = TextEditingController();
-_getFromGallery() async {
-  PickedFile pickedFile = await ImagePicker().getImage(
-    source: ImageSource.gallery,
-    maxWidth: 1800,
-    maxHeight: 1800,
-  );
-  if (pickedFile != null) {
-    File imageFile = File(pickedFile.path);
-    myController.text = imageFile.toString();
+  final myController = TextEditingController();
+  _getFromGallery() async {
+    PickedFile pickedFile = await ImagePicker().getImage(
+      source: ImageSource.gallery,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      File imageFile = File(pickedFile.path);
+      myController.text = imageFile.toString();
+    }
   }
-}
+
   Future<void> _pickDirectory(BuildContext context) async {
     Directory directory = selectedDirectory;
     if (directory == null) {
@@ -46,7 +47,7 @@ _getFromGallery() async {
     });
   }
 
- @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color(0xFFECEEF5),
@@ -190,8 +191,7 @@ _getFromGallery() async {
                                     color: Colors.grey[400], fontSize: 18.75)),
                           ),
                         ),
-                        
-                           Container(
+                        Container(
                           height: 40,
                           width: MediaQuery.of(context).size.width * 0.9 - 216,
                           alignment: Alignment.centerRight,
