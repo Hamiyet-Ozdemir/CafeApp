@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:cafeapp/Pages/Admin/LoginPage/LoginPage.dart';
-import 'package:cafeapp/Pages/Admin/SignUpPage/SignUpPage.dart';
+import 'package:cafeapp/Pages/Admin/LoginPage/UserRegister.dart';
+import 'package:cafeapp/Pages/Admin/SignInPage/SignInPage.dart';
 
 class passwordChanging extends StatefulWidget {
   @override

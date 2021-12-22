@@ -7,6 +7,7 @@ import 'package:cafeapp/Pages/Admin/AddCafe/AddCafeView.dart';
 import 'package:cafeapp/Pages/Admin/AdminCafeDetailState/AdminCafeDetailView.dart';
 import 'package:cafeapp/Pages/Admin/AdminProfilePage/AdminProfileView.dart';
 import 'package:cafeapp/Pages/Admin/AdminRezervationPage/AdminRezervationView.dart';
+import 'package:cafeapp/service/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -57,10 +58,12 @@ class AdminMainPage extends StatelessWidget {
                     child: Column(
                       children: [
                         Container(
+                          
                           alignment: Alignment.centerLeft,
                           margin: EdgeInsets.only(top: 9, bottom: 2, left: 16),
                           child: Text(
-                            "John Doe",
+                            
+                            AuthService.adminName,
                             style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.bold),
                           ),
