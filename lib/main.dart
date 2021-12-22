@@ -27,11 +27,17 @@ import 'Pages/Admin/SignUpPage/SignUpPage.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: FirebaseOptions(
-    apiKey:'AIzaSyCNLzWryqNuFD0sUdScUBa2m44kAghjzuY',
-    appId: '1:636683774243:android:7998f1832f4a36ff2d4496', 
-    messagingSenderId:'636683774243' ,
-    projectId: 'fir-c129d'));
+   Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: 'AIzaSyCNLzWryqNuFD0sUdScUBa2m44kAghjzuY',
+      appId: '1:636683774243:android:7998f1832f4a36ff2d4496',
+      messagingSenderId: '636683774243',
+      projectId: 'fir-c129d',
+      storageBucket: 'fir-c129d.appspot.com/files',
+
+    ),
+  );
+
   runApp(MyApp());
 }
  

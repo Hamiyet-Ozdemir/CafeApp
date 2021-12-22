@@ -1,10 +1,12 @@
 import 'dart:io';
+import 'dart:math';
 
-import 'package:easy_folder_picker/FolderPicker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 
 
@@ -14,38 +16,89 @@ class AddCafeState extends StatefulWidget {
 }
 
 class _AddCafeState extends State<AddCafeState> {
-  Directory selectedDirectory;
 
-final myController = TextEditingController();
+PickedFile pickedfile;
+final myImageController = TextEditingController();
+final myPdfController=TextEditingController();
+final cafeNameController = TextEditingController();
+  final cafeAdressController = TextEditingController();
+ final safeIdController = TextEditingController();
+ final openClockController = TextEditingController();
+ final closeClockController = TextEditingController();
+ final descriptionController = TextEditingController();
+ final phoneNumberController = TextEditingController();
 _getFromGallery() async {
-  PickedFile pickedFile = await ImagePicker().getImage(
+  pickedfile = await ImagePicker().getImage(
     source: ImageSource.gallery,
     maxWidth: 1800,
     maxHeight: 1800,
   );
-  if (pickedFile != null) {
-    File imageFile = File(pickedFile.path);
-    myController.text = imageFile.toString();
+  if (pickedfile != null) {
+    File imageFile = File(pickedfile.path);
+    myImageController.text = imageFile.toString();
   }
 }
-  Future<void> _pickDirectory(BuildContext context) async {
-    Directory directory = selectedDirectory;
-    if (directory == null) {
-      directory = Directory(FolderPicker.ROOTPATH);
-    }
 
-    Directory newDirectory = await FolderPicker.pick(
-        allowFolderCreation: true,
-        context: context,
-        rootDirectory: directory,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10))));
-    setState(() {
-      selectedDirectory = newDirectory;
-      print(selectedDirectory);
-    });
+  CollectionReference cafes= FirebaseFirestore.instance.collection('cafe');
+
+File file;
+String randomName(){
+   var rng = new Random();
+     String randomName="";
+  for (var i = 0; i < 20; i++) {
+    print(rng.nextInt(100));
+    randomName += rng.nextInt(100).toString();
   }
+  return randomName;
+}
+void _getDocuments() async {
+  
+ 
+   FilePickerResult result = await FilePicker.platform.pickFiles();
+file=File(result.paths.first);
+  
+  String fileName = '${randomName()}.pdf';
+  print(fileName);
+  myPdfController.text=fileName;
+  }
+void addCafe() async{
+    File _imageFile=File(pickedfile.path);
+    String fileName = randomName()+"."+_imageFile.path.split('.').last;
+    String pdfName = randomName()+".pdf";
 
+    firebase_storage.Reference firebaseStorageRef =
+        firebase_storage.FirebaseStorage.instance.ref().child('cafeImages/$fileName');
+
+    firebase_storage.UploadTask uploadTask = firebaseStorageRef.putFile(_imageFile);
+    firebase_storage.TaskSnapshot taskSnapshot = await uploadTask;
+
+        firebase_storage.Reference firebaseStorageRef1 =
+        firebase_storage.FirebaseStorage.instance.ref().child('cafeMenuPdf/$pdfName');
+    firebase_storage.UploadTask uploadtask1=firebaseStorageRef1.putFile(file);
+    firebase_storage.TaskSnapshot taskSnapshot1 = await uploadtask1;
+
+    taskSnapshot.ref.getDownloadURL().then(
+          (value) => print("Done: $value"),
+        );
+ taskSnapshot1.ref.getDownloadURL().then(
+          (value) => print("Done: $value"),
+        );
+
+        cafes.add({
+                                'name': cafeNameController.text,
+                                'cafeAddress': cafeAdressController.text,
+                                'safeId': safeIdController.text,
+                                'openClock': openClockController.text,
+                                'closeClock': closeClockController.text,
+                                'description': descriptionController.text,
+                                'phoneNumber': phoneNumberController.text,
+                                'menu': pdfName,
+                                'picture': fileName,
+                                
+                              }).then((value) => print("cafe added"));
+
+}
+ 
  @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,6 +126,7 @@ _getFromGallery() async {
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(12))),
                   child: TextField(
+                    controller: cafeNameController,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -90,6 +144,7 @@ _getFromGallery() async {
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(12))),
                   child: TextField(
+                    controller: cafeAdressController,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -107,6 +162,7 @@ _getFromGallery() async {
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(12))),
                   child: TextField(
+                    controller: safeIdController,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -124,6 +180,7 @@ _getFromGallery() async {
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(12))),
                   child: TextField(
+                    controller: openClockController,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -141,6 +198,7 @@ _getFromGallery() async {
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(12))),
                   child: TextField(
+                    controller: closeClockController,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -158,6 +216,7 @@ _getFromGallery() async {
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(12))),
                   child: TextField(
+                    controller: descriptionController,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -181,7 +240,7 @@ _getFromGallery() async {
                           width: 200,
                           child: TextField(
                             readOnly: true,
-                            controller: myController,
+                            controller: myPdfController,
                             textAlign: TextAlign.left,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
@@ -200,8 +259,10 @@ _getFromGallery() async {
                               Icons.picture_as_pdf,
                             ),
                             elevation: 8,
-                            onPressed: () {
-                              _pickDirectory(context);
+                            onPressed: () async {
+ 
+_getDocuments(); 
+
                             },
                           ),
                         )
@@ -216,6 +277,7 @@ _getFromGallery() async {
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(12))),
                   child: TextField(
+                    controller: phoneNumberController,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -239,7 +301,7 @@ _getFromGallery() async {
                           width: 200,
                           child: TextField(
                             readOnly: true,
-                            controller: myController,
+                            controller: myImageController,
                             textAlign: TextAlign.left,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
@@ -248,7 +310,7 @@ _getFromGallery() async {
                                     color: Colors.grey[400], fontSize: 18.75)),
                           ),
                         ),
-                        Container(
+                       Container(
                           height: 40,
                           width: MediaQuery.of(context).size.width * 0.9 - 216,
                           alignment: Alignment.centerRight,
@@ -261,9 +323,14 @@ _getFromGallery() async {
                               _getFromGallery();
                             },
                           ),
-                        )
+                        ),
                       ],
                     )),
+                      GestureDetector(
+                            onTap: () async {
+                            addCafe();
+  } ,
+                            child:
                 Container(
                   margin: EdgeInsets.only(top: 50),
                   height: 60,
@@ -280,7 +347,7 @@ _getFromGallery() async {
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                   ),
-                ),
+                ),)
               ],
             ),
           ),
