@@ -93,7 +93,7 @@ void addCafe() async{
                                 'description': descriptionController.text,
                                 'phoneNumber': phoneNumberController.text,
                                 'menu': pdfName,
-                                'picture': fileName,
+                                'picure': fileName,
                                 
                               }).then((value) => print("cafe added"));
 
