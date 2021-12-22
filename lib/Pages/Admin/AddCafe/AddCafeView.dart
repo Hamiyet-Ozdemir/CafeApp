@@ -87,7 +87,7 @@ void addCafe() async{
         cafes.add({
                                 'name': cafeNameController.text,
                                 'cafeAddress': cafeAdressController.text,
-                                'safId': safeIdController.text,
+                                'safeId': safeIdController.text,
                                 'openClock': openClockController.text,
                                 'closeClock': closeClockController.text,
                                 'description': descriptionController.text,
