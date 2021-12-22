@@ -58,7 +58,7 @@ _getFromGallery() async {
                   margin: EdgeInsets.only(top: 38),
                   padding: EdgeInsets.only(top: 38),
                   alignment: Alignment.topCenter,
-                  child: Text('Kafe Ekle',
+                  child: Text('Kaf Ekle',
                       style: GoogleFonts.roboto(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
