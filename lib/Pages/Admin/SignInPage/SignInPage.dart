@@ -154,6 +154,8 @@ class LoginState extends StatelessWidget {
                               )),
                           GestureDetector(
                             onTap: () {
+                              
+                             _authService.getDocs();
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

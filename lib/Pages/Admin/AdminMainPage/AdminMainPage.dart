@@ -3,10 +3,10 @@
 
 // ignore: prefer_const_constructors
 
+import 'package:cafeapp/Models/CafeModel.dart';
 import 'package:cafeapp/Pages/Admin/AddCafe/AddCafeView.dart';
 import 'package:cafeapp/Pages/Admin/AdminCafeDetailState/AdminCafeDetailView.dart';
 import 'package:cafeapp/Pages/Admin/AdminProfilePage/AdminProfileView.dart';
-import 'package:cafeapp/Pages/Admin/AdminRezervationPage/AdminRezervationView.dart';
 import 'package:cafeapp/service/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -14,10 +14,20 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AdminMainPage extends StatelessWidget {
   const AdminMainPage({Key key}) : super(key: key);
-
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: Container(
+   Widget build(BuildContext context) {
+   return _myListView(context);
+  }
+ }
+
+
+
+ Widget _myListView(BuildContext context)  {
+   
+   return ListView.builder(
+     itemCount: AuthService.model.length,
+     itemBuilder: (context,index){
+        return Container(
           color: Color.fromRGBO(247, 248, 251, 1),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -50,7 +60,8 @@ class AdminMainPage extends StatelessWidget {
                                             ),
                                           ),
                                         );
-                                      },child:  Container(
+                                      },
+                                      child:  Container(
                     margin: EdgeInsets.only(top: 32),
                     height: 62,
                     width: MediaQuery.of(context).size.width,
@@ -99,6 +110,7 @@ class AdminMainPage extends StatelessWidget {
                     ),
                   ),
                   Container(
+                    
                     decoration: BoxDecoration(
                         color: Color.fromRGBO(247, 248, 251, 1),
                         ),
@@ -160,7 +172,8 @@ class AdminMainPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                       ),  GestureDetector(
+                       ), 
+                        GestureDetector(
                                       onTap: () {
                                         Navigator.push(
                                           context,
@@ -198,7 +211,7 @@ class AdminMainPage extends StatelessWidget {
                                    Container(
                                       height: 20,
                                       child: Text(
-                                        "Starbucks",
+                                       AuthService.model[index].name,
                                         style: GoogleFonts.roboto(
                                             color: Colors.black,
                                             fontSize: 17,
@@ -221,54 +234,7 @@ class AdminMainPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                         Container(
-                          color: Colors.white,
-                          height: 63,
-                          width: MediaQuery.of(context).size.width,
-                          margin: EdgeInsets.only(top: 3, left: 0),
-                          child: Container(
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: 28.83,
-                                  width: 45,
-                                  alignment: Alignment.centerLeft,
-                                  margin: EdgeInsets.only(right: 28,left: 31),
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                          "assets/images/AdminYonetimImage.png"),
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                ),
-                               Container(
-                                      height: 20,
-                                      child: Text(
-                                        "Starbucks",
-                                        style: GoogleFonts.roboto(
-                                            color: Colors.black,
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),      Container(
-                                  height: 12,
-                                  width: 6,
-                                  alignment: Alignment.centerRight,
-                                  margin: EdgeInsets.only(right: 28,left: 170),
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                          "assets/images/Shape.png"),
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                       ],
+                          ],
                           ),
                         )
                      ) ],
@@ -278,6 +244,5 @@ class AdminMainPage extends StatelessWidget {
               ))
             ],
           ),
-        ),
-      );
-}
+        );
+ });}

@@ -1,8 +1,11 @@
 import 'dart:io';
 import 'dart:math';
-
+import 'package:uuid/uuid.dart';
+import 'package:uuid/uuid_util.dart';
+import 'package:cafeapp/service/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -62,6 +65,7 @@ file=File(result.paths.first);
   myPdfController.text=fileName;
   }
 void addCafe() async{
+   var uuid = Uuid();
     File _imageFile=File(pickedfile.path);
     String fileName = randomName()+"."+_imageFile.path.split('.').last;
     String pdfName = randomName()+".pdf";
@@ -83,8 +87,8 @@ void addCafe() async{
  taskSnapshot1.ref.getDownloadURL().then(
           (value) => print("Done: $value"),
         );
-
-        cafes.add({
+String uid=uuid.v1().toString();
+        FirebaseFirestore.instance.collection("cafe").doc(uid).set({
                                 'name': cafeNameController.text,
                                 'cafeAddress': cafeAdressController.text,
                                 'safeId': safeIdController.text,
@@ -94,8 +98,21 @@ void addCafe() async{
                                 'phoneNumber': phoneNumberController.text,
                                 'menu': pdfName,
                                 'picture': fileName,
+                                'adminId':FirebaseAuth.instance.currentUser.uid
                                 
                               }).then((value) => print("cafe added"));
+
+                              FirebaseFirestore.instance
+        .collection("admin")
+        .doc(FirebaseAuth.instance.currentUser.uid).collection("cafes").doc()
+        .set({"name":cafeNameController.text}).whenComplete(
+            () => print("Admin güncellendi"));
+
+        FirebaseFirestore.instance
+        .collection("admin")
+        .doc(FirebaseAuth.instance.currentUser.uid).collection("cafes").doc(uid)
+        .set({'name': cafeNameController.text});
+            
 
 }
  
@@ -328,8 +345,8 @@ _getDocuments();
                     )),
                       GestureDetector(
                             onTap: () async {
-                            addCafe();
-  } ,
+                           await addCafe();
+                            Navigator.pop(context); } ,                       
                             child:
                 Container(
                   margin: EdgeInsets.only(top: 50),
