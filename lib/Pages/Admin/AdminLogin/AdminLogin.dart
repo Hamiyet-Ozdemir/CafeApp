@@ -1,4 +1,4 @@
-import 'package:cafeapp/Pages/Admin/AdminLogin/AdminLogin.dart';
+import 'package:cafeapp/Pages/Admin/AdminMainPage/AdminMainPage.dart';
 import 'package:cafeapp/Pages/Admin/ExplorePage.dart';
 import 'package:cafeapp/service/auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,7 +10,7 @@ import 'package:cafeapp/Pages/Admin/LoginPage/UserRegister.dart';
 
 import 'package:cafeapp/Pages/Admin/MainNavigationPage.dart';
 
-class LoginState extends StatelessWidget {
+class AdminLoginState extends StatelessWidget {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   AuthService _authService = AuthService();
@@ -88,7 +88,7 @@ class LoginState extends StatelessWidget {
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                "Giriş Yap",
+                                "Giriş Yap - Admin",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 22,
@@ -124,7 +124,6 @@ class LoginState extends StatelessWidget {
                                     BorderRadius.all(Radius.circular(12))),
                             child: TextField(
                               controller: _passwordController,
-                              obscureText: true,
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: "Şifre",
@@ -191,40 +190,6 @@ class LoginState extends StatelessWidget {
                                 )),
                           ),
                           GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => RegisterState(),
-                                ),
-                              );
-                            },
-                            child: Container(
-                                margin: EdgeInsets.only(top: 10, bottom: 20),
-                                height: 22,
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: FlatButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              AdminLoginState(),
-                                        ),
-                                      );
-                                    },
-                                    child: Text(
-                                      'Yönetici Giriş',
-                                      style: TextStyle(
-                                          color:
-                                              Color.fromRGBO(27, 124, 162, 1),
-                                          fontSize: 16),
-                                    ),
-                                  ),
-                                )),
-                          ),
-                          GestureDetector(
                             onTap: () async {
                               await _authService.click();
                               await _authService
@@ -235,7 +200,7 @@ class LoginState extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            MainNavigationPageState()));
+                                            AdminMainNavigationPageState()));
                               });
                             },
                             child: Container(

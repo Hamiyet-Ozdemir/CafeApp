@@ -24,13 +24,12 @@ import 'Pages/Admin/AdminProfilePage/AdminProfileView.dart';
 import 'Pages/Admin/AdminCommentDetailPage/AdminCommentDetailView.dart';
 import 'Pages/Admin/SignInPage/SignInPage.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
 }
- 
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

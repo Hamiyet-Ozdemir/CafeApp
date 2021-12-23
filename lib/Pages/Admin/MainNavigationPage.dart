@@ -7,11 +7,7 @@ import 'ExplorePage.dart';
 import 'FavoritesPage.dart';
 import 'ProfilePage.dart';
 
-
-
 class MainNavigationPageState extends StatefulWidget {
-
-
   @override
   State<MainNavigationPageState> createState() => _MainNavigationPageState();
 }
@@ -19,7 +15,7 @@ class MainNavigationPageState extends StatefulWidget {
 class _MainNavigationPageState extends State<MainNavigationPageState> {
   int currentIndex = 0;
   final screens = [
-    const ExplorePage(),
+    ExplorePage(),
     const FavoritesPage(),
     const ProfilePage(),
   ];
