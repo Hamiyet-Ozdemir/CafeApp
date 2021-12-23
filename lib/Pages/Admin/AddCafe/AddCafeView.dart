@@ -112,7 +112,7 @@ String uid=uuid.v1().toString();
         .collection("admin")
         .doc(FirebaseAuth.instance.currentUser.uid).collection("cafes").doc(uid)
         .set({'name': cafeNameController.text});
-            
+        AuthService.model=await AuthService().getDocs();
 
 }
  

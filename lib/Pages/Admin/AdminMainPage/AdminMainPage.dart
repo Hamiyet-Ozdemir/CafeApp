@@ -30,12 +30,18 @@ class BodyLayout extends StatelessWidget{
    return _myListView(context);
   }
 }
+   List<CafeModel> model=AuthService.model;
 
-
+Future<void> reflesh() async{
+model=await AuthService().getDocs();
+var emre;
+ }
  Widget _myListView(BuildContext context)  {
-   
    return Scaffold(
-     body:Column(children:[
+     body:model==null?Center(
+          child: CircularProgressIndicator(),
+        ):RefreshIndicator(onRefresh: reflesh,
+     child:Column(children:[
       Container(
           color: Color.fromRGBO(247, 248, 251, 1),
           child: Column(
@@ -170,7 +176,7 @@ class BodyLayout extends StatelessWidget{
 ,
      Expanded(
        child:SizedBox(child:  ListView.builder(
-     itemCount: 3,
+     itemCount: model.length,
      itemBuilder: (context,index){
         return     
          Container(
@@ -208,7 +214,7 @@ class BodyLayout extends StatelessWidget{
                                   margin: EdgeInsets.only(right: 28,left: 31),
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                      image: NetworkImage(AuthService.model[index].pictureUrl),
+                                      image: NetworkImage(model[index].pictureUrl),
                                       fit: BoxFit.fill,
                                     ),
                                   ),
@@ -218,7 +224,7 @@ class BodyLayout extends StatelessWidget{
                                       height: 20,
                                       width: 150,
                                       child: Text(
-                                       AuthService.model[index].name,
+                                       model[index].name,
                                         style: GoogleFonts.roboto(
                                             color: Colors.black,
                                             fontSize: 17,
@@ -253,4 +259,4 @@ class BodyLayout extends StatelessWidget{
 ,)
    )]
 ,)
-);}
+));}

@@ -1,5 +1,7 @@
+import 'package:cafeapp/Pages/Admin/SignInPage/SignInPage.dart';
 import 'package:cafeapp/Pages/Admin/adminPasswordChanging/adminPasswordChangingView.dart';
 import 'package:cafeapp/Pages/Admin/adminProfileUpdateInfo/adminProfileUpdateInfoView.dart';
+import 'package:cafeapp/Pages/HomePage/HomePageView.dart';
 import 'package:cafeapp/service/auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +13,7 @@ class AdminProfile extends StatefulWidget {
   _AdminProfileState createState() => _AdminProfileState();
 }
 class _AdminProfileState extends State<AdminProfile>{
+  AuthService _authService=AuthService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,6 +103,12 @@ class _AdminProfileState extends State<AdminProfile>{
                       ),
                     ),
                   ),),
+                     GestureDetector(
+                                      onTap: () {
+                                        _authService.signOut();
+                                       
+                                        
+                                      },child:
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.only(top: 22),
@@ -112,7 +121,7 @@ class _AdminProfileState extends State<AdminProfile>{
                           color: Color(0xFFE41A1A)
                       ),
                     ),
-                  ),
+                  ),)
 
 
 
