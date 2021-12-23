@@ -1,3 +1,4 @@
+import 'package:cafeapp/service/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -57,7 +58,7 @@ class _adminProfileUpdateInfoState extends State<adminProfileUpdateInfo> {
                           SizedBox(width: 70), //boşluk
 
 
-                          Text("John Doe",
+                          Text(AuthService.adminName,
 
 
                               style: GoogleFonts.roboto(

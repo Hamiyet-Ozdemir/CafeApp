@@ -220,29 +220,8 @@ class LoginState extends StatelessWidget {
                               ),
                             ),
                           )
-                       ,    GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      MainNavigationPageState(
-                                  
-                                  ),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              margin: EdgeInsets.only(top: 10),
-                              height:
-                                  10,
-                              alignment: Alignment.bottomCenter,
-                              decoration: BoxDecoration(
-                                color: Color.fromRGBO(240, 118, 24, 1),
-                              ),
-                            
-                            ),
-                          ) ],
+                       ,  
+                      ],
                       ),
                     ),
                   )

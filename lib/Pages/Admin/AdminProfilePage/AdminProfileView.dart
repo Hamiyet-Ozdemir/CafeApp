@@ -1,5 +1,6 @@
 import 'package:cafeapp/Pages/Admin/adminPasswordChanging/adminPasswordChangingView.dart';
 import 'package:cafeapp/Pages/Admin/adminProfileUpdateInfo/adminProfileUpdateInfoView.dart';
+import 'package:cafeapp/service/auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -41,7 +42,7 @@ class _AdminProfileState extends State<AdminProfile>{
                     Container(
                       margin: EdgeInsets.only(top: 31,bottom: 50),
                         child:Text(
-                      "John Doe",
+                      AuthService.adminName,
                       style: GoogleFonts.roboto(
                           fontSize: 24,
                           color: Color(0xFF000000)

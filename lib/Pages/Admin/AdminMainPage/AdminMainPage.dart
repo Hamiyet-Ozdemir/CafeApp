@@ -14,20 +14,29 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AdminMainPage extends StatelessWidget {
   const AdminMainPage({Key key}) : super(key: key);
-  @override
-   Widget build(BuildContext context) {
-   return _myListView(context);
+   @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: BodyLayout(),
+      ),
+    );
   }
  }
-
+class BodyLayout extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) { 
+    
+   return _myListView(context);
+  }
+}
 
 
  Widget _myListView(BuildContext context)  {
    
-   return ListView.builder(
-     itemCount: AuthService.model.length,
-     itemBuilder: (context,index){
-        return Container(
+   return Scaffold(
+     body:Column(children:[
+      Container(
           color: Color.fromRGBO(247, 248, 251, 1),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -62,7 +71,7 @@ class AdminMainPage extends StatelessWidget {
                                         );
                                       },
                                       child:  Container(
-                    margin: EdgeInsets.only(top: 32),
+                    margin: EdgeInsets.only(top: 30),
                     height: 62,
                     width: MediaQuery.of(context).size.width,
                     color: Colors.white,
@@ -92,7 +101,8 @@ class AdminMainPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                 ), Container(
+                 ), 
+                 Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
                     ),
@@ -109,26 +119,7 @@ class AdminMainPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Container(
-                    
-                    decoration: BoxDecoration(
-                        color: Color.fromRGBO(247, 248, 251, 1),
-                        ),
-                    child: Column(
-                      children: [
-                         GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                AdminCafeDetailState(
-                                            
-                                            ),
-                                          ),
-                                        );
-                                      },child:
-                        Container(
+                 Container(
                           color: Colors.white,
                           height: 43,
                           width: MediaQuery.of(context).size.width,
@@ -171,9 +162,25 @@ class AdminMainPage extends StatelessWidget {
                               ],
                             ),
                           ),
+               )],
+              ))
+            ],
+          ),
+        )
+,
+     Expanded(
+       child:SizedBox(child:  ListView.builder(
+     itemCount: 3,
+     itemBuilder: (context,index){
+        return     
+         Container(
+                    
+                    decoration: BoxDecoration(
+                        color: Color.fromRGBO(247, 248, 251, 1),
                         ),
-                       ), 
-                        GestureDetector(
+                    child: Column(
+                      children: [
+                          GestureDetector(
                                       onTap: () {
                                         Navigator.push(
                                           context,
@@ -201,8 +208,7 @@ class AdminMainPage extends StatelessWidget {
                                   margin: EdgeInsets.only(right: 28,left: 31),
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                      image: AssetImage(
-                                          "assets/images/AdminYonetimImage.png"),
+                                      image: NetworkImage(AuthService.model[index].pictureUrl),
                                       fit: BoxFit.fill,
                                     ),
                                   ),
@@ -210,6 +216,7 @@ class AdminMainPage extends StatelessWidget {
                                
                                    Container(
                                       height: 20,
+                                      width: 150,
                                       child: Text(
                                        AuthService.model[index].name,
                                         style: GoogleFonts.roboto(
@@ -217,11 +224,12 @@ class AdminMainPage extends StatelessWidget {
                                             fontSize: 17,
                                             fontWeight: FontWeight.bold),
                                       ),
-                                    ),Container(
+                                    ),
+                                    Container(
                                   height: 12,
                                   width: 6,
                                   alignment: Alignment.centerRight,
-                                  margin: EdgeInsets.only(right: 28,left: 170),
+                                  margin: EdgeInsets.only(right: 28,left: 100),
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
                                       image: AssetImage(
@@ -239,10 +247,10 @@ class AdminMainPage extends StatelessWidget {
                         )
                      ) ],
                     ),
-                  )
-                ],
-              ))
-            ],
-          ),
-        );
- });}
+                  );
+       
+        })
+,)
+   )]
+,)
+);}

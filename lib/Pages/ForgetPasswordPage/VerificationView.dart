@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cafeapp/Views/Register/ChangePasswordPage/passwordChangingView.dart';
 
 class VerificationState extends StatelessWidget {
+  TextEditingController email=TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +28,7 @@ class VerificationState extends StatelessWidget {
                 margin: EdgeInsets.only(top: 45),
                 padding: EdgeInsets.only(left: 26, right: 26),
                 child: Text(
-                  "   Lütfen E-mail adresinizi giriniz. Size bir doğrulama kodu gönderilecektir",
+                  "   Lütfen E-mail adresinizi giriniz. Şifre değiştirme linki gönderilecektir",
                 ),
               ),
               Container(
@@ -38,6 +40,7 @@ class VerificationState extends StatelessWidget {
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(12))),
                 child: TextField(
+                  controller: email,
                   textAlign: TextAlign.left,
                   decoration: InputDecoration(
                       border: InputBorder.none,
@@ -48,13 +51,11 @@ class VerificationState extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
+                FirebaseAuth.instance.sendPasswordResetEmail(email: email.text);
+
+                  Navigator.pop(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => passwordChanging(
-                    
-                      ),
-                    ),
+                   
                   );
                 },
                 child: Container(

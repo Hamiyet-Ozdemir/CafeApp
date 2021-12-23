@@ -1,5 +1,4 @@
 import 'package:cafeapp/Models/CafeModel.dart';
-import 'package:cafeapp/Pages/Admin/AdminMainPage/AdminMainPage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -13,6 +12,7 @@ static List<CafeModel> model;
 
   //giriş yap fonksiyonu
   Future<User> signIn(String email, String password) async {
+
     var user = await _auth.signInWithEmailAndPassword(
         email: email, password: password);
         var deneme=await _firestore
@@ -28,7 +28,6 @@ static List<CafeModel> model;
   signOut() async {
     return await _auth.signOut();
   }
-
 
 //get all cafe
 Future<List<CafeModel>> getDocs() async {
@@ -47,12 +46,25 @@ for (var i = 0; i < data.length; i++) {
     model1.phoneNumber=data[i]["phoneNumber"];
     model1.picture=data[i]["picture"];
     model1.safeId=data[i]["safeId"];
+    String x=await _getDownloadLink(data[i]["picture"]);
+    model1.pictureUrl=x;
+
     model.add(model1);
     }
+
    
     return model;
    
   }
+  //dowland picture url
+    Future<String> _getDownloadLink(String fileName) async 
+  {
+    final ref = FirebaseStorage.instance.ref().child('cafeImages/$fileName');
+    // no need of the file extension, the name will do fine.
+    var url = await ref.getDownloadURL();
+    print(url);
+    return url;
+    }
   //admin kayıt ol fonksiyonu
   
   Future<User> createAdmin(String name, String email, String password,String PhoneNumber) async {
@@ -63,7 +75,7 @@ adminName=name;
         .collection("admin")
         .doc(user.user.uid)
         .set({'userName': name, 'email': email,'phoneNumber':PhoneNumber});
-
+await user.user.sendEmailVerification();
     return user.user;
   }
 

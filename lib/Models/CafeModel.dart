@@ -11,5 +11,6 @@ String openClock;
 String phoneNumber;
 String picture;
 String safeId;
+String pictureUrl;
 
 }
