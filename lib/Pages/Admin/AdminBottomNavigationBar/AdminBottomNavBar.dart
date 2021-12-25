@@ -18,7 +18,7 @@ class _AdminMainNavigationPageState
     extends State<AdminMainNavigationPageState> {
   int currentIndex = 0;
   final screens = [
-    AdminManagementPage(),
+    AdminMainPage(),
     AdminCafesRezervationPage(),
   ];
 
