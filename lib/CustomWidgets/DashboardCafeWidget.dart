@@ -1,5 +1,6 @@
-import 'package:cafeapp/Pages/CafeDetailPage/CafeDetailView.dart';
-import 'package:cafeapp/Pages/MakeRezervation/MakeRezervationView.dart';
+
+import 'package:cafeapp/Pages/User/UserCafeDetailPage/UserCafeDetailView.dart';
+import 'package:cafeapp/Pages/User/UserMakeRezervationPage/UserMakeRezervationView.dart';
 import 'package:cafeapp/service/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ class _CafeCardWidgetState extends State<CafeCardWidget> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => CafeDetailState(),
+            builder: (context) => UserCafeDetailState(),
           ),
         );
       },
@@ -136,7 +137,7 @@ class _CafeCardWidgetState extends State<CafeCardWidget> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => MakeRezervation(),
+                              builder: (context) => UserMakeRezervation(),
                             ),
                           );
                         },

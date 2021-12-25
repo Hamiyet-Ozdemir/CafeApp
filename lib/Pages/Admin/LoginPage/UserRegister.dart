@@ -1,5 +1,5 @@
-import 'package:cafeapp/Pages/Admin/AdminSignUpPage/AdminRegisterView.dart';
-import 'package:cafeapp/Pages/Admin/SignInPage/SignInPage.dart';
+import 'package:cafeapp/Pages/Admin/AdminSignUpPage/AdminSignUpView.dart';
+import 'package:cafeapp/Pages/User/UserLoginPage/UserLoginView.dart';
 import 'package:cafeapp/service/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -162,7 +162,7 @@ class RegisterState extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => AdminSignUpPageState(),
+                                  builder: (context) => AdminSignUpState(),
                                 ),
                               );
                             },
@@ -174,7 +174,7 @@ class RegisterState extends StatelessWidget {
                                           onPressed: () {   Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => AdminSignUpPageState(),
+                                          builder: (context) => AdminSignUpState(),
                                         ),
                                       );},
                                           child: Text(

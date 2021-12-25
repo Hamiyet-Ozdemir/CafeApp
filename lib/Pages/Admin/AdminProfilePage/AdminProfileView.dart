@@ -1,7 +1,5 @@
-import 'package:cafeapp/Pages/Admin/SignInPage/SignInPage.dart';
-import 'package:cafeapp/Pages/Admin/adminPasswordChanging/adminPasswordChangingView.dart';
-import 'package:cafeapp/Pages/Admin/adminProfileUpdateInfo/adminProfileUpdateInfoView.dart';
-import 'package:cafeapp/Pages/HomePage/HomePageView.dart';
+import 'package:cafeapp/Pages/Admin/AdminUpdateProfileInfoPage/AdminUpdateProfileInfoView.dart';
+import 'package:cafeapp/Pages/Admin/ForgetPasswordPage/ForgetPasswordView.dart';
 import 'package:cafeapp/service/auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -84,7 +82,7 @@ class _AdminProfileState extends State<AdminProfile>{
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                adminPasswordChanging(
+                                                ForgetPasswordView(
                                             
                                             ),
                                           ),
