@@ -2,8 +2,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:cafeapp/Pages/Admin/AdminCafesRezervationPage/AdminCafesRezervationView.dart';
+import 'package:cafeapp/Pages/Admin/AdminManangementPage/AdminManagementView.dart';
 import 'package:flutter/material.dart';
-import 'package:cafeapp/Pages/Admin/AdminMainPage/AdminMainPageView.dart';
 
 
 class AdminMainNavigationPageState extends StatefulWidget {
@@ -18,8 +18,8 @@ class _AdminMainNavigationPageState
     extends State<AdminMainNavigationPageState> {
   int currentIndex = 0;
   final screens = [
-    const AdminMainPage(),
-    const AdminCafesRezervationPage(),
+    AdminManagementPage(),
+    AdminCafesRezervationPage(),
   ];
 
   @override

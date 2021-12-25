@@ -1,5 +1,4 @@
 import 'package:cafeapp/Pages/Admin/AdminBottomNavigationBar/AdminBottomNavBar.dart';
-import 'package:cafeapp/Pages/Admin/AdminMainPage/AdminMainPageView.dart';
 import 'package:cafeapp/Pages/User/BottomNavExplorePage.dart';
 import 'package:cafeapp/service/auth.dart';
 import 'package:flutter/cupertino.dart';

@@ -16,8 +16,8 @@ class _MainNavigationPageState extends State<MainNavigationPageState> {
   int currentIndex = 0;
   final screens = [
     ExplorePage(),
-    const FavoritesPage(),
-    const ProfilePage(),
+    FavoritesPage(),
+    ProfilePage(),
   ];
 
   @override
