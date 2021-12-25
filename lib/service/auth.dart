@@ -80,8 +80,6 @@ for (var i = 0; i < data.length; i++) {
    
   }
 
-  
-  //dowland picture url
 
   //admin kayıt ol fonksiyonu
 
@@ -102,6 +100,7 @@ for (var i = 0; i < data.length; i++) {
       String name, String email, String password, String PhoneNumber) async {
     var user = await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
+        user.user.sendEmailVerification();
 
     await _firestore.collection("user").doc(user.user.uid).set({
       'mailAddress': email,
