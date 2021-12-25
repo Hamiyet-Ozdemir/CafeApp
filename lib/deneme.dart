@@ -1,44 +1,44 @@
-// ignore_for_file: file_names
-// ignore: prefer_const_literals_to_create_immutables
-
-// ignore: prefer_const_constructors
-
-import 'package:cached_network_image/cached_network_image.dart';
-
+ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cafeapp/Models/CafeModel.dart';
-import 'package:cafeapp/Pages/Admin/AddCafe/AddCafeView.dart';
-import 'package:cafeapp/Pages/Admin/AdminCafeDetailState/AdminCafeDetailView.dart';
-import 'package:cafeapp/Pages/Admin/AdminProfilePage/AdminProfileView.dart';
 import 'package:cafeapp/service/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AdminMainPage extends StatelessWidget {
-  const AdminMainPage({Key key}) : super(key: key);
-   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: BodyLayout(),
-      ),
-    );
-  }
- }
-class BodyLayout extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) { 
-    
-   return _myListView(context);
-  }
-}
-   List<CafeModel> model=AuthService.model;
+import 'Pages/Admin/AddCafe/AddCafeView.dart';
+import 'Pages/Admin/AdminCafeDetailState/AdminCafeDetailView.dart';
+import 'Pages/Admin/AdminProfilePage/AdminProfileView.dart';
+  
 
- Widget _myListView(BuildContext context)  {
-    CollectionReference ref=FirebaseFirestore.instance.collection("cafe");
-
-    
+  
+  Stream<int> generateNumbers = (() async* {
+    await Future<void>.delayed(Duration(seconds: 2));
+  
+    for (int i = 1; i <= 5; i++) {
+      await Future<void>.delayed(Duration(seconds: 1));
+      yield i;
+    }
+  })();
+  
+  class StreamBuilderExample extends StatefulWidget {
+    @override
+    State<StatefulWidget> createState() {
+      return _StreamBuilderExampleState ();
+    }
+  }
+  
+  class _StreamBuilderExampleState extends State<StreamBuilderExample> {
+  
+    @override
+    initState() {
+      super.initState();
+    }
+  
+    @override
+    Widget build(BuildContext context) {
+      CollectionReference ref=FirebaseFirestore.instance.collection("cafe");
+      var data=ref.doc();
+      var y=data.snapshots();
       
       return 
       Scaffold(
@@ -179,21 +179,13 @@ class BodyLayout extends StatelessWidget{
         )
 , StreamBuilder<QuerySnapshot>(stream: ref.snapshots(),builder: (BuildContext context,AsyncSnapshot asyncSnapshot){
   List<DocumentSnapshot> listOfDocumentSnapShot=asyncSnapshot.data.docs;
+  List<CafeModel> _dd;
 
+  var emre;
 
-  
-if(asyncSnapshot.data==null){
-  return CircularProgressIndicator();
-
-}
-if(asyncSnapshot.hasError){
-  return Center(child: Text("Bir hata oluştu, tekrar deneyiniz."),);
-}
-else{
-  if(asyncSnapshot.hasData){
-    return  Flexible(child: 
+return  Flexible(child: 
  ListView.builder(
-     itemCount: 3,
+     itemCount: listOfDocumentSnapShot.length,
      itemBuilder: (context,index){
         return     
          Container(
@@ -275,12 +267,6 @@ else{
         })
 );
 
-  }
-  else{
-    return Center(child: CircularProgressIndicator(),);
-  }
-  
-}
 })
           
               ],
@@ -288,4 +274,5 @@ else{
           )
         ),
           );
-}
+    }
+  }

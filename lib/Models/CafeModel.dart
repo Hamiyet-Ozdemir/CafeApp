@@ -12,5 +12,6 @@ String phoneNumber;
 String picture;
 String safeId;
 String pictureUrl;
+String pdfUrl;
 
 }

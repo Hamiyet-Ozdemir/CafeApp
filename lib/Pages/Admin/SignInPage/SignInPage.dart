@@ -190,16 +190,22 @@ class LoginState extends StatelessWidget {
                                 )),
                           ),
                           GestureDetector(
-                            onTap: () {
-                              _authService
+                            onTap: () async {
+                            String user=await  _authService
                           .signIn(
-                              _emailController.text, _passwordController.text)
-                          .then((value) {
-                        return Navigator.push(
+                              _emailController.text,_passwordController.text);
+                          if(user=="true"){
+                             return Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => AdminMainNavigationPageState()));
-                      });
+                          }
+                          else{
+                                   _emailController.text=user;
+
+                          }
+                       
+                      
                             },
                             child: Container(
                               height:

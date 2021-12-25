@@ -9,7 +9,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage 
+;
 
 
 
@@ -64,7 +65,10 @@ file=File(result.paths.first);
   print(fileName);
   myPdfController.text=fileName;
   }
+  
 void addCafe() async{
+
+
    var uuid = Uuid();
     File _imageFile=File(pickedfile.path);
     String fileName = randomName()+"."+_imageFile.path.split('.').last;
@@ -74,19 +78,16 @@ void addCafe() async{
         firebase_storage.FirebaseStorage.instance.ref().child('cafeImages/$fileName');
 
     firebase_storage.UploadTask uploadTask = firebaseStorageRef.putFile(_imageFile);
-    firebase_storage.TaskSnapshot taskSnapshot = await uploadTask;
+  
 
         firebase_storage.Reference firebaseStorageRef1 =
         firebase_storage.FirebaseStorage.instance.ref().child('cafeMenuPdf/$pdfName');
-    firebase_storage.UploadTask uploadtask1=firebaseStorageRef1.putFile(file);
-    firebase_storage.TaskSnapshot taskSnapshot1 = await uploadtask1;
-
-    taskSnapshot.ref.getDownloadURL().then(
-          (value) => print("Done: $value"),
-        );
- taskSnapshot1.ref.getDownloadURL().then(
-          (value) => print("Done: $value"),
-        );
+    firebase_storage.UploadTask uploadTask1=firebaseStorageRef1.putFile(file);
+   
+ var dowPictureUrl = await (await uploadTask).ref.getDownloadURL();
+    String pictureUrl = dowPictureUrl.toString();
+var dowPdfUrl = await (await uploadTask1).ref.getDownloadURL();
+    String pdfUrl = dowPdfUrl.toString();
 String uid=uuid.v1().toString();
         FirebaseFirestore.instance.collection("cafe").doc(uid).set({
                                 'name': cafeNameController.text,
@@ -98,21 +99,19 @@ String uid=uuid.v1().toString();
                                 'phoneNumber': phoneNumberController.text,
                                 'menu': pdfName,
                                 'picture': fileName,
-                                'adminId':FirebaseAuth.instance.currentUser.uid
+                                'adminId':FirebaseAuth.instance.currentUser.uid,
+                                'pictureUrl':pictureUrl,
+                                'pdfUrl':pdfUrl
                                 
                               }).then((value) => print("cafe added"));
 
-                              FirebaseFirestore.instance
-        .collection("admin")
-        .doc(FirebaseAuth.instance.currentUser.uid).collection("cafes").doc()
-        .set({"name":cafeNameController.text}).whenComplete(
-            () => print("Admin güncellendi"));
+                  
 
         FirebaseFirestore.instance
         .collection("admin")
         .doc(FirebaseAuth.instance.currentUser.uid).collection("cafes").doc(uid)
         .set({'name': cafeNameController.text});
-        AuthService.model=await AuthService().getDocs();
+        
 
 }
  
@@ -345,7 +344,7 @@ _getDocuments();
                     )),
                       GestureDetector(
                             onTap: () async {
-                           await addCafe();
+                            addCafe();
                             Navigator.pop(context); } ,                       
                             child:
                 Container(

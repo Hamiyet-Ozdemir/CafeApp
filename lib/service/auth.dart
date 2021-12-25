@@ -6,23 +6,40 @@ import 'package:firebase_storage/firebase_storage.dart';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-static String adminName;
+  final FirebaseStorage _firebaseStorage=FirebaseStorage.instance;
+static String adminName="";
 static List<CafeModel> model;
 
 
   //giriş yap fonksiyonu
-  Future<User> signIn(String email, String password) async {
+  Future<String> signIn(String email, String password) async {
 
-    var user = await _auth.signInWithEmailAndPassword(
+   try {
+      var user = await _auth.signInWithEmailAndPassword(
         email: email, password: password);
-        var deneme=await _firestore
+        
+  
+
+        if(user.user.emailVerified==false){
+          user.user.sendEmailVerification();
+          return "Hesabınızı doğrulayınız";
+        }
+           var deneme=await _firestore
         .collection("admin")
         .doc(user.user.uid)
         .get();
         adminName=deneme['userName'].toString();
-        model=await getDocs();
-        
-    return user.user;
+        return "true";
+    
+   }on FirebaseAuthException catch  (e) {
+     if (e.code=='user-not-found') {
+       return "Bu mail adresine ait kullanıcı bulunamadı";
+     }
+      
+      if (e.code=='wrong-password') {
+       return "Şifrenizi hatalı girdiniz. Lütfen Tekrar deneyiniz ";
+     }
+   }
   }
   //çıkış yap fonksiyonu
   signOut() async {
@@ -31,8 +48,8 @@ static List<CafeModel> model;
 
 //get all cafe
 Future<List<CafeModel>> getDocs() async {
-    List<CafeModel> model=new List<CafeModel>();
-    var temp=await FirebaseFirestore.instance.collection("cafe").get();
+    List<CafeModel> tempmodel=new List<CafeModel>();
+    var temp=await _firestore.collection("cafe").get();
     var data=temp.docs;
 for (var i = 0; i < data.length; i++) {
     CafeModel model1=new CafeModel();
@@ -46,25 +63,19 @@ for (var i = 0; i < data.length; i++) {
     model1.phoneNumber=data[i]["phoneNumber"];
     model1.picture=data[i]["picture"];
     model1.safeId=data[i]["safeId"];
-    String x=await _getDownloadLink(data[i]["picture"]);
-    model1.pictureUrl=x;
-
-    model.add(model1);
+    model1.pictureUrl=data[i]["pictureUrl"];
+    model1.pdfUrl=data[i]["pdfUrl"];
+    tempmodel.add(model1);
     }
 
    
-    return model;
+    return tempmodel;
    
   }
+
+  
   //dowland picture url
-    Future<String> _getDownloadLink(String fileName) async 
-  {
-    final ref = FirebaseStorage.instance.ref().child('cafeImages/$fileName');
-    // no need of the file extension, the name will do fine.
-    var url = await ref.getDownloadURL();
-    print(url);
-    return url;
-    }
+
   //admin kayıt ol fonksiyonu
   
   Future<User> createAdmin(String name, String email, String password,String PhoneNumber) async {
