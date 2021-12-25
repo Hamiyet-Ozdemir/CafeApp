@@ -43,7 +43,6 @@ class AdminCafeDetailState extends StatelessWidget {
                             ),
                           ),
                         ),
-                     
                       ],
                     ),
                     Container(
@@ -59,30 +58,28 @@ class AdminCafeDetailState extends StatelessWidget {
                                 fontSize: 23,
                                 color: Colors.black),
                           ),
-                          
                           SizedBox(width: 65),
                           GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                AdminCafeMenuState(
-                                            
-                                            ),
-                                          ),
-                                        );
-                                      },child: Container(
-                            width: 30,
-                            margin: EdgeInsets.only(left: 85),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              image: DecorationImage(
-                                image: AssetImage("assets/images/menu.png"),
-                                fit: BoxFit.fill,
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => AdminCafeMenuState(),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              width: 30,
+                              margin: EdgeInsets.only(left: 85),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                image: DecorationImage(
+                                  image: AssetImage("assets/images/menu.png"),
+                                  fit: BoxFit.fill,
+                                ),
                               ),
                             ),
-                          ),)
+                          )
                         ],
                       ),
                     )
@@ -150,20 +147,19 @@ class AdminCafeDetailState extends StatelessWidget {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) =>
-                                                addCampaign(
-                                            
-                                            ),
+                                            builder: (context) => addCampaign(),
                                           ),
                                         );
-                                      },child: Container(
-                                    height: 20,
-                                    child: Text(
-                                      "Kampanya Ekle",
-                                      style: GoogleFonts.roboto(
-                                          color: Colors.black, fontSize: 14),
-                                    ),
-                                  ))
+                                      },
+                                      child: Container(
+                                        height: 20,
+                                        child: Text(
+                                          "Kampanya Ekle",
+                                          style: GoogleFonts.roboto(
+                                              color: Colors.black,
+                                              fontSize: 14),
+                                        ),
+                                      ))
                                 ],
                               ),
                             ),
@@ -179,42 +175,55 @@ class AdminCafeDetailState extends StatelessWidget {
                                       BorderRadius.all(Radius.circular(15))),
                               child: Column(children: [
                                 Container(
-                                  child:Row(
-                                    children: [
-                                    Container( height: 67,
-                                  padding: EdgeInsets.only(top: 20, left: 18),
-                                  alignment: Alignment.topLeft,
-                                  child: Text("Kampanya 1",style: TextStyle(fontSize: 16,fontWeight:FontWeight.bold),),),
-                                     Container( height: 67,
-                                  padding: EdgeInsets.only(top: 20,),
-                                  alignment: Alignment.topLeft,
-                                  child: Text(": Çay Kampanyası",style: TextStyle(fontSize: 16),),),
-                                 GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                AdminUpdateOffer(
-                                            
+                                    child: Row(
+                                  children: [
+                                    Container(
+                                      height: 67,
+                                      padding:
+                                          EdgeInsets.only(top: 20, left: 18),
+                                      alignment: Alignment.topLeft,
+                                      child: Text(
+                                        "Kampanya 1",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 67,
+                                      padding: EdgeInsets.only(
+                                        top: 20,
+                                      ),
+                                      alignment: Alignment.topLeft,
+                                      child: Text(
+                                        ": Çay Kampanyası",
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AdminUpdateOffer(),
                                             ),
+                                          );
+                                        },
+                                        child: Container(
+                                          height: 67,
+                                          padding: EdgeInsets.only(
+                                              top: 20, left: 70),
+                                          color: Colors.white,
+                                          alignment: Alignment.topRight,
+                                          child: Image.asset(
+                                            "assets/images/duzenle.png",
+                                            height: 19,
+                                            width: 19,
                                           ),
-                                        );
-                                      },child:
-                                  Container(
-                                    height: 67,
-                                  padding: EdgeInsets.only(top: 20, left: 70),
-                                    color: Colors.white,
-                                    alignment: Alignment.topRight,
-                                    child:  Image.asset(
-                              "assets/images/duzenle.png",
-                              height: 19,
-                              width: 19,
-                            ),))
-                                  
-                                  ],)
-                                 
-                                ),
+                                        ))
+                                  ],
+                                )),
                                 Container(
                                   height: 45,
                                   decoration: BoxDecoration(
@@ -248,7 +257,7 @@ class AdminCafeDetailState extends StatelessWidget {
                                 )
                               ]),
                             ),
-                          Container(
+                            Container(
                               height: 215,
                               padding: EdgeInsets.only(
                                   top: 13, left: 15, right: 15, bottom: 15),
@@ -260,41 +269,55 @@ class AdminCafeDetailState extends StatelessWidget {
                                       BorderRadius.all(Radius.circular(15))),
                               child: Column(children: [
                                 Container(
-                                  child:Row(
-                                    children: [
-                                    Container( height: 67,
-                                  padding: EdgeInsets.only(top: 20, left: 18),
-                                  alignment: Alignment.topLeft,
-                                  child: Text("Kampanya 2",style: TextStyle(fontSize: 16,fontWeight:FontWeight.bold),),),
-                                     Container( height: 67,
-                                  padding: EdgeInsets.only(top: 20,),
-                                  alignment: Alignment.topLeft,
-                                  child: Text(": Çay Kampanyası",style: TextStyle(fontSize: 16),),),
-                                  GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                AdminUpdateOffer(
-                                            
+                                    child: Row(
+                                  children: [
+                                    Container(
+                                      height: 67,
+                                      padding:
+                                          EdgeInsets.only(top: 20, left: 18),
+                                      alignment: Alignment.topLeft,
+                                      child: Text(
+                                        "Kampanya 2",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 67,
+                                      padding: EdgeInsets.only(
+                                        top: 20,
+                                      ),
+                                      alignment: Alignment.topLeft,
+                                      child: Text(
+                                        ": Çay Kampanyası",
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AdminUpdateOffer(),
                                             ),
+                                          );
+                                        },
+                                        child: Container(
+                                          height: 67,
+                                          padding: EdgeInsets.only(
+                                              top: 20, left: 70),
+                                          color: Colors.white,
+                                          alignment: Alignment.topRight,
+                                          child: Image.asset(
+                                            "assets/images/duzenle.png",
+                                            height: 19,
+                                            width: 19,
                                           ),
-                                        );
-                                      },child: Container(
-                                    height: 67,
-                                  padding: EdgeInsets.only(top: 20, left: 70),
-                                    color: Colors.white,
-                                    alignment: Alignment.topRight,
-                                    child:  Image.asset(
-                              "assets/images/duzenle.png",
-                              height: 19,
-                              width: 19,
-                            ),))
-                                  
-                                  ],)
-                                 
-                                ),
+                                        ))
+                                  ],
+                                )),
                                 Container(
                                   height: 45,
                                   decoration: BoxDecoration(
@@ -328,7 +351,7 @@ class AdminCafeDetailState extends StatelessWidget {
                                 )
                               ]),
                             ),
-                        Container(
+                            Container(
                               height: 215,
                               padding: EdgeInsets.only(
                                   top: 13, left: 15, right: 15, bottom: 15),
@@ -340,41 +363,55 @@ class AdminCafeDetailState extends StatelessWidget {
                                       BorderRadius.all(Radius.circular(15))),
                               child: Column(children: [
                                 Container(
-                                  child:Row(
-                                    children: [
-                                    Container( height: 67,
-                                  padding: EdgeInsets.only(top: 20, left: 18),
-                                  alignment: Alignment.topLeft,
-                                  child: Text("Kampanya 3",style: TextStyle(fontSize: 16,fontWeight:FontWeight.bold),),),
-                                     Container( height: 67,
-                                  padding: EdgeInsets.only(top: 20,),
-                                  alignment: Alignment.topLeft,
-                                  child: Text(": Çay Kampanyası",style: TextStyle(fontSize: 16),),),
-                                  GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                AdminUpdateOffer(
-                                            
+                                    child: Row(
+                                  children: [
+                                    Container(
+                                      height: 67,
+                                      padding:
+                                          EdgeInsets.only(top: 20, left: 18),
+                                      alignment: Alignment.topLeft,
+                                      child: Text(
+                                        "Kampanya 3",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 67,
+                                      padding: EdgeInsets.only(
+                                        top: 20,
+                                      ),
+                                      alignment: Alignment.topLeft,
+                                      child: Text(
+                                        ": Çay Kampanyası",
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AdminUpdateOffer(),
                                             ),
+                                          );
+                                        },
+                                        child: Container(
+                                          height: 67,
+                                          padding: EdgeInsets.only(
+                                              top: 20, left: 70),
+                                          color: Colors.white,
+                                          alignment: Alignment.topRight,
+                                          child: Image.asset(
+                                            "assets/images/duzenle.png",
+                                            height: 19,
+                                            width: 19,
                                           ),
-                                        );
-                                      },child: Container(
-                                    height: 67,
-                                  padding: EdgeInsets.only(top: 20, left: 70),
-                                    color: Colors.white,
-                                    alignment: Alignment.topRight,
-                                    child:  Image.asset(
-                              "assets/images/duzenle.png",
-                              height: 19,
-                              width: 19,
-                            ),))
-                                  
-                                  ],)
-                                 
-                                ),
+                                        ))
+                                  ],
+                                )),
                                 Container(
                                   height: 45,
                                   decoration: BoxDecoration(
@@ -408,7 +445,7 @@ class AdminCafeDetailState extends StatelessWidget {
                                 )
                               ]),
                             ),
-                        Container(
+                            Container(
                               height: 215,
                               padding: EdgeInsets.only(
                                   top: 13, left: 15, right: 15, bottom: 15),
@@ -420,41 +457,55 @@ class AdminCafeDetailState extends StatelessWidget {
                                       BorderRadius.all(Radius.circular(15))),
                               child: Column(children: [
                                 Container(
-                                  child:Row(
-                                    children: [
-                                    Container( height: 67,
-                                  padding: EdgeInsets.only(top: 20, left: 18),
-                                  alignment: Alignment.topLeft,
-                                  child: Text("Kampanya 4",style: TextStyle(fontSize: 16,fontWeight:FontWeight.bold),),),
-                                     Container( height: 67,
-                                  padding: EdgeInsets.only(top: 20,),
-                                  alignment: Alignment.topLeft,
-                                  child: Text(": Çay Kampanyası",style: TextStyle(fontSize: 16),),),
-                                   GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                AdminUpdateOffer(
-                                            
+                                    child: Row(
+                                  children: [
+                                    Container(
+                                      height: 67,
+                                      padding:
+                                          EdgeInsets.only(top: 20, left: 18),
+                                      alignment: Alignment.topLeft,
+                                      child: Text(
+                                        "Kampanya 4",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 67,
+                                      padding: EdgeInsets.only(
+                                        top: 20,
+                                      ),
+                                      alignment: Alignment.topLeft,
+                                      child: Text(
+                                        ": Çay Kampanyası",
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AdminUpdateOffer(),
                                             ),
+                                          );
+                                        },
+                                        child: Container(
+                                          height: 67,
+                                          padding: EdgeInsets.only(
+                                              top: 20, left: 70),
+                                          color: Colors.white,
+                                          alignment: Alignment.topRight,
+                                          child: Image.asset(
+                                            "assets/images/duzenle.png",
+                                            height: 19,
+                                            width: 19,
                                           ),
-                                        );
-                                      },child:Container(
-                                    height: 67,
-                                  padding: EdgeInsets.only(top: 20, left: 70),
-                                    color: Colors.white,
-                                    alignment: Alignment.topRight,
-                                    child:  Image.asset(
-                              "assets/images/duzenle.png",
-                              height: 19,
-                              width: 19,
-                            ),))
-                                  
-                                  ],)
-                                 
-                                ),
+                                        ))
+                                  ],
+                                )),
                                 Container(
                                   height: 45,
                                   decoration: BoxDecoration(
@@ -488,7 +539,7 @@ class AdminCafeDetailState extends StatelessWidget {
                                 )
                               ]),
                             ),
-                        ],
+                          ],
                         ))),
                     Container(
                         color: Color(0xFFF7F8FB),
@@ -496,7 +547,7 @@ class AdminCafeDetailState extends StatelessWidget {
 
                         child: Column(
                           children: [
-                           Container(
+                            Container(
                               height: 72,
                               margin: EdgeInsets.only(
                                   left: 9, top: 11, right: 16, bottom: 2),
@@ -521,7 +572,6 @@ class AdminCafeDetailState extends StatelessWidget {
                                     ),
                                   ),
                                   Container(
-                                  
                                     height: 36,
                                     width:
                                         MediaQuery.of(context).size.width * 0.7,
@@ -533,16 +583,19 @@ class AdminCafeDetailState extends StatelessWidget {
                                           color: Colors.black, fontSize: 14),
                                     ),
                                   ),
-                                     Container(
+                                  Container(
                                     height: 60,
-                                  padding: EdgeInsets.only(top: 15, ),
+                                    padding: EdgeInsets.only(
+                                      top: 15,
+                                    ),
                                     color: Colors.white,
                                     alignment: Alignment.topRight,
-                                    child:  Image.asset(
-                              "assets/images/duzenle.png",
-                              height: 19,
-                              width: 19,
-                            ),)
+                                    child: Image.asset(
+                                      "assets/images/duzenle.png",
+                                      height: 19,
+                                      width: 19,
+                                    ),
+                                  )
                                 ],
                               ),
                             ),
@@ -581,17 +634,20 @@ class AdminCafeDetailState extends StatelessWidget {
                                       style: GoogleFonts.roboto(
                                           color: Colors.black, fontSize: 14),
                                     ),
-                                  )
-                                  ,  Container(
+                                  ),
+                                  Container(
                                     height: 60,
-                                  padding: EdgeInsets.only(top: 15, ),
+                                    padding: EdgeInsets.only(
+                                      top: 15,
+                                    ),
                                     color: Colors.white,
                                     alignment: Alignment.topRight,
-                                    child:  Image.asset(
-                              "assets/images/duzenle.png",
-                              height: 19,
-                              width: 19,
-                            ),)
+                                    child: Image.asset(
+                                      "assets/images/duzenle.png",
+                                      height: 19,
+                                      width: 19,
+                                    ),
+                                  )
                                 ],
                               ),
                             ),
@@ -637,7 +693,7 @@ class AdminCafeDetailState extends StatelessWidget {
                     Container(
                         child: Column(
                       children: <Widget>[
-                         Expanded(
+                        Expanded(
                           child: SingleChildScrollView(
                             child: Center(
                               child: Column(
@@ -647,7 +703,6 @@ class AdminCafeDetailState extends StatelessWidget {
                                   Container(
                                       margin: EdgeInsets.only(top: 21),
                                       padding: EdgeInsets.only(bottom: 15),
-
                                       width: MediaQuery.of(context).size.width *
                                           0.93,
                                       decoration: BoxDecoration(
@@ -659,479 +714,489 @@ class AdminCafeDetailState extends StatelessWidget {
                                               bottomRight: Radius.circular(5))),
                                       child: Column(
                                         children: [
-                                         GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                AdminCommentDetailState(
-                                            
-                                            ),
-                                          ),
-                                        );
-                                      },child:  Container(
-                                              margin: EdgeInsets.only(top: 9),
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.93,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                          topLeft: Radius
-                                                              .circular(15),
-                                                          topRight:
-                                                              Radius.circular(
-                                                                  15),
-                                                          bottomLeft:
-                                                              Radius.circular(
-                                                                  5),
-                                                          bottomRight:
-                                                              Radius.circular(
-                                                                  5))),
-                                              child: Column(
-                                                children: [
-                                                  Container(
-                                                    alignment:
-                                                        Alignment.topLeft,
-                                                    height: 15,
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.93,
-                                                    margin: EdgeInsets.only(
-                                                        left: 15,
-                                                        top: 18,
-                                                        bottom: 8),
-                                                    child: new Row(
-                                                      children: [
-                                                        Image.asset(
-                                                          "assets/images/Star.png",
-                                                          height: 15,
-                                                          width: 15,
-                                                        ),
-                                                        Image.asset(
-                                                          "assets/images/Star.png",
-                                                          height: 15,
-                                                          width: 15,
-                                                        ),
-                                                        Image.asset(
-                                                          "assets/images/Star.png",
-                                                          height: 15,
-                                                          width: 15,
-                                                        ),
-                                                        Image.asset(
-                                                          "assets/images/Star.png",
-                                                          height: 15,
-                                                          width: 15,
-                                                        ),
-                                                        Image.asset(
-                                                          "assets/images/Star_Empty.png",
-                                                          height: 15,
-                                                          width: 15,
-                                                        ),
-                                                        Container(
-                                                          margin:
-                                                              EdgeInsets.only(
-                                                                  left: 4),
-                                                          height: 15,
-                                                          child: Text('4.1',
-                                                              style: GoogleFonts
-                                                                  .roboto(
-                                                                fontSize: 12,
-                                                              )),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    alignment:
-                                                        Alignment.topLeft,
-                                                    height: 15,
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.93,
-                                                    margin: EdgeInsets.only(
-                                                        left: 15, bottom: 8),
-                                                    child: Row(
-                                                      children: [
-                                                        Container(
-                                                          child: Text(
-                                                            "Ahmet Yılmaz",
-                                                            style: GoogleFonts
-                                                                .roboto(
-                                                              color: Color(
-                                                                  0xFFF07618),
-                                                              fontSize: 14,
-                                                              //figma 12 yazıyodu kodda güncelledim fontsize ı
-                                                            ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      AdminCommentDetailState(),
+                                                ),
+                                              );
+                                            },
+                                            child: Container(
+                                                margin: EdgeInsets.only(top: 9),
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.93,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                            topLeft:
+                                                                Radius.circular(
+                                                                    15),
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    15),
+                                                            bottomLeft:
+                                                                Radius.circular(
+                                                                    5),
+                                                            bottomRight:
+                                                                Radius.circular(
+                                                                    5))),
+                                                child: Column(
+                                                  children: [
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.topLeft,
+                                                      height: 15,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.93,
+                                                      margin: EdgeInsets.only(
+                                                          left: 15,
+                                                          top: 18,
+                                                          bottom: 8),
+                                                      child: new Row(
+                                                        children: [
+                                                          Image.asset(
+                                                            "assets/images/Star.png",
+                                                            height: 15,
+                                                            width: 15,
                                                           ),
-                                                        ),
-                                                        Container(
-                                                          margin:
-                                                              EdgeInsets.only(
-                                                                  left: 12),
-                                                          child: Text(
-                                                            "10 Kasım 2021 | 11:30",
-                                                            style: GoogleFonts
-                                                                .roboto(
-                                                              color: Color(
-                                                                  0xFF7C7C7C),
-                                                              fontSize: 14,
-                                                              //figma 12 yazıyodu kodda güncelledim fontsize ı
-                                                            ),
+                                                          Image.asset(
+                                                            "assets/images/Star.png",
+                                                            height: 15,
+                                                            width: 15,
                                                           ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    margin: EdgeInsets.only(
-                                                        left: 15, right: 15),
-                                                    child: Text(
-                                                      "Dinlendiren , otururken kendinizi ortamın sakinliğine ve hosluguna istemeden bıraktığınız bir mekan . Hayran olunasııı",
-                                                      style: GoogleFonts.roboto(
-                                                        color:
-                                                            Color(0xFF000000),
-                                                        fontSize: 14,
-                                                        //figma 12 yazıyodu burada da güncelledim fontsize ı
+                                                          Image.asset(
+                                                            "assets/images/Star.png",
+                                                            height: 15,
+                                                            width: 15,
+                                                          ),
+                                                          Image.asset(
+                                                            "assets/images/Star.png",
+                                                            height: 15,
+                                                            width: 15,
+                                                          ),
+                                                          Image.asset(
+                                                            "assets/images/Star_Empty.png",
+                                                            height: 15,
+                                                            width: 15,
+                                                          ),
+                                                          Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    left: 4),
+                                                            height: 15,
+                                                            child: Text('4.1',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .roboto(
+                                                                  fontSize: 12,
+                                                                )),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ),
-                                                  ),
-                                                 ],
-                                              )),
-                                          ) ],
-                                      )),
-                                   GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                AdminCommentDetailState(
-                                            
-                                            ),
-                                          ),
-                                        );
-                                      },child:  Container(
-                                      margin: EdgeInsets.only(top: 21),
-                                      padding: EdgeInsets.only(bottom: 15),
-
-                                      width: MediaQuery.of(context).size.width *
-                                          0.93,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(15),
-                                              topRight: Radius.circular(15),
-                                              bottomLeft: Radius.circular(5),
-                                              bottomRight: Radius.circular(5))),
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                              margin: EdgeInsets.only(top: 9),
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.93,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                          topLeft: Radius
-                                                              .circular(15),
-                                                          topRight:
-                                                              Radius.circular(
-                                                                  15),
-                                                          bottomLeft:
-                                                              Radius.circular(
-                                                                  5),
-                                                          bottomRight:
-                                                              Radius.circular(
-                                                                  5))),
-                                              child: Column(
-                                                children: [
-                                                  Container(
-                                                    alignment:
-                                                        Alignment.topLeft,
-                                                    height: 15,
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.93,
-                                                    margin: EdgeInsets.only(
-                                                        left: 15,
-                                                        top: 18,
-                                                        bottom: 8),
-                                                    child: new Row(
-                                                      children: [
-                                                        Image.asset(
-                                                          "assets/images/Star.png",
-                                                          height: 15,
-                                                          width: 15,
-                                                        ),
-                                                        Image.asset(
-                                                          "assets/images/Star.png",
-                                                          height: 15,
-                                                          width: 15,
-                                                        ),
-                                                        Image.asset(
-                                                          "assets/images/Star.png",
-                                                          height: 15,
-                                                          width: 15,
-                                                        ),
-                                                        Image.asset(
-                                                          "assets/images/Star.png",
-                                                          height: 15,
-                                                          width: 15,
-                                                        ),
-                                                        Image.asset(
-                                                          "assets/images/Star_Empty.png",
-                                                          height: 15,
-                                                          width: 15,
-                                                        ),
-                                                        Container(
-                                                          margin:
-                                                              EdgeInsets.only(
-                                                                  left: 4),
-                                                          height: 15,
-                                                          child: Text('4.1',
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.topLeft,
+                                                      height: 15,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.93,
+                                                      margin: EdgeInsets.only(
+                                                          left: 15, bottom: 8),
+                                                      child: Row(
+                                                        children: [
+                                                          Container(
+                                                            child: Text(
+                                                              "Ahmet Yılmaz",
                                                               style: GoogleFonts
                                                                   .roboto(
-                                                                fontSize: 12,
-                                                              )),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    alignment:
-                                                        Alignment.topLeft,
-                                                    height: 15,
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.93,
-                                                    margin: EdgeInsets.only(
-                                                        left: 15, bottom: 8),
-                                                    child: Row(
-                                                      children: [
-                                                        Container(
-                                                          child: Text(
-                                                            "Ahmet Yılmaz",
-                                                            style: GoogleFonts
-                                                                .roboto(
-                                                              color: Color(
-                                                                  0xFFF07618),
-                                                              fontSize: 14,
-                                                              //figma 12 yazıyodu kodda güncelledim fontsize ı
+                                                                color: Color(
+                                                                    0xFFF07618),
+                                                                fontSize: 14,
+                                                                //figma 12 yazıyodu kodda güncelledim fontsize ı
+                                                              ),
                                                             ),
                                                           ),
-                                                        ),
-                                                        Container(
-                                                          margin:
-                                                              EdgeInsets.only(
-                                                                  left: 12),
-                                                          child: Text(
-                                                            "10 Kasım 2021 | 11:30",
-                                                            style: GoogleFonts
-                                                                .roboto(
-                                                              color: Color(
-                                                                  0xFF7C7C7C),
-                                                              fontSize: 14,
-                                                              //figma 12 yazıyodu kodda güncelledim fontsize ı
+                                                          Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    left: 12),
+                                                            child: Text(
+                                                              "10 Kasım 2021 | 11:30",
+                                                              style: GoogleFonts
+                                                                  .roboto(
+                                                                color: Color(
+                                                                    0xFF7C7C7C),
+                                                                fontSize: 14,
+                                                                //figma 12 yazıyodu kodda güncelledim fontsize ı
+                                                              ),
                                                             ),
                                                           ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    margin: EdgeInsets.only(
-                                                        left: 15, right: 15),
-                                                    child: Text(
-                                                      "Dinlendiren , otururken kendinizi ortamın sakinliğine ve hosluguna istemeden bıraktığınız bir mekan . Hayran olunasııı",
-                                                      style: GoogleFonts.roboto(
-                                                        color:
-                                                            Color(0xFF000000),
-                                                        fontSize: 14,
-                                                        //figma 12 yazıyodu burada da güncelledim fontsize ı
+                                                        ],
                                                       ),
                                                     ),
-                                                  ),
-                                                 ],
-                                              )),
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                          left: 15, right: 15),
+                                                      child: Text(
+                                                        "Dinlendiren , otururken kendinizi ortamın sakinliğine ve hosluguna istemeden bıraktığınız bir mekan . Hayran olunasııı",
+                                                        style:
+                                                            GoogleFonts.roboto(
+                                                          color:
+                                                              Color(0xFF000000),
+                                                          fontSize: 14,
+                                                          //figma 12 yazıyodu burada da güncelledim fontsize ı
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )),
+                                          )
                                         ],
                                       )),
-                                 ), GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                AdminCommentDetailState(
-                                            
-                                            ),
-                                          ),
-                                        );
-                                      },child:  Container(
-                                      margin: EdgeInsets.only(top: 21),
-                                      padding: EdgeInsets.only(bottom: 15),
-
-                                      width: MediaQuery.of(context).size.width *
-                                          0.93,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(15),
-                                              topRight: Radius.circular(15),
-                                              bottomLeft: Radius.circular(5),
-                                              bottomRight: Radius.circular(5))),
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                              margin: EdgeInsets.only(top: 9),
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.93,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                          topLeft: Radius
-                                                              .circular(15),
-                                                          topRight:
-                                                              Radius.circular(
-                                                                  15),
-                                                          bottomLeft:
-                                                              Radius.circular(
-                                                                  5),
-                                                          bottomRight:
-                                                              Radius.circular(
-                                                                  5))),
-                                              child: Column(
-                                                children: [
-                                                  Container(
-                                                    alignment:
-                                                        Alignment.topLeft,
-                                                    height: 15,
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.93,
-                                                    margin: EdgeInsets.only(
-                                                        left: 15,
-                                                        top: 18,
-                                                        bottom: 8),
-                                                    child: new Row(
-                                                      children: [
-                                                        Image.asset(
-                                                          "assets/images/Star.png",
-                                                          height: 15,
-                                                          width: 15,
-                                                        ),
-                                                        Image.asset(
-                                                          "assets/images/Star.png",
-                                                          height: 15,
-                                                          width: 15,
-                                                        ),
-                                                        Image.asset(
-                                                          "assets/images/Star.png",
-                                                          height: 15,
-                                                          width: 15,
-                                                        ),
-                                                        Image.asset(
-                                                          "assets/images/Star.png",
-                                                          height: 15,
-                                                          width: 15,
-                                                        ),
-                                                        Image.asset(
-                                                          "assets/images/Star_Empty.png",
-                                                          height: 15,
-                                                          width: 15,
-                                                        ),
-                                                        Container(
-                                                          margin:
-                                                              EdgeInsets.only(
-                                                                  left: 4),
-                                                          height: 15,
-                                                          child: Text('4.1',
-                                                              style: GoogleFonts
-                                                                  .roboto(
-                                                                fontSize: 12,
-                                                              )),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    alignment:
-                                                        Alignment.topLeft,
-                                                    height: 15,
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.93,
-                                                    margin: EdgeInsets.only(
-                                                        left: 15, bottom: 8),
-                                                    child: Row(
-                                                      children: [
-                                                        Container(
-                                                          child: Text(
-                                                            "Ahmet Yılmaz",
-                                                            style: GoogleFonts
-                                                                .roboto(
-                                                              color: Color(
-                                                                  0xFFF07618),
-                                                              fontSize: 14,
-                                                              //figma 12 yazıyodu kodda güncelledim fontsize ı
-                                                            ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              AdminCommentDetailState(),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                        margin: EdgeInsets.only(top: 21),
+                                        padding: EdgeInsets.only(bottom: 15),
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.93,
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(15),
+                                                topRight: Radius.circular(15),
+                                                bottomLeft: Radius.circular(5),
+                                                bottomRight:
+                                                    Radius.circular(5))),
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                                margin: EdgeInsets.only(top: 9),
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.93,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                            topLeft:
+                                                                Radius.circular(
+                                                                    15),
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    15),
+                                                            bottomLeft:
+                                                                Radius.circular(
+                                                                    5),
+                                                            bottomRight:
+                                                                Radius.circular(
+                                                                    5))),
+                                                child: Column(
+                                                  children: [
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.topLeft,
+                                                      height: 15,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.93,
+                                                      margin: EdgeInsets.only(
+                                                          left: 15,
+                                                          top: 18,
+                                                          bottom: 8),
+                                                      child: new Row(
+                                                        children: [
+                                                          Image.asset(
+                                                            "assets/images/Star.png",
+                                                            height: 15,
+                                                            width: 15,
                                                           ),
-                                                        ),
-                                                        Container(
-                                                          margin:
-                                                              EdgeInsets.only(
-                                                                  left: 12),
-                                                          child: Text(
-                                                            "10 Kasım 2021 | 11:30",
-                                                            style: GoogleFonts
-                                                                .roboto(
-                                                              color: Color(
-                                                                  0xFF7C7C7C),
-                                                              fontSize: 14,
-                                                              //figma 12 yazıyodu kodda güncelledim fontsize ı
-                                                            ),
+                                                          Image.asset(
+                                                            "assets/images/Star.png",
+                                                            height: 15,
+                                                            width: 15,
                                                           ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    margin: EdgeInsets.only(
-                                                        left: 15, right: 15),
-                                                    child: Text(
-                                                      "Dinlendiren , otururken kendinizi ortamın sakinliğine ve hosluguna istemeden bıraktığınız bir mekan . Hayran olunasııı",
-                                                      style: GoogleFonts.roboto(
-                                                        color:
-                                                            Color(0xFF000000),
-                                                        fontSize: 14,
-                                                        //figma 12 yazıyodu burada da güncelledim fontsize ı
+                                                          Image.asset(
+                                                            "assets/images/Star.png",
+                                                            height: 15,
+                                                            width: 15,
+                                                          ),
+                                                          Image.asset(
+                                                            "assets/images/Star.png",
+                                                            height: 15,
+                                                            width: 15,
+                                                          ),
+                                                          Image.asset(
+                                                            "assets/images/Star_Empty.png",
+                                                            height: 15,
+                                                            width: 15,
+                                                          ),
+                                                          Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    left: 4),
+                                                            height: 15,
+                                                            child: Text('4.1',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .roboto(
+                                                                  fontSize: 12,
+                                                                )),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ),
-                                                  ),
-                                                 ],
-                                              )),
-                                        ],
-                                      )),
-                                   
-                                 )],
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.topLeft,
+                                                      height: 15,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.93,
+                                                      margin: EdgeInsets.only(
+                                                          left: 15, bottom: 8),
+                                                      child: Row(
+                                                        children: [
+                                                          Container(
+                                                            child: Text(
+                                                              "Ahmet Yılmaz",
+                                                              style: GoogleFonts
+                                                                  .roboto(
+                                                                color: Color(
+                                                                    0xFFF07618),
+                                                                fontSize: 14,
+                                                                //figma 12 yazıyodu kodda güncelledim fontsize ı
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    left: 12),
+                                                            child: Text(
+                                                              "10 Kasım 2021 | 11:30",
+                                                              style: GoogleFonts
+                                                                  .roboto(
+                                                                color: Color(
+                                                                    0xFF7C7C7C),
+                                                                fontSize: 14,
+                                                                //figma 12 yazıyodu kodda güncelledim fontsize ı
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                          left: 15, right: 15),
+                                                      child: Text(
+                                                        "Dinlendiren , otururken kendinizi ortamın sakinliğine ve hosluguna istemeden bıraktığınız bir mekan . Hayran olunasııı",
+                                                        style:
+                                                            GoogleFonts.roboto(
+                                                          color:
+                                                              Color(0xFF000000),
+                                                          fontSize: 14,
+                                                          //figma 12 yazıyodu burada da güncelledim fontsize ı
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )),
+                                          ],
+                                        )),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              AdminCommentDetailState(),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                        margin: EdgeInsets.only(top: 21),
+                                        padding: EdgeInsets.only(bottom: 15),
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.93,
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(15),
+                                                topRight: Radius.circular(15),
+                                                bottomLeft: Radius.circular(5),
+                                                bottomRight:
+                                                    Radius.circular(5))),
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                                margin: EdgeInsets.only(top: 9),
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.93,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                            topLeft:
+                                                                Radius.circular(
+                                                                    15),
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    15),
+                                                            bottomLeft:
+                                                                Radius.circular(
+                                                                    5),
+                                                            bottomRight:
+                                                                Radius.circular(
+                                                                    5))),
+                                                child: Column(
+                                                  children: [
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.topLeft,
+                                                      height: 15,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.93,
+                                                      margin: EdgeInsets.only(
+                                                          left: 15,
+                                                          top: 18,
+                                                          bottom: 8),
+                                                      child: new Row(
+                                                        children: [
+                                                          Image.asset(
+                                                            "assets/images/Star.png",
+                                                            height: 15,
+                                                            width: 15,
+                                                          ),
+                                                          Image.asset(
+                                                            "assets/images/Star.png",
+                                                            height: 15,
+                                                            width: 15,
+                                                          ),
+                                                          Image.asset(
+                                                            "assets/images/Star.png",
+                                                            height: 15,
+                                                            width: 15,
+                                                          ),
+                                                          Image.asset(
+                                                            "assets/images/Star.png",
+                                                            height: 15,
+                                                            width: 15,
+                                                          ),
+                                                          Image.asset(
+                                                            "assets/images/Star_Empty.png",
+                                                            height: 15,
+                                                            width: 15,
+                                                          ),
+                                                          Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    left: 4),
+                                                            height: 15,
+                                                            child: Text('4.1',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .roboto(
+                                                                  fontSize: 12,
+                                                                )),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.topLeft,
+                                                      height: 15,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.93,
+                                                      margin: EdgeInsets.only(
+                                                          left: 15, bottom: 8),
+                                                      child: Row(
+                                                        children: [
+                                                          Container(
+                                                            child: Text(
+                                                              "Ahmet Yılmaz",
+                                                              style: GoogleFonts
+                                                                  .roboto(
+                                                                color: Color(
+                                                                    0xFFF07618),
+                                                                fontSize: 14,
+                                                                //figma 12 yazıyodu kodda güncelledim fontsize ı
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    left: 12),
+                                                            child: Text(
+                                                              "10 Kasım 2021 | 11:30",
+                                                              style: GoogleFonts
+                                                                  .roboto(
+                                                                color: Color(
+                                                                    0xFF7C7C7C),
+                                                                fontSize: 14,
+                                                                //figma 12 yazıyodu kodda güncelledim fontsize ı
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                          left: 15, right: 15),
+                                                      child: Text(
+                                                        "Dinlendiren , otururken kendinizi ortamın sakinliğine ve hosluguna istemeden bıraktığınız bir mekan . Hayran olunasııı",
+                                                        style:
+                                                            GoogleFonts.roboto(
+                                                          color:
+                                                              Color(0xFF000000),
+                                                          fontSize: 14,
+                                                          //figma 12 yazıyodu burada da güncelledim fontsize ı
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )),
+                                          ],
+                                        )),
+                                  )
+                                ],
                               ),
                             ),
                           ),

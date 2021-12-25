@@ -1,11 +1,11 @@
 import 'package:cafeapp/Pages/Admin/AdminLoginPage/AdminLoginView.dart';
 import 'package:cafeapp/Pages/User/BottomNavExplorePage.dart';
+import 'package:cafeapp/Pages/User/UserSignUpPage/UserSignUpView.dart';
 import 'package:cafeapp/service/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cafeapp/Pages/ForgetPasswordPage/VerificationView.dart';
-import 'package:cafeapp/Pages/Admin/LoginPage/UserRegister.dart';
 
 import 'package:cafeapp/Pages/User/BottomNavigationMainPage.dart';
 
@@ -159,7 +159,7 @@ class LoginState extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => RegisterState(),
+                                  builder: (context) => UserRegisterState(),
                                 ),
                               );
                             },
@@ -175,7 +175,7 @@ class LoginState extends StatelessWidget {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => RegisterState(),
+                                          builder: (context) => UserRegisterState(),
                                         ),
                                       );
                                     },
@@ -194,7 +194,7 @@ class LoginState extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => RegisterState(),
+                                  builder: (context) => UserRegisterState(),
                                 ),
                               );
                             },
