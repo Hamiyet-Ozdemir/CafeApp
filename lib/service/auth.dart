@@ -1,3 +1,5 @@
+
+
 import 'package:cafeapp/Models/CafeModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -41,9 +43,14 @@ static List<CafeModel> model;
      }
    }
   }
+
   //çıkış yap fonksiyonu
   signOut() async {
     return await _auth.signOut();
+  }
+
+  Future<void> click() async {
+    model = await getDocs();
   }
 
 //get all cafe
@@ -77,28 +84,31 @@ for (var i = 0; i < data.length; i++) {
   //dowland picture url
 
   //admin kayıt ol fonksiyonu
-  
-  Future<User> createAdmin(String name, String email, String password,String PhoneNumber) async {
+
+  Future<User> createAdmin(
+      String name, String email, String password, String PhoneNumber) async {
     var user = await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
-adminName=name;
+    adminName = name;
     await _firestore
         .collection("admin")
         .doc(user.user.uid)
-        .set({'userName': name, 'email': email,'phoneNumber':PhoneNumber});
-await user.user.sendEmailVerification();
+        .set({'userName': name, 'email': email, 'phoneNumber': PhoneNumber});
+    await user.user.sendEmailVerification();
     return user.user;
   }
 
-   Future<User> createUser(String name, String email, String password,String PhoneNumber) async {
+  Future<User> createUser(
+      String name, String email, String password, String PhoneNumber) async {
     var user = await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
 
-    await _firestore
-        .collection("user")
-        .doc(user.user.uid)
-        .set({'mailAddress':email,'nameSurname':name,'phoneNumber':PhoneNumber,'userPoint':100
-});
+    await _firestore.collection("user").doc(user.user.uid).set({
+      'mailAddress': email,
+      'nameSurname': name,
+      'phoneNumber': PhoneNumber,
+      'userPoint': 100
+    });
 
     return user.user;
   }

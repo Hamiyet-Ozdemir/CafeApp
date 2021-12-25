@@ -1,10 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class VerificationState extends StatelessWidget {
+
+
+class ForgetPasswordView extends StatefulWidget {
+  @override
+  State<ForgetPasswordView> createState() => _forgetPasswordState();
+} //view
+
+class _forgetPasswordState extends State<ForgetPasswordView> {
   TextEditingController email=TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +26,7 @@ class VerificationState extends StatelessWidget {
                 margin: EdgeInsets.only(top: 38),
                 padding: EdgeInsets.only(top: 38),
                 alignment: Alignment.topCenter,
-                child: Text('Şifremi Unuttum',
+                child: Text('Şifre Değiştir',
                     style: GoogleFonts.roboto(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
@@ -81,4 +90,4 @@ class VerificationState extends StatelessWidget {
       ),
     );
   }
-}
+} //view
