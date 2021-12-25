@@ -1,4 +1,3 @@
-
 import 'package:cafeapp/Pages/User/UserCafeDetailPage/UserCafeDetailView.dart';
 import 'package:cafeapp/Pages/User/UserMakeRezervationPage/UserMakeRezervationView.dart';
 import 'package:cafeapp/service/auth.dart';
@@ -48,15 +47,19 @@ class _CafeCardWidgetState extends State<CafeCardWidget> {
                         fit: BoxFit.fill),
                   ),
                 ),
-                Positioned(
-                  top: 20,
-                  right: 20,
-                  child: Image.asset(
-                    "assets/images/favorites_icon.png",
-                    width: 40,
-                    height: 40,
-                  ),
-                )
+                GestureDetector(
+                    onTap: () {
+                      //User içine favorilere kaydedicek
+                    },
+                    child: Positioned(
+                      top: 20,
+                      right: 20,
+                      child: Image.asset(
+                        "assets/images/favorites_icon.png",
+                        width: 40,
+                        height: 40,
+                      ),
+                    ))
               ],
             ),
             Container(
