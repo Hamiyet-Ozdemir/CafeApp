@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 
@@ -155,8 +156,10 @@ class _UserMakeRezervationState extends State<UserMakeRezervation> {
                                 padding: EdgeInsets.only(left: 16),
                                 //height:,
                                 child: TextField(
+                                  inputFormatters: [WhitelistingTextInputFormatter(RegExp("[[0-9]{1,4}/[0-9]{1,2}/[0-9]{1,2} [0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}]"))],
                                   textAlign: TextAlign.left,
                                   decoration: InputDecoration(
+                                      
                                       border: InputBorder.none,
                                       hintText: "Kaç Kişisiniz ?",
                                       hintStyle: TextStyle(

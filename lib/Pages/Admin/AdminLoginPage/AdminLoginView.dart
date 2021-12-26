@@ -1,15 +1,21 @@
 import 'package:cafeapp/Pages/Admin/AdminBottomNavigationBar/AdminBottomNavBar.dart';
 import 'package:cafeapp/Pages/Admin/AdminSignUpPage/AdminSignUpView.dart';
 import 'package:cafeapp/Pages/Admin/ForgetPasswordPage/ForgetPasswordView.dart';
-import 'package:cafeapp/Pages/User/BottomNavExplorePage.dart';
-import 'package:cafeapp/Pages/User/UserSignUpPage/UserSignUpView.dart';
 import 'package:cafeapp/service/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cafeapp/Pages/ForgetPasswordPage/VerificationView.dart';
 
-import 'package:cafeapp/Pages/User/BottomNavigationMainPage.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+  void _showToast(BuildContext context,String msg) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content:  Text(msg),
+      ),
+    );
+  }
 
 class AdminLoginState extends StatelessWidget {
   TextEditingController _emailController = TextEditingController();
@@ -195,8 +201,8 @@ class AdminLoginState extends StatelessWidget {
                           GestureDetector(
                             onTap: () async {
                             String user=await  _authService
-                          .signIn(
-                              _emailController.text,_passwordController.text);
+                          .signInAdmin(
+                              "emree68.12@gmail.com","111111");
                           if(user=="true"){
                              return Navigator.push(
                             context,
@@ -204,7 +210,7 @@ class AdminLoginState extends StatelessWidget {
                                 builder: (context) => AdminMainNavigationPageState()));
                           }
                           else{
-                                   _emailController.text=user;
+                                   _showToast(context,user);
 
                           }
                        

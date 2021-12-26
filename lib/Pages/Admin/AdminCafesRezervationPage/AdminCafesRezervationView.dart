@@ -132,7 +132,7 @@ class AdminCafesRezervationPage extends StatelessWidget {
                             padding: EdgeInsets.only(left: 19),
                             child: Row(
                               children: [
-                                Positioned(
+                                Center(
                                   child: Image.asset(
                                     "assets/images/discount_icon.png",
                                     width: 20,
@@ -160,7 +160,7 @@ class AdminCafesRezervationPage extends StatelessWidget {
                                   Container(
                                     child: Row(
                                       children: [
-                                        Positioned(
+                                        Center(
                                           child: Image.asset(
                                             "assets/images/star_image.png",
                                             width: 70,
@@ -251,7 +251,7 @@ class AdminCafesRezervationPage extends StatelessWidget {
                             padding: EdgeInsets.only(left: 19),
                             child: Row(
                               children: [
-                                Positioned(
+                                Center(
                                   child: Image.asset(
                                     "assets/images/discount_icon.png",
                                     width: 20,
@@ -276,10 +276,10 @@ class AdminCafesRezervationPage extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Container(
+                                  Center(
                                     child: Row(
                                       children: [
-                                        Positioned(
+                                        Center(
                                           child: Image.asset(
                                             "assets/images/star_image.png",
                                             width: 70,
@@ -369,7 +369,7 @@ class AdminCafesRezervationPage extends StatelessWidget {
                             padding: EdgeInsets.only(left: 19),
                             child: Row(
                               children: [
-                                Positioned(
+                                Center(
                                   child: Image.asset(
                                     "assets/images/discount_icon.png",
                                     width: 20,
@@ -394,10 +394,10 @@ class AdminCafesRezervationPage extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Container(
+                                  Center(
                                     child: Row(
                                       children: [
-                                        Positioned(
+                                        Center(
                                           child: Image.asset(
                                             "assets/images/star_image.png",
                                             width: 70,

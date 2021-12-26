@@ -17,16 +17,6 @@ class AdminSignUpState extends StatelessWidget {
   TextEditingController Adress = TextEditingController();
 AuthService _authService=AuthService();
 
- 
-  
-    CollectionReference admin= FirebaseFirestore.instance.collection('admin');
-   
-  
- 
- 
- 
- 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

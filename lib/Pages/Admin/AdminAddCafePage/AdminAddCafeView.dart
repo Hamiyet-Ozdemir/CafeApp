@@ -21,7 +21,6 @@ class AddCafeState extends StatefulWidget {
 
 class _AddCafeState extends State<AddCafeState> {
 
-PickedFile pickedfile;
 final myImageController = TextEditingController();
 final myPdfController=TextEditingController();
 final cafeNameController = TextEditingController();
@@ -43,9 +42,10 @@ _getFromGallery() async {
   }
 }
 
-  CollectionReference cafes= FirebaseFirestore.instance.collection('cafe');
 
 File file;
+PickedFile pickedfile;
+
 String randomName(){
    var rng = new Random();
      String randomName="";
@@ -66,55 +66,7 @@ file=File(result.paths.first);
   myPdfController.text=fileName;
   }
   
-void addCafe() async{
 
-
-   var uuid = Uuid();
-    File _imageFile=File(pickedfile.path);
-    String fileName = randomName()+"."+_imageFile.path.split('.').last;
-    String pdfName = randomName()+".pdf";
-
-    firebase_storage.Reference firebaseStorageRef =
-        firebase_storage.FirebaseStorage.instance.ref().child('cafeImages/$fileName');
-
-    firebase_storage.UploadTask uploadTask = firebaseStorageRef.putFile(_imageFile);
-  
-
-        firebase_storage.Reference firebaseStorageRef1 =
-        firebase_storage.FirebaseStorage.instance.ref().child('cafeMenuPdf/$pdfName');
-    firebase_storage.UploadTask uploadTask1=firebaseStorageRef1.putFile(file);
-   
- var dowPictureUrl = await (await uploadTask).ref.getDownloadURL();
-    String pictureUrl = dowPictureUrl.toString();
-var dowPdfUrl = await (await uploadTask1).ref.getDownloadURL();
-    String pdfUrl = dowPdfUrl.toString();
-String uid=uuid.v1().toString();
-        FirebaseFirestore.instance.collection("cafe").doc(uid).set({
-                                'name': cafeNameController.text,
-                                'cafeAddress': cafeAdressController.text,
-                                'safeId': safeIdController.text,
-                                'openClock': openClockController.text,
-                                'closeClock': closeClockController.text,
-                                'description': descriptionController.text,
-                                'phoneNumber': phoneNumberController.text,
-                                'menu': pdfName,
-                                'picture': fileName,
-                                'adminId':FirebaseAuth.instance.currentUser.uid,
-                                'pictureUrl':pictureUrl,
-                                'pdfUrl':pdfUrl
-                                
-                              }).then((value) => print("cafe added"));
-
-                  
-
-        FirebaseFirestore.instance
-        .collection("admin")
-        .doc(FirebaseAuth.instance.currentUser.uid).collection("cafes").doc(uid)
-        .set({'name': cafeNameController.text});
-        
-
-}
- 
  @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -344,7 +296,11 @@ _getDocuments();
                     )),
                       GestureDetector(
                             onTap: () async {
-                            addCafe();
+                           AuthService().addCafe(pickedfile,cafeNameController.text,
+                           cafeAdressController.text,safeIdController.text
+                           ,openClockController.text,closeClockController.text,descriptionController.text,
+                           phoneNumberController.text,myPdfController.text,myImageController.text,FirebaseAuth.instance.currentUser.uid,
+                           file);
                             Navigator.pop(context); } ,                       
                             child:
                 Container(

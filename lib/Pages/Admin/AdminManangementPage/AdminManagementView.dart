@@ -3,6 +3,8 @@
 
 // ignore: prefer_const_constructors
 
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:cafeapp/Models/CafeModel.dart';
@@ -28,19 +30,21 @@ class AdminMainPage extends StatelessWidget {
   }
  }
 class BodyLayout extends StatelessWidget{
+  
   @override
   Widget build(BuildContext context) { 
     
    return _myListView(context);
   }
 }
-   List<CafeModel> model=AuthService.model;
 
  Widget _myListView(BuildContext context)  {
+ 
     CollectionReference ref=FirebaseFirestore.instance.collection("cafe");
-
+ 
+  
     
-      
+    
       return 
       Scaffold(
         body: Center(
@@ -66,7 +70,7 @@ class BodyLayout extends StatelessWidget{
                   ),
                 ),
               ),
-              Positioned(
+              Container(
                   child: Column(
                 children: [
                  GestureDetector(
@@ -179,9 +183,6 @@ class BodyLayout extends StatelessWidget{
           ),
         )
 , StreamBuilder<QuerySnapshot>(stream: ref.snapshots(),builder: (BuildContext context,AsyncSnapshot asyncSnapshot){
-  List<DocumentSnapshot> listOfDocumentSnapShot=asyncSnapshot.data.docs;
-
-
   
 if(asyncSnapshot.data==null){
   return CircularProgressIndicator();
@@ -194,7 +195,7 @@ else{
   if(asyncSnapshot.hasData){
     return  Flexible(child: 
  ListView.builder(
-     itemCount: listOfDocumentSnapShot.length,
+     itemCount: asyncSnapshot.data.docs.length,
      itemBuilder: (context,index){
         return     
          Container(

@@ -13,5 +13,6 @@ String picture;
 String safeId;
 String pictureUrl;
 String pdfUrl;
+String cafeId;
 
 }
