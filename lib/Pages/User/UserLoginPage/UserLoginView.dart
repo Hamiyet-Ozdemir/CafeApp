@@ -1,5 +1,5 @@
 import 'package:cafeapp/Pages/Admin/AdminLoginPage/AdminLoginView.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:cafeapp/Pages/User/UserSignUpPage/UserSignUpView.dart';
 import 'package:cafeapp/service/auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -235,7 +235,7 @@ class LoginState extends StatelessWidget {
                             onTap: () async {
                             String user=await  _authService
                           .signInUser(
-                              _emailController.text,_passwordController.text);
+                              "m.parlak3858@gmail.com","111111");
                           if(user=="true"){
                              return Navigator.push(
                             context,

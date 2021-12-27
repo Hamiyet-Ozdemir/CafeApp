@@ -157,7 +157,7 @@ class FavoritesPage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => UserMakeRezervation(),
+                          builder: (context) => UserMakeRezervation("",""),
                         ),
                       );
                     },

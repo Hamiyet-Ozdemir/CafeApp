@@ -1,10 +1,8 @@
 
+import 'package:cafeapp/Pages/User/UserMakeRezervationPage/UserMakeRezervationView.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'Pages/Admin/AdminSignUpPage/AdminSignUpView.dart';
-import 'Pages/Admin/AdminProfilePage/AdminProfileView.dart';
-import 'Pages/Admin/AdminCommentDetailPage/AdminCommentDetailView.dart';
 import 'Pages/User/UserLoginPage/UserLoginView.dart';
 
 Future<void> main() async {

@@ -51,9 +51,9 @@ class _CafeCardWidgetState extends State<CafeCardWidget> {
                     onTap: () {
                       //User içine favorilere kaydedicek
                     },
-                    child: Positioned(
-                      top: 20,
-                      right: 20,
+                    child: Container(
+                      alignment: Alignment.bottomRight,
+                      margin: EdgeInsets.only(bottom: 20,right: 20),
                       child: Image.asset(
                         "assets/images/favorites_icon.png",
                         width: 40,
@@ -91,7 +91,7 @@ class _CafeCardWidgetState extends State<CafeCardWidget> {
               padding: EdgeInsets.only(left: 19),
               child: Row(
                 children: [
-                  Positioned(
+                  Center(
                     child: Image.asset(
                       "assets/images/discount_icon.png",
                       width: 20,
@@ -118,7 +118,7 @@ class _CafeCardWidgetState extends State<CafeCardWidget> {
                     Container(
                       child: Row(
                         children: [
-                          Positioned(
+                          Center(
                             child: Image.asset(
                               "assets/images/star_image.png",
                               width: 70,
@@ -140,7 +140,7 @@ class _CafeCardWidgetState extends State<CafeCardWidget> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => UserMakeRezervation(),
+                              builder: (context) => UserMakeRezervation(AuthService.model[postId].cafeId,AuthService.model[postId].name),
                             ),
                           );
                         },

@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 
 import 'package:cafeapp/Pages/ForgetPasswordPage/VerificationView.dart';
 
-import 'package:fluttertoast/fluttertoast.dart';
   void _showToast(BuildContext context,String msg) {
     final scaffold = ScaffoldMessenger.of(context);
     scaffold.showSnackBar(

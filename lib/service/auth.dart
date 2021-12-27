@@ -6,7 +6,6 @@ import 'dart:math';
 import 'package:cafeapp/Models/CafeModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage ;
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
@@ -23,6 +22,7 @@ static List<CafeModel> model;
 
   //kullanıcı giriş yap fonksiyonu
   Future<String> signInUser(String email, String password) async {
+    model = await getDocs();
 
    try {
       var user = await _auth.signInWithEmailAndPassword(
@@ -73,10 +73,10 @@ static List<CafeModel> model;
       var user = await _auth.signInWithEmailAndPassword(
         email: email, password: password);
         
-  var Admin=await _firestore
+  var admin=await _firestore
         .collection("usersAndAdmins").doc(user.user.uid).get();
       bool isAdmin=false;
-      if(Admin.data()["role"]=="admin"){
+      if(admin.data()["role"]=="admin"){
         isAdmin=true;
       }
     if (isAdmin==true) {
@@ -119,7 +119,6 @@ static List<CafeModel> model;
   }
 
   Future<void> click() async {
-    model = await getDocs();
   }
 
 //get all cafe
@@ -141,6 +140,7 @@ for (var i = 0; i < data.length; i++) {
     model1.safeId=data[i]["safeId"];
     model1.pictureUrl=data[i]["pictureUrl"];
     model1.pdfUrl=data[i]["pdfUrl"];
+    model1.cafeId=data[i].id;
     tempmodel.add(model1);
     }
 
@@ -153,14 +153,14 @@ for (var i = 0; i < data.length; i++) {
   //admin kayıt ol fonksiyonu
 
   Future<User> createAdmin(
-      String name, String email, String password, String PhoneNumber) async {
+      String name, String email, String password, String phoneNumber) async {
     var user = await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
     adminName = name;
     await _firestore
         .collection("admin")
         .doc(user.user.uid)
-        .set({'userName': name, 'email': email, 'phoneNumber': PhoneNumber});
+        .set({'userName': name, 'email': email, 'phoneNumber': phoneNumber});
           await _firestore
         .collection("usersAndAdmins")
         .doc(user.user.uid)
@@ -170,7 +170,7 @@ for (var i = 0; i < data.length; i++) {
   }
 
   Future<User> createUser(
-      String name, String email, String password, String PhoneNumber) async {
+      String name, String email, String password, String phoneNumber) async {
     var user = await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
         user.user.sendEmailVerification();
@@ -178,7 +178,7 @@ for (var i = 0; i < data.length; i++) {
     await _firestore.collection("user").doc(user.user.uid).set({
       'mailAddress': email,
       'nameSurname': name,
-      'phoneNumber': PhoneNumber,
+      'phoneNumber': phoneNumber,
       'userPoint': 100
     });
   await _firestore
@@ -250,5 +250,42 @@ String randomName(){
   }
   return randomName;
 }
+
+
+//rezervasyon ekle
+  void addRezervation(String peoplecounter,String cafeId,String note,String date) async{
+
+
+   
+
+
+  
+
+
+        FirebaseFirestore.instance.collection("cafe").doc(cafeId).collection("rezervasyonlar").doc().set({
+                                'name': userName,
+                                'userId': _auth.currentUser.uid,
+                                'date': date,
+                                'note': note,
+                                'people': peoplecounter,
+                                
+                                
+                              }).then((value) => print("rezervation added"));
+
+                  
+
+        FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser.uid).collection("reservation").doc()
+        .set({ 'name': userName,
+                                'userId': _auth.currentUser.uid,
+                                'date': date,
+                                'note': note,
+                                'people': peoplecounter,
+                                'cafeId':cafeId});
+        
+
+}
+
 
 }

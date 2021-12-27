@@ -64,7 +64,7 @@ class UserRezervationsState extends StatelessWidget {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                UserMakeRezervation(
+                                                UserMakeRezervation("",""
                                             
                                             ),
                                           ),
