@@ -1,19 +1,37 @@
+import 'package:cafeapp/Models/CafeModel.dart';
 import 'package:cafeapp/Pages/User/UserCafeDetailPage/UserCafeDetailView.dart';
 import 'package:cafeapp/Pages/User/UserMakeRezervationPage/UserMakeRezervationView.dart';
 import 'package:cafeapp/service/auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 class CafeCardWidget extends StatefulWidget {
-  final int
-      postId; // <--- generates the error, "Field doesn't override an inherited getter or setter"
-  CafeCardWidget({int postId}) : this.postId = postId;
-  _CafeCardWidgetState createState() => _CafeCardWidgetState(postId);
+  final int index;
+  List<CafeModel> cafeModel =
+      []; //şu an olması gerekiyor sanırım burda mısıııın vay be
+  CafeCardWidget({int index, List<CafeModel> cafeModel})
+      : this.index = index,
+        this.cafeModel = cafeModel;
+  _CafeCardWidgetState createState() => _CafeCardWidgetState(index, cafeModel);
 }
 
 class _CafeCardWidgetState extends State<CafeCardWidget> {
-  _CafeCardWidgetState(this.postId);
-  final int postId;
+  _CafeCardWidgetState(this.index, this.cafeModel);
 
+  void addCafeToFavorites() async {
+    var uuid = Uuid();
+    FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser.uid)
+        .collection("FavoriteCafes")
+        .doc(AuthService.ModelCafe[index].cafeId)
+        .set({'CafeId': AuthService.ModelCafe[index].cafeId});
+  }
+
+  final int index;
+  final List<CafeModel> cafeModel;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -42,14 +60,18 @@ class _CafeCardWidgetState extends State<CafeCardWidget> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     image: DecorationImage(
-                        image:
-                            NetworkImage(AuthService.model[postId].pictureUrl),
+                        image: NetworkImage(cafeModel[index].pictureUrl),
                         fit: BoxFit.fill),
                   ),
                 ),
                 GestureDetector(
                     onTap: () {
                       //User içine favorilere kaydedicek
+                      addCafeToFavorites();
+                      print(FirebaseAuth.instance.currentUser.uid);
+                      print("*****************");
+
+                      print(FirebaseAuth.instance.currentUser.uid);
                     },
                     child: Container(
                       alignment: Alignment.bottomRight,
@@ -69,7 +91,7 @@ class _CafeCardWidgetState extends State<CafeCardWidget> {
               child: Row(
                 children: [
                   Text(
-                    AuthService.model[postId].name,
+                    cafeModel[index].name,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,

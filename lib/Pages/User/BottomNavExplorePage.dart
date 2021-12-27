@@ -57,10 +57,11 @@ class ExplorePage extends StatelessWidget {
               ),
               Expanded(
                   child: ListView.builder(
-                      itemCount: AuthService.model.length,
+                      itemCount: AuthService.ModelCafe.length,
                       itemBuilder: (BuildContext ctx, int index) {
                         return CafeCardWidget(
-                          postId: index,
+                          index: index,
+                          cafeModel: AuthService.ModelCafe,
                         );
                       })),
             ],
