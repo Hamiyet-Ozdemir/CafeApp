@@ -7,6 +7,7 @@ import 'package:cafeapp/Models/CafeModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage ;
+import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 
@@ -120,12 +121,43 @@ static List<CafeModel> model;
 
   Future<void> click() async {
   }
-
+//get rezervation
+Future<List<RezervationModel>> getRezervationByUser() async{
+  List<RezervationModel> rezervationmodel=List<RezervationModel>();
+    var rezervasyonlar=await _firestore.collection("user").doc("8lUaVak3E0QoWhv761INrKyxE7h2").
+     collection("reservation").get();
+     var data=rezervasyonlar.docs;
+    for (var i = 0; i < data.length; i++) {
+    RezervationModel modell=RezervationModel();
+    modell.cafeId=data[i]["cafeId"];
+    modell.userRezervationId=data[i].id;
+    var c=await _firestore.collection("cafe").doc(modell.cafeId).get();
+    var d=await _firestore.collection("cafe").doc(modell.cafeId)
+    .collection("rezervasyonlar").where("userId",isEqualTo: "8lUaVak3E0QoWhv761INrKyxE7h2").get();
+    var t=d.docs.first;
+  
+    
+    String cafename= c.data()["name"];
+    modell.cafeName=cafename;
+    modell.cafeRezervationId=t.id;
+    modell.date=data[i]["date"];
+    modell.note=data[i]["note"];
+    modell.people=data[i]["people"];
+    modell.userName=data[i]["name"];
+    modell.userId=data[i]["userId"];
+    rezervationmodel.add(modell);
+    }
+    
+    return rezervationmodel;
+}
 //get all cafe
 Future<List<CafeModel>> getDocs() async {
     List<CafeModel> tempmodel=new List<CafeModel>();
+    
     var temp=await _firestore.collection("cafe").get();
     var data=temp.docs;
+  
+     
 for (var i = 0; i < data.length; i++) {
     CafeModel model1=new CafeModel();
     model1.adminId=data[i]["adminId"];
@@ -256,12 +288,6 @@ String randomName(){
   void addRezervation(String peoplecounter,String cafeId,String note,String date) async{
 
 
-   
-
-
-  
-
-
         FirebaseFirestore.instance.collection("cafe").doc(cafeId).collection("rezervasyonlar").doc().set({
                                 'name': userName,
                                 'userId': _auth.currentUser.uid,
@@ -278,6 +304,35 @@ String randomName(){
         .collection("user")
         .doc(FirebaseAuth.instance.currentUser.uid).collection("reservation").doc()
         .set({ 'name': userName,
+                                'userId': _auth.currentUser.uid,
+                                'date': date,
+                                'note': note,
+                                'people': peoplecounter,
+                                'cafeId':cafeId});
+        
+
+}
+ void updateRezervation(String peoplecounter,
+ String cafeId,String note,String date,String caferezervationId,String userrezervationId) async{
+
+
+        FirebaseFirestore.instance.collection("cafe").doc(cafeId).collection("rezervasyonlar")
+        .doc(caferezervationId).update({
+                                'name': userName,
+                                'userId': _auth.currentUser.uid,
+                                'date': date,
+                                'note': note,
+                                'people': peoplecounter,
+                                
+                                
+                              }).then((value) => print("rezervation update"));
+
+                  
+
+        FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser.uid).collection("reservation").doc(userrezervationId)
+        .update({ 'name': userName,
                                 'userId': _auth.currentUser.uid,
                                 'date': date,
                                 'note': note,
