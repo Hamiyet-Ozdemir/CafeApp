@@ -1,16 +1,54 @@
+import 'package:cafeapp/service/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 
 
+
 class UserMakeRezervation extends StatefulWidget {
+  final String cafeId;
+  final String cafename;
+
+  UserMakeRezervation(String cafeId,String cafename) : this.cafeId = cafeId,this.cafename=cafename;
+
   @override
-  State<UserMakeRezervation> createState() => _UserMakeRezervationState();
+  State<UserMakeRezervation> createState() => _UserMakeRezervationState(cafeId,cafename);
 } //view
 
 class _UserMakeRezervationState extends State<UserMakeRezervation> {
+  _UserMakeRezervationState(this.cafeId,this.cafename);
 
+  final String cafeId;
+  final String cafename;
+
+ Future<TimeOfDay> saatSec(BuildContext context) {
+    return showTimePicker(
+            context: context, initialTime: TimeOfDay.now());
+  }
+
+  Future<DateTime> tarihSec(BuildContext context) {
+    return showDatePicker(
+        context: context,
+        firstDate: DateTime.now(),
+        initialDate: DateTime.now(),
+        lastDate: DateTime(2023),
+        builder: (BuildContext context, Widget child) {
+          return Theme(
+            data: ThemeData.dark(),
+            child: child,
+          );
+        },
+      );
+  }
+  TextEditingController textcontoller=TextEditingController();
+  TextEditingController noteContoller=TextEditingController();
+  TextEditingController peopleContoller=TextEditingController();
+
+
+ DateTime secilenTarih = DateTime.now();
+  TimeOfDay secilenSaat = TimeOfDay.fromDateTime(DateTime.now());
   @override
   Widget build(BuildContext context) {
 
@@ -63,7 +101,7 @@ class _UserMakeRezervationState extends State<UserMakeRezervation> {
                                 SizedBox(width: 37), //boşluk
 
 
-                                Text("Starbucks Coffe",
+                                Text(cafename,
 
 
                                     style: GoogleFonts.roboto(
@@ -74,7 +112,13 @@ class _UserMakeRezervationState extends State<UserMakeRezervation> {
                                       color: Colors.black,
                                     )
                                 ),
-                                Container(
+                            GestureDetector(
+                              onTap: () {
+                                              AuthService().addRezervation(peopleContoller.text,
+                                               cafeId, noteContoller.text,
+                                                "Saat : ${secilenSaat.hour.toString()} : ${secilenSaat.
+                              minute.toString()}   Tarih : ${secilenTarih.day}-${secilenTarih.month}-${secilenTarih.year}");                
+                                                            },child:     Container(
 
                                   margin: EdgeInsets.only(left: 28),
                                   height: 32,
@@ -93,7 +137,8 @@ class _UserMakeRezervationState extends State<UserMakeRezervation> {
                                     ),
                                   ),
                                 ),
-                              ],
+                      
+                            )        ],
                             ) ,
                             Container(
                               margin: EdgeInsets.fromLTRB(4, 0,40, 0),
@@ -155,8 +200,11 @@ class _UserMakeRezervationState extends State<UserMakeRezervation> {
                                 padding: EdgeInsets.only(left: 16),
                                 //height:,
                                 child: TextField(
-                                  textAlign: TextAlign.left,
+                                  controller: peopleContoller,
+                                   textAlign: TextAlign.left,
+                                   
                                   decoration: InputDecoration(
+                                      
                                       border: InputBorder.none,
                                       hintText: "Kaç Kişisiniz ?",
                                       hintStyle: TextStyle(
@@ -169,8 +217,21 @@ class _UserMakeRezervationState extends State<UserMakeRezervation> {
                             ],
                           ),
                         ),
-
-                        Container(
+                        GestureDetector(onTap: () async {
+                           secilenTarih =  await tarihSec(context);
+       
+       
+        if(secilenTarih != null){
+          secilenSaat = await saatSec(context);
+        }
+        
+        if(secilenTarih != null && secilenSaat != null){
+           
+         textcontoller.text="emre";
+        }
+       
+                                                  
+                                                },child:   Container(
 
                           padding: EdgeInsets.only(left: 20),
                           margin: EdgeInsets.only(top: 22),
@@ -208,22 +269,20 @@ class _UserMakeRezervationState extends State<UserMakeRezervation> {
 
                                 padding: EdgeInsets.only(left: 16),
                                 //height:,
-                                child: TextField(
-                                  textAlign: TextAlign.left,
-                                  decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: "Ne Zaman Geleceksiniz ?",
-                                      hintStyle: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 12)),
-                                ),
-                              ),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  height: 50,
+                                  child: Text("Saat : ${secilenSaat.hour.toString()} : ${secilenSaat.
+                              minute.toString()}   Tarih : ${secilenTarih.day}-${secilenTarih.month}-${secilenTarih.year}")
+ ,
+                                )
 
-
-                            ],
+                               ) ],
                           ),
                         ),
-   Container(
+  
+  ),
+                           Container(
 
                           padding: EdgeInsets.only(left: 20),
                           margin: EdgeInsets.only(top: 22),
@@ -262,6 +321,8 @@ height: 200,
                                 padding: EdgeInsets.only(left: 16),
                                 //height:,
                                 child: TextField(
+                                  controller: noteContoller,
+
                                   textAlign: TextAlign.left,
                                   decoration: InputDecoration(
                                       border: InputBorder.none,

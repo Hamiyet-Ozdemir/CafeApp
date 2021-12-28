@@ -1,15 +1,20 @@
 import 'package:cafeapp/Pages/Admin/AdminBottomNavigationBar/AdminBottomNavBar.dart';
 import 'package:cafeapp/Pages/Admin/AdminSignUpPage/AdminSignUpView.dart';
 import 'package:cafeapp/Pages/Admin/ForgetPasswordPage/ForgetPasswordView.dart';
-import 'package:cafeapp/Pages/User/BottomNavExplorePage.dart';
-import 'package:cafeapp/Pages/User/UserSignUpPage/UserSignUpView.dart';
 import 'package:cafeapp/service/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cafeapp/Pages/ForgetPasswordPage/VerificationView.dart';
 
-import 'package:cafeapp/Pages/User/BottomNavigationMainPage.dart';
+  void _showToast(BuildContext context,String msg) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content:  Text(msg),
+      ),
+    );
+  }
 
 class AdminLoginState extends StatelessWidget {
   TextEditingController _emailController = TextEditingController();
@@ -194,17 +199,21 @@ class AdminLoginState extends StatelessWidget {
                           ),
                           GestureDetector(
                             onTap: () async {
-                              await _authService.click();
-                              await _authService
-                                  .signIn(_emailController.text,
-                                      _passwordController.text)
-                                  .then((value) {
-                                return Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            AdminMainNavigationPageState()));
-                              });
+                            String user=await  _authService
+                          .signInAdmin(
+                              "emree68.12@gmail.com","111111");
+                          if(user=="true"){
+                             return Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AdminMainNavigationPageState()));
+                          }
+                          else{
+                                   _showToast(context,user);
+
+                          }
+                       
+                      
                             },
                             child: Container(
                               height:

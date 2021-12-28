@@ -1,5 +1,5 @@
 import 'package:cafeapp/Pages/Admin/AdminLoginPage/AdminLoginView.dart';
-import 'package:cafeapp/Pages/User/BottomNavExplorePage.dart';
+
 import 'package:cafeapp/Pages/User/UserSignUpPage/UserSignUpView.dart';
 import 'package:cafeapp/service/auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,8 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:cafeapp/Pages/ForgetPasswordPage/VerificationView.dart';
 
 import 'package:cafeapp/Pages/User/BottomNavigationMainPage.dart';
-
+  void _showToast(BuildContext context,String msg) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content:  Text(msg),
+      ),
+    );
+  }
 class LoginState extends StatelessWidget {
+  
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   AuthService _authService = AuthService();
@@ -225,17 +233,21 @@ class LoginState extends StatelessWidget {
                           ),
                           GestureDetector(
                             onTap: () async {
-                              await _authService.click();
-                              await _authService
-                                  .signIn(_emailController.text,
-                                      _passwordController.text)
-                                  .then((value) {
-                                return Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            MainNavigationPageState()));
-                              });
+                            String user=await  _authService
+                          .signInUser(
+                              "m.parlak3858@gmail.com","111111");
+                          if(user=="true"){
+                             return Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MainNavigationPageState()));
+                          }
+                          else{
+                                _showToast(context, user);
+
+                          }
+                       
+                      
                             },
                             child: Container(
                               height:

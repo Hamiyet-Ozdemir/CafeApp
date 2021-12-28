@@ -1,15 +1,11 @@
 import 'dart:io';
 import 'dart:math';
-import 'package:uuid/uuid.dart';
-import 'package:uuid/uuid_util.dart';
 import 'package:cafeapp/service/auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 
 
@@ -20,7 +16,6 @@ class AddCafeState extends StatefulWidget {
 
 class _AddCafeState extends State<AddCafeState> {
 
-PickedFile pickedfile;
 final myImageController = TextEditingController();
 final myPdfController=TextEditingController();
 final cafeNameController = TextEditingController();
@@ -42,7 +37,10 @@ _getFromGallery() async {
   }
 }
 
+
 File file;
+PickedFile pickedfile;
+
 String randomName(){
    var rng = new Random();
      String randomName="";
@@ -62,58 +60,8 @@ file=File(result.paths.first);
   print(fileName);
   myPdfController.text=fileName;
   }
-void addCafe() async{
-   var uuid = Uuid();
-    File _imageFile=File(pickedfile.path);
-    String fileName = randomName()+"."+_imageFile.path.split('.').last;
-    String pdfName = randomName()+".pdf";
+  
 
-    firebase_storage.Reference firebaseStorageRef =
-        firebase_storage.FirebaseStorage.instance.ref().child('cafeImages/$fileName');
-
-    firebase_storage.UploadTask uploadTask = firebaseStorageRef.putFile(_imageFile);
-    firebase_storage.TaskSnapshot taskSnapshot = await uploadTask;
-
-        firebase_storage.Reference firebaseStorageRef1 =
-        firebase_storage.FirebaseStorage.instance.ref().child('cafeMenuPdf/$pdfName');
-    firebase_storage.UploadTask uploadtask1=firebaseStorageRef1.putFile(file);
-    firebase_storage.TaskSnapshot taskSnapshot1 = await uploadtask1;
-
-    taskSnapshot.ref.getDownloadURL().then(
-          (value) => print("Done: $value"),
-        );
- taskSnapshot1.ref.getDownloadURL().then(
-          (value) => print("Done: $value"),
-        );
-String uid=uuid.v1().toString();
-        FirebaseFirestore.instance.collection("cafe").doc(uid).set({
-                                'name': cafeNameController.text,
-                                'cafeAddress': cafeAdressController.text,
-                                'safeId': safeIdController.text,
-                                'openClock': openClockController.text,
-                                'closeClock': closeClockController.text,
-                                'description': descriptionController.text,
-                                'phoneNumber': phoneNumberController.text,
-                                'menu': pdfName,
-                                'picture': fileName,
-                                'adminId':FirebaseAuth.instance.currentUser.uid
-                                
-                              }).then((value) => print("cafe added"));
-
-                              FirebaseFirestore.instance
-        .collection("admin")
-        .doc(FirebaseAuth.instance.currentUser.uid).collection("cafes").doc()
-        .set({"name":cafeNameController.text}).whenComplete(
-            () => print("Admin güncellendi"));
-
-        FirebaseFirestore.instance
-        .collection("admin")
-        .doc(FirebaseAuth.instance.currentUser.uid).collection("cafes").doc(uid)
-        .set({'name': cafeNameController.text});
-        AuthService.model=await AuthService().getDocs();
-
-}
- 
  @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -343,7 +291,11 @@ _getDocuments();
                     )),
                       GestureDetector(
                             onTap: () async {
-                           await addCafe();
+                           AuthService().addCafe(pickedfile,cafeNameController.text,
+                           cafeAdressController.text,safeIdController.text
+                           ,openClockController.text,closeClockController.text,descriptionController.text,
+                           phoneNumberController.text,myPdfController.text,myImageController.text,FirebaseAuth.instance.currentUser.uid,
+                           file);
                             Navigator.pop(context); } ,                       
                             child:
                 Container(
