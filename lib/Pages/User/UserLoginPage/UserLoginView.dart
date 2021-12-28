@@ -159,7 +159,7 @@ class LoginState extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => UserRegisterState(),
+                                  builder: (context) => UserSignUp(),
                                 ),
                               );
                             },
@@ -175,7 +175,7 @@ class LoginState extends StatelessWidget {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => UserRegisterState(),
+                                          builder: (context) => UserSignUp(),
                                         ),
                                       );
                                     },
@@ -194,7 +194,7 @@ class LoginState extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => UserRegisterState(),
+                                  builder: (context) => UserSignUp(),
                                 ),
                               );
                             },

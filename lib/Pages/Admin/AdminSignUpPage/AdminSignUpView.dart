@@ -5,27 +5,69 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+class AdminSignUp extends StatefulWidget{
 
-class AdminSignUpState extends StatelessWidget {
- TextEditingController NameSurname = TextEditingController();
-  TextEditingController PhoneNumber = TextEditingController();
-  TextEditingController Email = TextEditingController();
-  TextEditingController Password = TextEditingController();
-  TextEditingController Password1 = TextEditingController();
-  TextEditingController KasaId = TextEditingController();
-  TextEditingController WorkClock = TextEditingController();
-  TextEditingController Adress = TextEditingController();
-AuthService _authService=AuthService();
+  @override
+  State<AdminSignUp> createState()=> AdminSignUpState();
+}
 
- 
-  
-    CollectionReference admin= FirebaseFirestore.instance.collection('admin');
-   
-  
- 
- 
- 
- 
+class AdminSignUpState extends State<AdminSignUp> {
+  final TextEditingController nameSurname = TextEditingController();
+  final TextEditingController phoneNumber = TextEditingController();
+  final TextEditingController email = TextEditingController();
+  final TextEditingController password = TextEditingController();
+  final TextEditingController passwordAgain = TextEditingController();
+
+  final AuthService _authService=AuthService();
+
+  double opacity=0.4;
+
+
+  bool isNull(){
+    if(nameSurname.text.isNotEmpty && nameSurname.text!="İsim Soyisim" && email.text.isNotEmpty&&
+        email.text!="E-posta" && password.text.isNotEmpty && password.text!= "Şifre" &&
+        phoneNumber.text.isNotEmpty && phoneNumber.text!="Telefon Numarası" && passwordAgain.text.isNotEmpty &&
+        passwordAgain.text!="Şifre (Tekrar)"){
+      opacity=1;
+
+      return true;
+    }else{
+      opacity=0.4;
+      return false;
+    }
+
+  }
+  @override
+  void initState() {
+
+    nameSurname.addListener(() {
+      setState(() {});
+    });
+    email.addListener(() {
+      setState(() {});
+    });
+    phoneNumber.addListener(() {
+      setState(() {});
+    });
+    password.addListener(() {
+      setState(() {});
+    });
+    passwordAgain.addListener(() {
+      setState(() {});
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    nameSurname.dispose();
+    phoneNumber.dispose();
+    email.dispose();
+    password.dispose();
+    passwordAgain.dispose();
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +99,10 @@ AuthService _authService=AuthService();
                       borderRadius:
                       BorderRadius.all(Radius.circular(12))),
                   child: TextField(
-                  controller: NameSurname,
+                    onChanged: (text){
+                      isNull();
+                    },
+                  controller: nameSurname,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -77,7 +122,10 @@ AuthService _authService=AuthService();
                       borderRadius:
                       BorderRadius.all(Radius.circular(12))),
                   child: TextField(
-                    controller: PhoneNumber,
+                    onChanged: (text){
+                      isNull();
+                    },
+                    controller: phoneNumber,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -97,7 +145,10 @@ AuthService _authService=AuthService();
                       borderRadius:
                       BorderRadius.all(Radius.circular(12))),
                   child: TextField(
-                    controller: Email,
+                    onChanged: (text){
+                      isNull();
+                    },
+                    controller: email,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -117,7 +168,10 @@ AuthService _authService=AuthService();
                       borderRadius:
                       BorderRadius.all(Radius.circular(12))),
                   child: TextField(
-                    controller: Password,
+                    onChanged: (text){
+                      isNull();
+                    },
+                    controller: password,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -137,7 +191,10 @@ AuthService _authService=AuthService();
                       borderRadius:
                       BorderRadius.all(Radius.circular(12))),
                   child: TextField(
-                    controller: Password1,
+                    onChanged: (text){
+                      isNull();
+                    },
+                    controller: passwordAgain,
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -147,100 +204,69 @@ AuthService _authService=AuthService();
                             fontSize: 18.75)),
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(top: 5, bottom: 5),
-                  padding: EdgeInsets.only(left: 16),
-                  height: 40,
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius:
-                      BorderRadius.all(Radius.circular(12))),
-                  child: TextField(
-                    controller: KasaId,
-                    textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Kasa Id",
-                        hintStyle: TextStyle(
-                            color: Colors.grey[400],
-                            fontSize: 18.75)),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 5, bottom: 5),
-                  padding: EdgeInsets.only(left: 16),
-                  height: 40,
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius:
-                      BorderRadius.all(Radius.circular(12))),
-                  child: TextField(
-                    controller: WorkClock,
-                    textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Çalışma Saati",
-                        hintStyle: TextStyle(
-                            color: Colors.grey[400],
-                            fontSize: 18.75)),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 5, bottom: 5),
-                  padding: EdgeInsets.only(left: 16),
-                  height: 113,
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius:
-                      BorderRadius.all(Radius.circular(12))),
-                  child: TextField(
-                    controller: Adress,
-                    textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Kafenin Adresi",
-                        hintStyle: TextStyle(
-                            color: Colors.grey[400],
-                            fontSize: 18.75)),
-                  ),
-                ), 
-                 GestureDetector(
 
-                            onTap: (){ _authService
-                              .createAdmin(
-                                  NameSurname.text,
-                                  Email.text,
-                                  Password.text,
-                                  PhoneNumber.text)
-                              .then((value) {
-                            return Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LoginState()));
-                          });},
-                            
+                 GestureDetector(
+                   //check passwords
+                   onTap: (){
+                     if(isNull()){
+                       showDialog<String>(
+                           context: context,
+                           builder: (BuildContext context) =>  AlertDialog(
+                             title: Text("Lütfen boş alanları Doldurunuz!"),
+                             actions:<Widget>[
+                               TextButton(
+                                 onPressed: () => Navigator.pop(context),
+                                 child: const Text('OK'),
+                               ),
+                             ],
+
+                           ));
+
+                       if(password.text==passwordAgain.text){
+                         _authService.createAdmin(nameSurname.text,email.text,password.text,phoneNumber.text).then((value)
+                         {
+                           return Navigator.push(context,MaterialPageRoute(builder: (context) => LoginState()));
+                         });
+                       }
+                       else{
+                         showDialog<String>(
+                             context: context,
+                             builder: (BuildContext context) =>  AlertDialog(
+                               title: Text("Şifreler uyuşmuyor!"),
+                               actions:<Widget>[
+                                 TextButton(
+                                   onPressed: () => Navigator.pop(context),
+                                   child: const Text('OK'),
+                                 ),
+                               ],
+
+                             ));
+                       }
+                     }else{
+                       opacity=0.4;
+                     }
+
+                   },
                             child: 
-                Container(
-                  margin: EdgeInsets.only(top: 50),
-                  height: 60,
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  alignment: Alignment.bottomCenter,
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(240, 118, 24, 1),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Kayıt Ol",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),),
+                     Container(
+                       margin: EdgeInsets.only(top: 50),
+                       height: 60,
+                       width: MediaQuery.of(context).size.width * 0.9,
+                       alignment: Alignment.bottomCenter,
+                       decoration: BoxDecoration(
+                         color: Color.fromRGBO(240, 118, 24, opacity),
+                         borderRadius: BorderRadius.circular(10),
+                       ),
+                       child: Center(
+                         child: Text(
+                           "Kayıt Ol",
+                           style: TextStyle(
+                               color: Colors.white,
+                               fontWeight: FontWeight.bold),
+                         ),
+                       ),
+                   ),
+                 ),
               ],
             ),
           ),

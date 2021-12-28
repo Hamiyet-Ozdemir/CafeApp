@@ -1,8 +1,86 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+class CreateComment extends StatefulWidget{
 
-class UserCreateCommentState extends StatelessWidget {
+  State<CreateComment> createState()=> CreateCommentState();
+}
+
+class CreateCommentState extends State<CreateComment> {
+  //yayınla fonksiyonunun auth değeri
+  //firebase get username
+
+
+  String username="Ahmet";
+  int firstStarColor=0xFFC4C4C4;
+  int secondStarColor=0xFFC4C4C4;
+  int thirdStarColor=0xFFC4C4C4;
+  int fourthStarColor=0xFFC4C4C4;
+  int fifthStarColor=0xFFC4C4C4;
+
+  final TextEditingController comment = TextEditingController();
+
+  final String assetName="assets/icons/Star.svg";
+
+    Future<void> selectedStars(int index) async{
+    switch (index){
+      case 1: {
+        setState(() {
+          firstStarColor=0xFF1B7CA2;
+          secondStarColor=0xFFC4C4C4;
+          thirdStarColor=0xFFC4C4C4;
+          fourthStarColor=0xFFC4C4C4;
+          fifthStarColor=0xFFC4C4C4;
+        });
+      }
+      break;
+      case 2: {
+        setState(() {
+          firstStarColor=0xFF1B7CA2;
+          secondStarColor=0xFF1B7CA2;
+          thirdStarColor=0xFFC4C4C4;
+          fourthStarColor=0xFFC4C4C4;
+          fifthStarColor=0xFFC4C4C4;
+        });
+      }
+      break;
+      case 3: {
+        setState(() {
+          firstStarColor=0xFF1B7CA2;
+          secondStarColor=0xFF1B7CA2;
+          thirdStarColor=0xFF1B7CA2;
+          fourthStarColor=0xFFC4C4C4;
+          fifthStarColor=0xFFC4C4C4;
+        });
+      }
+      break;
+      case 4: {
+        setState(() {
+          firstStarColor=0xFF1B7CA2;
+          secondStarColor=0xFF1B7CA2;
+          thirdStarColor=0xFF1B7CA2;
+          fourthStarColor=0xFF1B7CA2;
+          fifthStarColor=0xFFC4C4C4;
+        });
+      }
+      break;
+      case 5: {
+        setState(() {
+          firstStarColor=0xFF1B7CA2;
+          secondStarColor=0xFF1B7CA2;
+          thirdStarColor=0xFF1B7CA2;
+          fourthStarColor=0xFF1B7CA2;
+          fifthStarColor=0xFF1B7CA2;
+        });
+      }
+      break;
+    }
+  }
+
+//listener for property
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,15 +98,16 @@ class UserCreateCommentState extends StatelessWidget {
             child: Container(
                 margin: EdgeInsets.only(top: 0),
                 padding: EdgeInsets.only(top: 3, left: 12, right: 12),
-                height: MediaQuery.of(context).size.height * 0.177,
+
                 width: MediaQuery.of(context).size.width,
                 alignment: Alignment.centerLeft,
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    SizedBox(height: 5),
+                    SizedBox(height: 10),
                     new Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
+                        children:[
                           Image.asset(
                             "assets/images/butonimage.png",
                             height: 28,
@@ -66,7 +145,7 @@ class UserCreateCommentState extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       margin: EdgeInsets.only(left: 25, top: 9),
                       child: Text(
-                        "Ahmet Yılmaz",
+                        username,
                         style: GoogleFonts.roboto(
                             fontSize: 20, color: Color(0xFFF07618)),
                       ),
@@ -74,38 +153,69 @@ class UserCreateCommentState extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.only(top: 5, bottom: 13),
                       alignment: Alignment.centerRight,
-                      height: 40,
+                    height: 50,
                       width: 261,
                       child: Row(
                         children: [
-                          Image.asset(
-                            "assets/images/Star_Empty.png",
-                            height: 15,
-                            width: 15,
+                          GestureDetector(
+                            onTap: (){
+                              selectedStars(1);
+                            },
+                            child: SvgPicture.asset(
+                              assetName,
+                              height: 39,
+                              width: 39,
+                              color: Color(firstStarColor),
+                            ),
+                          ),
+
+                          SizedBox(width: 13),
+                          GestureDetector(
+                            onTap: (){
+                              selectedStars(2);
+                            },
+                            child: SvgPicture.asset(
+                              assetName,
+                              height: 39,
+                              width: 39,
+                              color: Color(secondStarColor),
+                            ),
                           ),
                           SizedBox(width: 13),
-                          Image.asset(
-                            "assets/images/Star_Empty.png",
-                            height: 15,
-                            width: 15,
+                          GestureDetector(
+                            onTap: (){
+                              selectedStars(3);
+                            },
+                            child: SvgPicture.asset(
+                              assetName,
+                              height: 39,
+                              width: 39,
+                              color: Color(thirdStarColor),
+                            ),
                           ),
                           SizedBox(width: 13),
-                          Image.asset(
-                            "assets/images/Star_Empty.png",
-                            height: 15,
-                            width: 15,
+                          GestureDetector(
+                            onTap: (){
+                              selectedStars(4);
+                            },
+                            child: SvgPicture.asset(
+                              assetName,
+                              height: 39,
+                              width: 39,
+                              color: Color(fourthStarColor),
+                            ),
                           ),
                           SizedBox(width: 13),
-                          Image.asset(
-                            "assets/images/Star_Empty.png",
-                            height: 15,
-                            width: 15,
-                          ),
-                          SizedBox(width: 13),
-                          Image.asset(
-                            "assets/images/Star_Empty.png",
-                            height: 15,
-                            width: 15,
+                          GestureDetector(
+                            onTap: (){
+                              selectedStars(5);
+                            },
+                            child: SvgPicture.asset(
+                              assetName,
+                              height: 39,
+                              width: 39,
+                              color: Color(fifthStarColor),
+                            ),
                           ),
                         ],
                       ),
@@ -140,8 +250,9 @@ class UserCreateCommentState extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(15)),
                           color: Color(0xFFFFFFFF)),
                       child: TextFormField(
+                        controller: comment,
                         keyboardType: TextInputType.multiline,
-                        maxLines: null,
+                        maxLines: 6,
                         textAlign: TextAlign.left,
                         decoration: InputDecoration(
                             border: InputBorder.none,

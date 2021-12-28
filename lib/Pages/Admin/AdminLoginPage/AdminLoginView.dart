@@ -178,7 +178,7 @@ class AdminLoginState extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              AdminSignUpState(),
+                                              AdminSignUp(),
                                         ),
                                       );
                                     },

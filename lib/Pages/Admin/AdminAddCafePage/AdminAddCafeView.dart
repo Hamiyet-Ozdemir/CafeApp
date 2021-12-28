@@ -42,8 +42,6 @@ _getFromGallery() async {
   }
 }
 
-  CollectionReference cafes= FirebaseFirestore.instance.collection('cafe');
-
 File file;
 String randomName(){
    var rng = new Random();

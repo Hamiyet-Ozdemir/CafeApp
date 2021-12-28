@@ -1,7 +1,14 @@
+
+
+import 'dart:io';
+
 import 'package:cafeapp/Models/CafeModel.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -66,30 +73,63 @@ class AuthService {
   //admin kayıt ol fonksiyonu
 
   Future<User> createAdmin(
-      String name, String email, String password, String PhoneNumber) async {
+      String name, String email, String password, String phoneNumber) async {
     var user = await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
     adminName = name;
     await _firestore
         .collection("admin")
         .doc(user.user.uid)
-        .set({'userName': name, 'email': email, 'phoneNumber': PhoneNumber});
+        .set({'userName': name, 'email': email, 'phoneNumber': phoneNumber});
     await user.user.sendEmailVerification();
     return user.user;
   }
-
+//kullnıcı kayıt ol fonsiyonu
   Future<User> createUser(
-      String name, String email, String password, String PhoneNumber) async {
+      String name, String email, String password, String phoneNumber) async {
     var user = await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
 
     await _firestore.collection("user").doc(user.user.uid).set({
       'mailAddress': email,
       'nameSurname': name,
-      'phoneNumber': PhoneNumber,
+      'phoneNumber': phoneNumber,
       'userPoint': 100
     });
-
     return user.user;
+  }
+
+  //kampana ekleme fonksiyonu
+  Future<void> createOffer(String cafeId, String offerTitle ,String offerDetail ,String offerTag ,String description ,File picturePath) async {
+    firebase_storage.Reference firebaseStorageRef =
+    firebase_storage.FirebaseStorage.instance.ref().child('offerImages/${picturePath.path}');
+
+    firebase_storage.UploadTask uploadTask = firebaseStorageRef.putFile(picturePath);
+    firebase_storage.TaskSnapshot taskSnapshot = await uploadTask;
+
+    var pictureUrl=taskSnapshot.ref.getDownloadURL().then(
+          (value) => print("Done: $value"),
+    );
+    await FirebaseFirestore.instance.collection("cafe").doc(cafeId).collection("kampanyalar").doc().update({
+      'offerTitle': offerTitle,
+      'offerDetail': offerDetail,
+      'offerTag': offerTag,
+      'description': description,
+      'pictureUrl': pictureUrl
+    });
+  }
+
+
+  //yorum oluşturma
+  Future<void> createComment(
+      String username,int point, String comment,int like,int unlike) async {
+    await FirebaseFirestore.instance.collection("cafe").doc().collection("yorumlar").doc().update({
+      'username': username,
+      'point': point,
+      'comment': comment,
+      'like': like,
+      'unlike': unlike
+    });
+
   }
 }

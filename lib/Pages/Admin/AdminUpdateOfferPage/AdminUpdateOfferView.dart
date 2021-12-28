@@ -1,29 +1,61 @@
+
+
+import 'package:cafeapp/service/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 
 
 class AdminUpdateOffer extends StatefulWidget {
+
   @override
   State<AdminUpdateOffer> createState() => AdminUpdateOfferState();
 } //view
 
 class AdminUpdateOfferState extends State<AdminUpdateOffer> {
+  String cafeId="";
+  String setButton="Yayınla";
+  final TextEditingController offerTitle=TextEditingController();
+  final TextEditingController offerDetail=TextEditingController();
+  final TextEditingController offerTag=TextEditingController();
+  final TextEditingController description=TextEditingController();
+  final TextEditingController picturePath=TextEditingController();
+
+  String offerTitleHintText="Kampanya Başlığı";
+  String offerDetailHintText="Kampanta Detayı";
+  String offerTagHintText="Etiket";
+  String descriptionHintText="Ek Açıklama";
+  String picturePathHintText="Kampanya Resmi";
+
+  PickedFile pickedFile;
+  File file;
+  final myImageController = TextEditingController();
+  _getFromGallery() async {
+    pickedFile = await ImagePicker().getImage(
+      source: ImageSource.gallery,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      File imageFile = File(pickedFile.path);
+      myImageController.text = imageFile.toString();
+      picturePath.text= imageFile.toString();
+
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-
-        body:SingleChildScrollView(
-
-          child: Container(
+          body: Container(
               child:Column(
-
                 children: [
-
                   Container(
                     color: Color(0xFFFFFFFF),
                     height: 118,
@@ -47,38 +79,37 @@ class AdminUpdateOfferState extends State<AdminUpdateOffer> {
                                 ),
                               ),
                               SizedBox(width: 57), //boşluk
-
-
                               Text("Starbucks Coffe",
-
-
                                   style: GoogleFonts.roboto(
-
                                     fontStyle: FontStyle.normal,
                                     fontSize: 25,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black,
                                   )
                               ),
-                              Container(
-
-                                margin: EdgeInsets.only(left: 28),
-                                height: 32,
-                                width: 70,
-                                alignment: Alignment.bottomCenter,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFF1B7CA2),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "Güncelle",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ),
+                             GestureDetector(
+                               onTap:() {
+                                 AuthService().createOffer("33076fd0-6505-11ec-9098-1f0c3ea07406",offerTitle.text, offerDetail.text, offerTag.text, description.text, File(pickedFile.path));
+                               },
+                               child:  Container(
+                                 margin: EdgeInsets.only(left: 28),
+                                 height: 32,
+                                 width: 70,
+                                 alignment: Alignment.bottomCenter,
+                                 decoration: BoxDecoration(
+                                   color: Color(0xFF1B7CA2),
+                                   borderRadius: BorderRadius.circular(10),
+                                 ),
+                                 child: Center(
+                                   child: Text(
+                                     setButton,
+                                     style: TextStyle(
+                                         color: Colors.white,
+                                         fontWeight: FontWeight.bold),
+                                   ),
+                                 ),
+                               ),
+                             ),
                             ],
                           ) ,
                           Container(
@@ -98,245 +129,149 @@ class AdminUpdateOfferState extends State<AdminUpdateOffer> {
                     //başlık Container
 
                   ),
-                  Container(
-                    color:Color(0xFFFE5E5E5),
-                    height: MediaQuery.of(context).size.height,
-                    child: Column(
-                      children: [
-
-                        Container(
-
-
-                          margin: EdgeInsets.only(top: 5),
-
-                          alignment: Alignment.centerLeft,
-                          height:80,
+                  Expanded(
+                    child:  SingleChildScrollView(
+                        child:Container(
+                          height: MediaQuery.of(context).size.height,
+                          width: MediaQuery.of(context).size.width,
+                          color:Color(0xFFF7F8FB),
                           child: Column(
                             children: [
-
-                              Container(
-
-                                height: 29,
-                                alignment: Alignment.centerLeft,
-                                padding:EdgeInsets.fromLTRB(50,0,0,0),//dikkat
-
-                                child:Text("Kampanya Başlığı",
-                                  style: TextStyle(
-                                      color: Colors.blueGrey,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-
                               Container(
                                 color: Colors.white,
-                                width:317,
-                                padding: EdgeInsets.only(left: 15,bottom: 10),
-                                height:39,
+                                width:MediaQuery.of(context).size.width*0.85,
+                                margin: EdgeInsets.only(top:47,bottom:20),
+                                padding: EdgeInsets.only(left: 15),
+                                height:40,
                                 child: TextField(
+                                  controller: offerTitle,
                                   textAlign: TextAlign.left,
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: "Kampanya 1",
+                                      hintText: offerTitleHintText,
                                       hintStyle: TextStyle(
                                           color: Color(0xFFB6B7C8),
-                                          fontSize: 12)),
+                                          fontSize: 16)),
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                        //ilk textfield
-
-                        Container(
-
-
-                          alignment: Alignment.centerLeft,
-                          height:80,
-                          child: Column(
-                            children: [
-
-                              Container(
-
-                                height: 29,
-                                alignment: Alignment.centerLeft,
-                                padding:EdgeInsets.fromLTRB(50,0,0,0),//dikkat
-
-                                child:Text("Kampanya Detayı",
-                                  style: TextStyle(
-                                      color: Colors.blueGrey,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
+                              //ilk textfield
 
                               Container(
                                 color: Colors.white,
-                                width:317,
-                                padding: EdgeInsets.only(left: 15,bottom: 10),
-                                height:39,
+                                width:MediaQuery.of(context).size.width*0.85,
+                                margin: EdgeInsets.only(bottom:20),
+                                padding: EdgeInsets.only(left: 15),
+                                height:40,
                                 child: TextField(
+                                  controller: offerDetail,
                                   textAlign: TextAlign.left,
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: "Çay Kampanyası",
+                                      hintText: offerDetailHintText,
                                       hintStyle: TextStyle(
                                           color: Color(0xFFB6B7C8),
-                                          fontSize: 12)),
+                                          fontSize: 16)),
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                        //ikinci textfield
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          height:80,
-                          child: Column(
-                            children: [
-
-                              Container(
-
-                                height: 29,
-                                alignment: Alignment.centerLeft,
-                                padding:EdgeInsets.fromLTRB(50,0,0,0),//dikkat
-
-                                child:Text("Etiket",
-                                  style: TextStyle(
-                                      color: Colors.blueGrey,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-
+                              //ikinci textfield
                               Container(
                                 color: Colors.white,
-                                width:317,
-                                padding: EdgeInsets.only(left: 15,bottom: 10),
-                                height:39,
+                                width:MediaQuery.of(context).size.width*0.85,
+                                margin: EdgeInsets.only(bottom:20),
+                                padding: EdgeInsets.only(left: 15),
+                                height:40,
                                 child: TextField(
+                                  controller: offerTag,
                                   textAlign: TextAlign.left,
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: "2 ile 8 arası çay %10 indirimli",
+                                      hintText: offerTagHintText,
                                       hintStyle: TextStyle(
                                           color: Color(0xFFB6B7C8),
-                                          fontSize: 12)),
+                                          fontSize: 16)),
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                        //ikinci textfield
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          height:169,
-                          child: Column(
-                            children: [
-
-                              Container(
-
-                                height: 29,
-                                alignment: Alignment.centerLeft,
-                                padding:EdgeInsets.fromLTRB(50,0,0,0),//dikkat
-
-                                child:Text("Ek Açıklama",
-                                  style: TextStyle(
-                                      color: Colors.blueGrey,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-
+                              //ikinci textfield
                               Container(
                                 color: Colors.white,
-                                width:317,
-                                padding: EdgeInsets.only(left: 15,bottom: 10),
+                                width:MediaQuery.of(context).size.width*0.85,
+                                margin: EdgeInsets.only(bottom:20),
+                                padding: EdgeInsets.only(left: 15,bottom: 10,right: 15),
                                 height:140,
                                 child: TextField(
-                                  maxLines: 5,
+                                  controller: description,
+                                  maxLines: 7,
                                   textAlign: TextAlign.left,
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                                      hintText: descriptionHintText,
                                       hintStyle: TextStyle(
                                           color: Color(0xFFB6B7C8),
-                                          fontSize: 12)),
+                                          fontSize: 16)),
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                        //üçüncü textfield
-                        Container(
-
-
-                          alignment: Alignment.centerLeft,
-                          height:80,
-                          child: Column(
-                            children: [
-
+                              //üçüncü textfield
                               Container(
-
-                                height: 29,
-                                alignment: Alignment.centerLeft,
-                                padding:EdgeInsets.fromLTRB(50,0,0,0),//dikkat
-
-                                child:Text("Kampanya Görseli ",
-                                  style: TextStyle(
-                                      color: Colors.blueGrey,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-
-                              Row(
-                                children: [
-                                  Container(
-                                    color: Colors.white,
-                                    margin: EdgeInsets.only(left:47 ),
-                                    width:207,
-                                    padding: EdgeInsets.only(left: 15,bottom: 10),
-                                    height:39,
-                                    child: TextField(
-                                      textAlign: TextAlign.left,
-                                      decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          hintText: "Kapmanya1.jpg",
-                                          hintStyle: TextStyle(
-                                              color: Color(0xFFB6B7C8),
-                                              fontSize: 12)),
-                                    ),
-                                  ),
-                                  Container(
-
-                                    margin: EdgeInsets.only(left: 40),
-                                    height: 32,
-                                    width: 70,
-                                    alignment: Alignment.bottomCenter,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFF1B7CA2),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        "Seç",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
+                                  width:MediaQuery.of(context).size.width*0.85,
+                                  margin: EdgeInsets.only(bottom:20),
+                                  height: 40,
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        height: 40,
+                                        color: Colors.white,
+                                        padding: EdgeInsets.only(left: 16),
+                                        width:MediaQuery.of(context).size.width*0.6,
+                                        child: TextField(
+                                          readOnly: true,
+                                          controller: myImageController,
+                                          textAlign: TextAlign.left,
+                                          decoration: InputDecoration(
+                                              border: InputBorder.none,
+                                              hintText: picturePathHintText,
+                                              hintStyle: TextStyle(
+                                                  color: Colors.grey[400], fontSize: 16)),
+                                        ),
                                       ),
-                                    ),
-                                  ),
+                                      GestureDetector(
+                                        onTap: (){
+                                          _getFromGallery();
+                                        },
+                                        child:  Container(
+                                          margin: EdgeInsets.only(left: 20),
+                                          height: 40,
+                                          width: 80,
+                                          alignment: Alignment.bottomCenter,
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFF1B7CA2),
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              "Seç",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
 
-                                ],
-                              )
+                                    ],
+                                  )),
                             ],
                           ),
-                        ),
-                      ],
+                        )
                     ),
                   )
+
+
                   //Alt Contanier
                 ],
               )
           ),
 
-        )
+
     );
   }
 } //view
