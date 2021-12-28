@@ -221,6 +221,43 @@ for (var i = 0; i < data.length; i++) {
   }
 
 
+
+
+  //kampana ekleme fonksiyonu
+  Future<void> createOffer(String cafeId, String offerTitle ,String offerDetail ,String offerTag ,String description ,File picturePath) async {
+    firebase_storage.Reference firebaseStorageRef =
+    firebase_storage.FirebaseStorage.instance.ref().child('offerImages/${picturePath.path}');
+
+    firebase_storage.UploadTask uploadTask = firebaseStorageRef.putFile(picturePath);
+    firebase_storage.TaskSnapshot taskSnapshot = await uploadTask;
+
+    var pictureUrl=taskSnapshot.ref.getDownloadURL().then(
+          (value) => print("Done: $value"),
+    );
+    await FirebaseFirestore.instance.collection("cafe").doc(cafeId).collection("kampanyalar").doc().update({
+      'offerTitle': offerTitle,
+      'offerDetail': offerDetail,
+      'offerTag': offerTag,
+      'description': description,
+      'pictureUrl': pictureUrl
+    });
+  }
+
+
+  //yorum oluşturma
+  Future<void> createComment(
+      String username,int point, String comment,int like,int unlike) async {
+    await FirebaseFirestore.instance.collection("cafe").doc().collection("yorumlar").doc().update({
+      'username': username,
+      'point': point,
+      'comment': comment,
+      'like': like,
+      'unlike': unlike
+    });
+
+  }
+
+
   //kafe ekle
   void addCafe(PickedFile pickedFile,String name,String cafeAddress,String safeId,String openClock,
 String closeClock,String description,String phoneNumber,String menu,
