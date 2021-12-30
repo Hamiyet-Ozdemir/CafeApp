@@ -292,8 +292,8 @@ String randomName(){
                                 'date': date,
                                 'note': note,
                                 'people': peoplecounter,
-                                
-                                
+
+
                               }).then((value) => print("rezervation added"));
 
                   
