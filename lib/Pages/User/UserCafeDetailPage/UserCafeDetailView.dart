@@ -1,3 +1,4 @@
+import 'package:cafeapp/Pages/User/UserCafeMenuPage/UserCafeMenuView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -17,6 +18,11 @@ class UserCafeDetailState extends StatelessWidget {
                 color: Color(0xFFFFFFFF),
                 child: Column(
                   children: [
+                     GestureDetector(
+                            onTap: ()  {
+                           
+                            Navigator.pop(context); } ,                       
+                            child:
                     Container(
                       margin: EdgeInsets.only(top: 12),
                       padding: EdgeInsets.only(left: 12),
@@ -26,7 +32,7 @@ class UserCafeDetailState extends StatelessWidget {
                         height: 28,
                         width: 28,
                       ),
-                    ),
+                    ),),
                     Stack(
                       children: <Widget>[
                         Container(
@@ -97,7 +103,19 @@ class UserCafeDetailState extends StatelessWidget {
                                 )),
                           ),
                           SizedBox(width: 65),
-                          Container(
+                      GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                UserCafeMenuState(
+                                            
+                                            ),
+                                          ),
+                                        );
+                                      },
+                         child:    Container(
                             width: 30,
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -107,6 +125,7 @@ class UserCafeDetailState extends StatelessWidget {
                               ),
                             ),
                           ),
+                       ),
                         ],
                       ),
                     )

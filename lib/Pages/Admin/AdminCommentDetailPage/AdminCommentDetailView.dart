@@ -21,11 +21,16 @@ class AdminCommentDetailState extends StatelessWidget  {
               child: new Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children:[
+                     GestureDetector(
+                            onTap: ()  {
+                           
+                            Navigator.pop(context); } ,                       
+                            child:
                     Image.asset(
                       "assets/images/butonimage.png",
                       height: 28,
                       width: 28,
-                    ),
+                    ),),
                     Container(
                       margin: EdgeInsets.only(left: 56),
                       height: 28,

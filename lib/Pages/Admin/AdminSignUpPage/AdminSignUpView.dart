@@ -1,3 +1,4 @@
+import 'package:cafeapp/Pages/Admin/AdminLoginPage/AdminLoginView.dart';
 import 'package:cafeapp/Pages/User/UserLoginPage/UserLoginView.dart';
 import 'package:cafeapp/service/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -204,13 +205,11 @@ AuthService _authService=AuthService();
                                   NameSurname.text,
                                   Email.text,
                                   Password.text,
-                                  PhoneNumber.text)
-                              .then((value) {
-                            return Navigator.push(
+                                  PhoneNumber.text); Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => LoginState()));
-                          });},
+                                    builder: (context) => AdminLoginState()));
+                          },
                             
                             child: 
                 Container(

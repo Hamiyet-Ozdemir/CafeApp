@@ -139,7 +139,8 @@ class LoginState extends StatelessWidget {
                                       color: Colors.grey[400], fontSize: 16)),
                             ),
                           ),
-                          Container(
+                Container(height: MediaQuery.of(context).size.height*0.185, child:         Stack(children: [
+                            Container(
                               height: 18,
                               child: Align(
                                 alignment: Alignment.centerRight,
@@ -173,7 +174,7 @@ class LoginState extends StatelessWidget {
                             },
                             child: Container(
                                 margin: EdgeInsets.only(
-                                  top: 10,
+                                  top: 20,
                                 ),
                                 height: 22,
                                 child: Align(
@@ -230,7 +231,9 @@ class LoginState extends StatelessWidget {
                                     ),
                                   ),
                                 )),
-                          ),
+                          ),Container(
+                            alignment: Alignment.bottomCenter,
+                            child:
                           GestureDetector(
                             onTap: () async {
                             String user=await  _authService
@@ -252,7 +255,7 @@ class LoginState extends StatelessWidget {
                             child: Container(
                               height:
                                   MediaQuery.of(context).size.height * 0.083,
-                              alignment: Alignment.bottomCenter,
+                              
                               decoration: BoxDecoration(
                                 color: Color.fromRGBO(240, 118, 24, 1),
                                 borderRadius: BorderRadius.circular(10),
@@ -268,7 +271,8 @@ class LoginState extends StatelessWidget {
                               ),
                             ),
                           ),
-                        ],
+                          ),
+                        ],),)             ],
                       ),
                     ),
                   )

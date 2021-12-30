@@ -68,7 +68,7 @@ class VerificationState extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      "Doğrulama Kodu Gönder",
+                      "Doğrulama Linki Gönder",
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),

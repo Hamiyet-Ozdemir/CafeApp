@@ -119,8 +119,7 @@ static List<CafeModel> model;
     return await _auth.signOut();
   }
 
-  Future<void> click() async {
-  }
+  
 //get rezervation
 Future<List<RezervationModel>> getRezervationByUser() async{
   List<RezervationModel> rezervationmodel=List<RezervationModel>();
@@ -129,16 +128,14 @@ Future<List<RezervationModel>> getRezervationByUser() async{
      var data=rezervasyonlar.docs;
     for (var i = 0; i < data.length; i++) {
     RezervationModel modell=RezervationModel();
-    modell.cafeId=data[i]["cafeId"];
-    modell.userRezervationId=data[i].id;
-    var c=await _firestore.collection("cafe").doc(modell.cafeId).get();
-    var d=await _firestore.collection("cafe").doc(modell.cafeId)
+    var c=await _firestore.collection("cafe").doc(data[i]["cafeId"]).get();
+    var d=await _firestore.collection("cafe").doc(data[i]["cafeId"])
     .collection("rezervasyonlar").where("userId",isEqualTo: "8lUaVak3E0QoWhv761INrKyxE7h2").get();
-    var t=d.docs.first;
+    var t=d.docs.last;
   
-    
-    String cafename= c.data()["name"];
-    modell.cafeName=cafename;
+    modell.userRezervationId=data[i].id;
+    modell.cafeId=data[i]["cafeId"];
+    modell.cafeName=c.data()["name"];
     modell.cafeRezervationId=t.id;
     modell.date=data[i]["date"];
     modell.note=data[i]["note"];
@@ -247,7 +244,7 @@ String picture,String adminId,File file) async{
 var dowPdfUrl = await (await uploadTask1).ref.getDownloadURL();
     String pdfUrl = dowPdfUrl.toString();
 String uid=uuid.v1().toString();
-        FirebaseFirestore.instance.collection("cafe").doc(uid).set({
+       await FirebaseFirestore.instance.collection("cafe").doc(uid).set({
                                 'name': name,
                                 'cafeAddress': cafeAddress,
                                 'safeId': safeId,
@@ -259,7 +256,8 @@ String uid=uuid.v1().toString();
                                 'picture': picture,
                                 'adminId':adminId,
                                 'pictureUrl':pictureUrl,
-                                'pdfUrl':pdfUrl
+                                'pdfUrl':pdfUrl,
+                                'cafeId':uid
                                 
                               }).then((value) => print("cafe added"));
 
@@ -285,7 +283,7 @@ String randomName(){
 
 
 //rezervasyon ekle
-  void addRezervation(String peoplecounter,String cafeId,String note,String date) async{
+  void addRezervation(String peoplecounter,String cafeId,String note,String date,String cafeName) async{
 
 
         FirebaseFirestore.instance.collection("cafe").doc(cafeId).collection("rezervasyonlar").doc().set({
@@ -308,12 +306,14 @@ String randomName(){
                                 'date': date,
                                 'note': note,
                                 'people': peoplecounter,
-                                'cafeId':cafeId});
+                                'cafeId':cafeId,
+                                'cafeName':cafeName});
         
 
 }
+
  void updateRezervation(String peoplecounter,
- String cafeId,String note,String date,String caferezervationId,String userrezervationId) async{
+ String cafeId ,String note,String date,String caferezervationId,String userrezervationId) async{
 
 
         FirebaseFirestore.instance.collection("cafe").doc(cafeId).collection("rezervasyonlar")
@@ -342,5 +342,21 @@ String randomName(){
 
 }
 
+void deleteRezervation(
+ String cafeId ,String caferezervationId,String userrezervationId) async{
+
+
+        FirebaseFirestore.instance.collection("cafe").doc(cafeId).collection("rezervasyonlar")
+        .doc(caferezervationId).delete();
+
+                  
+
+        FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser.uid).collection("reservation").doc(userrezervationId)
+        .delete();
+        
+
+}
 
 }

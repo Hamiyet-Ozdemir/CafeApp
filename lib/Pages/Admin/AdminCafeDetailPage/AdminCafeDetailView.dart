@@ -21,6 +21,11 @@ class AdminCafeDetailState extends StatelessWidget {
                 color: Color(0xFFFFFFFF),
                 child: Column(
                   children: [
+                     GestureDetector(
+                            onTap: ()  {
+                           
+                            Navigator.pop(context); } ,                       
+                            child:
                     Container(
                       margin: EdgeInsets.only(top: 12),
                       padding: EdgeInsets.only(left: 12),
@@ -30,7 +35,7 @@ class AdminCafeDetailState extends StatelessWidget {
                         height: 28,
                         width: 28,
                       ),
-                    ),
+                    ),),
                     Stack(
                       children: <Widget>[
                         Container(
