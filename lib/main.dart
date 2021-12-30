@@ -1,3 +1,4 @@
+import 'package:cafeapp/Pages/Admin/AdminCafeDetailPage/AdminCafeDetailView.dart';
 import 'package:cafeapp/Pages/Admin/AdminUpdateOfferPage/AdminUpdateOfferView.dart';
 import 'package:cafeapp/Pages/User/UserCreateCommentPage/UserCreateCommentView.dart';
 import 'package:cafeapp/Pages/User/UserSignUpPage/UserSignUpView.dart';
@@ -16,10 +17,11 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
+  String cafe="";
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: CreateComment(),
+      home: AdminUpdateOffer(cafe),
     );
   }
 }

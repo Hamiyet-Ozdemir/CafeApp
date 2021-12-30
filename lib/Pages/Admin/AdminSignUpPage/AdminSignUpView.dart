@@ -12,6 +12,7 @@ class AdminSignUp extends StatefulWidget{
 }
 
 class AdminSignUpState extends State<AdminSignUp> {
+
   final TextEditingController nameSurname = TextEditingController();
   final TextEditingController phoneNumber = TextEditingController();
   final TextEditingController email = TextEditingController();

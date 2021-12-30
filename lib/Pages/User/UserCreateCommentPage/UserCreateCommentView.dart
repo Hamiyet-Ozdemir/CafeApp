@@ -5,13 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 class CreateComment extends StatefulWidget{
+  final String cafeId;
 
-  State<CreateComment> createState()=> CreateCommentState();
+  const CreateComment(this.cafeId,{Key key}) : super(key: key);
+  State<CreateComment> createState()=> CreateCommentState(cafeId);
 }
 
 class CreateCommentState extends State<CreateComment> {
 
-//cafe id gönderilmeli!!
+
+  CreateCommentState(String cafeId){this.cafeId=cafeId;}
 
   //firebase get username
   String username=AuthService.userName;
@@ -23,6 +26,9 @@ class CreateCommentState extends State<CreateComment> {
   int fifthStarColor=0xFFC4C4C4;
 
   final TextEditingController comment = TextEditingController();
+
+  //aynı şekilde buna da nereden geliyosa orada cafeid vermelisin
+
 
 
   final String assetName="assets/icons/Star.svg";

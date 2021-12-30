@@ -12,13 +12,24 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 
 class AdminUpdateOffer extends StatefulWidget {
+  final String cafeId;
+
+  const AdminUpdateOffer(this.cafeId,{Key key}) : super(key: key);
 
   @override
-  State<AdminUpdateOffer> createState() => AdminUpdateOfferState();
+  State<AdminUpdateOffer> createState() => AdminUpdateOfferState(cafeId);
 } //view
 
 class AdminUpdateOfferState extends State<AdminUpdateOffer> {
-  String cafeId="";
+
+  //kampanya sayfasında eğer kampanya eklemeye basarsa =>
+  // 1- önce offerModel içindeki  createString(String cafeId) fonksiyonunu çalıştır ve parametre olarak cafeId gönder
+  // 2- AdminUpdateOffer(cafeId) klasına cafe id yi vererek navigate et
+
+  //update yapmak için parametreleri offermodel deki updateoffer a gönder çalıştır sonra sayfaya cafe id ile gel
+
+  AdminUpdateOfferState(String cafeId){this.cafeId=cafeId;}
+  String cafeId;
   String setButton="Yayınla";
   final TextEditingController offerTitle=TextEditingController();
   final TextEditingController offerDetail=TextEditingController();
@@ -35,6 +46,7 @@ class AdminUpdateOfferState extends State<AdminUpdateOffer> {
   PickedFile pickedFile;
   File file;
   final myImageController = TextEditingController();
+
   _getFromGallery() async {
     pickedFile = await ImagePicker().getImage(
       source: ImageSource.gallery,
@@ -94,7 +106,8 @@ class AdminUpdateOfferState extends State<AdminUpdateOffer> {
                               ),
                              GestureDetector(
                                onTap:() {
-                                 AuthService().createOffer("33076fd0-6505-11ec-9098-1f0c3ea07406",offerTitle.text, offerDetail.text, offerTag.text, description.text, File(pickedFile.path));
+                                 AuthService().createOffer(cafeId,offerTitle.text, offerDetail.text, offerTag.text, description.text, File(pickedFile.path));
+                                 Navigator.pop(context);
                                },
                                child:  Container(
                                  margin: EdgeInsets.only(left: 28),
@@ -126,7 +139,6 @@ class AdminUpdateOfferState extends State<AdminUpdateOffer> {
                               ),
                             ),
                           )
-
 
                         ],
                       ),

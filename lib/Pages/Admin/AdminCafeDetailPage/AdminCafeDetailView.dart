@@ -8,6 +8,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AdminCafeDetailState extends StatelessWidget {
+
+  //cafe id çek burada
+  String cafeId;
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -211,7 +218,7 @@ class AdminCafeDetailState extends StatelessWidget {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  AdminUpdateOffer(),
+                                                  AdminUpdateOffer(cafeId),
                                             ),
                                           );
                                         },
@@ -305,7 +312,7 @@ class AdminCafeDetailState extends StatelessWidget {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  AdminUpdateOffer(),
+                                                  AdminUpdateOffer(cafeId),
                                             ),
                                           );
                                         },
@@ -399,7 +406,7 @@ class AdminCafeDetailState extends StatelessWidget {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  AdminUpdateOffer(),
+                                                  AdminUpdateOffer(cafeId),
                                             ),
                                           );
                                         },
@@ -493,7 +500,7 @@ class AdminCafeDetailState extends StatelessWidget {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  AdminUpdateOffer(),
+                                                  AdminUpdateOffer(cafeId),
                                             ),
                                           );
                                         },
