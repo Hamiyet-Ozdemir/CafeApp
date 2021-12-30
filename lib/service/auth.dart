@@ -246,10 +246,20 @@ for (var i = 0; i < data.length; i++) {
 
   //yorum oluşturma
   Future<void> createComment(
-      String username,int point, String comment,int like,int unlike) async {
-    await FirebaseFirestore.instance.collection("cafe").doc().collection("yorumlar").doc().update({
+      String cafeId, String username,int point,String date, String comment,int like,int unlike) async {
+    await FirebaseFirestore.instance.collection("cafe").doc(cafeId).collection("yorumlar").doc().set({
       'username': username,
       'point': point,
+      'date': date,
+      'comment': comment,
+      'like': like,
+      'unlike': unlike
+    });
+
+    await FirebaseFirestore.instance.collection("user").doc(FirebaseAuth.instance.currentUser.uid).collection("yorumlar").doc().set({
+      'username': username,
+      'point': point,
+      'date': date,
       'comment': comment,
       'like': like,
       'unlike': unlike
@@ -262,7 +272,6 @@ for (var i = 0; i < data.length; i++) {
   void addCafe(PickedFile pickedFile,String name,String cafeAddress,String safeId,String openClock,
 String closeClock,String description,String phoneNumber,String menu,
 String picture,String adminId,File file) async{
-
 
    var uuid = Uuid();
     File _imageFile=File(pickedFile.path);

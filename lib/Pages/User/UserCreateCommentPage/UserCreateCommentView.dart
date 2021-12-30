@@ -1,5 +1,6 @@
 
 
+import 'package:cafeapp/service/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,11 +10,12 @@ class CreateComment extends StatefulWidget{
 }
 
 class CreateCommentState extends State<CreateComment> {
-  //yayınla fonksiyonunun auth değeri
+
+//cafe id gönderilmeli!!
+
   //firebase get username
-
-
-  String username="Ahmet";
+  String username=AuthService.userName;
+  String cafeId="";
   int firstStarColor=0xFFC4C4C4;
   int secondStarColor=0xFFC4C4C4;
   int thirdStarColor=0xFFC4C4C4;
@@ -22,12 +24,15 @@ class CreateCommentState extends State<CreateComment> {
 
   final TextEditingController comment = TextEditingController();
 
+
   final String assetName="assets/icons/Star.svg";
+  int index;
 
     Future<void> selectedStars(int index) async{
     switch (index){
       case 1: {
         setState(() {
+          this.index=index;
           firstStarColor=0xFF1B7CA2;
           secondStarColor=0xFFC4C4C4;
           thirdStarColor=0xFFC4C4C4;
@@ -38,6 +43,7 @@ class CreateCommentState extends State<CreateComment> {
       break;
       case 2: {
         setState(() {
+          this.index=index;
           firstStarColor=0xFF1B7CA2;
           secondStarColor=0xFF1B7CA2;
           thirdStarColor=0xFFC4C4C4;
@@ -48,6 +54,7 @@ class CreateCommentState extends State<CreateComment> {
       break;
       case 3: {
         setState(() {
+          this.index=index;
           firstStarColor=0xFF1B7CA2;
           secondStarColor=0xFF1B7CA2;
           thirdStarColor=0xFF1B7CA2;
@@ -58,6 +65,7 @@ class CreateCommentState extends State<CreateComment> {
       break;
       case 4: {
         setState(() {
+          this.index=index;
           firstStarColor=0xFF1B7CA2;
           secondStarColor=0xFF1B7CA2;
           thirdStarColor=0xFF1B7CA2;
@@ -68,6 +76,7 @@ class CreateCommentState extends State<CreateComment> {
       break;
       case 5: {
         setState(() {
+          this.index=index;
           firstStarColor=0xFF1B7CA2;
           secondStarColor=0xFF1B7CA2;
           thirdStarColor=0xFF1B7CA2;
@@ -83,6 +92,8 @@ class CreateCommentState extends State<CreateComment> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+   String time =now.hour.toString() + ":" + now.minute.toString() + ":" + now.second.toString();
     return Scaffold(
       backgroundColor: Color(0xFFF7F8FB),
       body: Column(
@@ -122,24 +133,29 @@ class CreateCommentState extends State<CreateComment> {
                                   fontWeight: FontWeight.bold,
                                 )),
                           ),
-                          Container(
-                            margin: EdgeInsets.only(left: 27),
-                            height: 28,
-                            width: 72,
-                            alignment: Alignment.bottomCenter,
-                            decoration: BoxDecoration(
-                              color: Color(0xFF1B7CA2),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "Yayınla",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          )
+                         GestureDetector(
+                           onTap: (){
+                             AuthService().createComment(cafeId, username, index, time, comment.text, 0, 0);
+                           },
+                           child:  Container(
+                             margin: EdgeInsets.only(left: 27),
+                             height: 28,
+                             width: 72,
+                             alignment: Alignment.bottomCenter,
+                             decoration: BoxDecoration(
+                               color: Color(0xFF1B7CA2),
+                               borderRadius: BorderRadius.circular(10),
+                             ),
+                             child: Center(
+                               child: Text(
+                                 "Yayınla",
+                                 style: TextStyle(
+                                     color: Colors.white,
+                                     fontWeight: FontWeight.bold),
+                               ),
+                             ),
+                           ),
+                         )
                         ]),
                     Container(
                       alignment: Alignment.centerLeft,
