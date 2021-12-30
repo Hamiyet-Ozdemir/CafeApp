@@ -14,23 +14,25 @@ class UserUpdateRezervation extends StatefulWidget {
   final String date;
   final String note;
   final String name;
+  final String cafeId;
+
 
 
 
 
   UserUpdateRezervation(String cafeRezervationId,
-  String userRezervationId,String people,String date,String note,String name) : 
+  String userRezervationId,String people,String date,String note,String name,String cafeId) : 
   this.cafeRezervationId = cafeRezervationId,this.userRezervationId=userRezervationId,this.name=name
-  ,this.date=date,this.note=note,this.people=people;
+  ,this.date=date,this.note=note,this.people=people,this.cafeId=cafeId;
 
   @override
   State<UserUpdateRezervation> createState() => _UserUpdateRezervationState(cafeRezervationId,userRezervationId
-  ,date,note,people,name);
+  ,date,note,people,name,cafeId);
 } //view
 
 class _UserUpdateRezervationState extends State<UserUpdateRezervation> {
   _UserUpdateRezervationState(this.cafeRezervationId,this.userRezervationId,
-  this.date,this.note,this.people,this.name);
+  this.date,this.note,this.people,this.name,this.cafeId);
 
   final String cafeRezervationId;
   final String userRezervationId;
@@ -38,6 +40,7 @@ class _UserUpdateRezervationState extends State<UserUpdateRezervation> {
   final String note;
   final String people;
   final String name;
+  final String cafeId;
 
 
 
@@ -88,7 +91,8 @@ textcontoller.text=date;
                       padding:EdgeInsets.fromLTRB(20,10,0,0),//dikkat
                         child: Column(
                           children: [
-                            Row(
+                         
+          Stack(
 
 
                               children:<Widget> [
@@ -96,13 +100,14 @@ textcontoller.text=date;
                                   height: 80,
                                 ),
 
-
+GestureDetector(onTap: () {
+  Navigator.pop(context);
+}, child:
                                 Container(
                                   height:25,
                                   width: 25,
-
-
-                                  margin: EdgeInsets.only(left: 15),
+                                  
+                                  margin: EdgeInsets.only(left: 15,top: 30),
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
                                         image: AssetImage('assets/images/butonimage.png'
@@ -113,14 +118,17 @@ textcontoller.text=date;
                                       )
 
                                   ),
-                                ),
+                                ),),
 
 
 
                                 SizedBox(width: 37), //boşluk
 
 
-                                Text(name,
+                              Container(
+                                alignment: Alignment.bottomCenter,
+                                margin: EdgeInsets.only(top: 30),
+                                child:   Text(name,
 
 
                                     style: GoogleFonts.roboto(
@@ -130,20 +138,25 @@ textcontoller.text=date;
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black,
                                     )
-                                ),
+                                ),),Container(
+                                  margin: EdgeInsets.only(top: 30),
+alignment: Alignment.bottomRight,
+                                  child:
                             GestureDetector(
                               onTap: () {
-                                              AuthService().updateRezervation(peopleContoller.text,
-                                               cafeRezervationId, noteContoller.text,
+                                               AuthService().updateRezervation(peopleContoller.text,
+                                               cafeId, noteContoller.text,
                                                 "Saat : ${secilenSaat.hour.toString()} : ${secilenSaat.
                               minute.toString()}   Tarih : ${secilenTarih.day}-${secilenTarih.month}-${secilenTarih.year}",
                               cafeRezervationId,userRezervationId);                
-                                                            },child:     Container(
+                                                                 
+                                       Navigator.pop(context); 
+                                                            },child:     
+                                                            Container(
 
-                                  margin: EdgeInsets.only(left: 28),
+
                                   height: 32,
                                   width: 70,
-                                  alignment: Alignment.bottomCenter,
                                   decoration: BoxDecoration(
                                     color: Color(0xFF1B7CA2),
                                     borderRadius: BorderRadius.circular(10),
@@ -158,10 +171,12 @@ textcontoller.text=date;
                                   ),
                                 ),
                       
-                            )        ],
+                            )     
+                                 ), ],
                             ) ,
+                     
                             Container(
-                              margin: EdgeInsets.fromLTRB(4, 0,40, 0),
+                              alignment: Alignment.center,
                               child:Text("Rezervasyon Güncelle",
                                 style: GoogleFonts.roboto(
                                   color: Color(0xFF606060),
@@ -187,7 +202,7 @@ textcontoller.text=date;
                           margin: EdgeInsets.only(top: 22),
 
                           alignment: Alignment.centerLeft,
-                          height:30,
+                          height:39,
                           child: Row(
                             children: [
 
@@ -258,7 +273,7 @@ textcontoller.text=date;
                           margin: EdgeInsets.only(top: 22),
 
                           alignment: Alignment.centerLeft,
-                          height:30,
+                          height:39,
                           child: Row(
                             children: [
 
@@ -293,7 +308,7 @@ textcontoller.text=date;
                                 child: Container(
                                   alignment: Alignment.center,
                                   height: 50,
-                                  child: TextField(controller: textcontoller,)
+                                  child: TextField(enabled: false,controller: textcontoller,)
  ,
                                 )
 

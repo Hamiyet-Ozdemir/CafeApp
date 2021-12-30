@@ -35,6 +35,11 @@ class _adminProfileUpdateInfoState extends State<adminProfileUpdateInfo> {
 
 
                         children:<Widget> [
+                           GestureDetector(
+                            onTap: ()  {
+                           
+                            Navigator.pop(context); } ,                       
+                            child:
                           Container(
                             height:25,
                             width: 25,
@@ -51,7 +56,7 @@ class _adminProfileUpdateInfoState extends State<adminProfileUpdateInfo> {
                                 )
 
                             ),
-                          ),
+                          ),),
 
 
 

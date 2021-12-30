@@ -54,9 +54,7 @@ class _UserMakeRezervationState extends State<UserMakeRezervation> {
 
     return Scaffold(
 
-        body:SingleChildScrollView(
-
-          child: Container(
+        body:Container(
               child:Column(
 
                 children: [
@@ -68,8 +66,9 @@ class _UserMakeRezervationState extends State<UserMakeRezervation> {
                       height: 29,
                       padding:EdgeInsets.fromLTRB(20,10,0,0),//dikkat
                         child: Column(
-                          children: [
-                            Row(
+                          children:
+                           [
+                            Stack(
 
 
                               children:<Widget> [
@@ -77,13 +76,14 @@ class _UserMakeRezervationState extends State<UserMakeRezervation> {
                                   height: 80,
                                 ),
 
-
+GestureDetector(onTap: () {
+  Navigator.pop(context);
+}, child:
                                 Container(
                                   height:25,
                                   width: 25,
 
-
-                                  margin: EdgeInsets.only(left: 15),
+                                  margin: EdgeInsets.only(left: 15,top: 30),
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
                                         image: AssetImage('assets/images/butonimage.png'
@@ -94,14 +94,17 @@ class _UserMakeRezervationState extends State<UserMakeRezervation> {
                                       )
 
                                   ),
-                                ),
+                                ),),
 
 
 
                                 SizedBox(width: 37), //boşluk
 
 
-                                Text(cafename,
+                              Container(
+                                alignment: Alignment.bottomCenter,
+                                margin: EdgeInsets.only(top: 30),
+                                child:   Text(cafename,
 
 
                                     style: GoogleFonts.roboto(
@@ -111,19 +114,25 @@ class _UserMakeRezervationState extends State<UserMakeRezervation> {
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black,
                                     )
-                                ),
+                                ),),Container(
+                                  margin: EdgeInsets.only(top: 30),
+alignment: Alignment.bottomRight,
+                                  child:
                             GestureDetector(
                               onTap: () {
                                               AuthService().addRezervation(peopleContoller.text,
                                                cafeId, noteContoller.text,
                                                 "Saat : ${secilenSaat.hour.toString()} : ${secilenSaat.
-                              minute.toString()}   Tarih : ${secilenTarih.day}-${secilenTarih.month}-${secilenTarih.year}");                
-                                                            },child:     Container(
+                              minute.toString()}   Tarih : ${secilenTarih
+                              .day}-${secilenTarih.month}-${secilenTarih
+                              .year}",cafename);      
+                                       Navigator.pop(context); 
+                                                            },child:     
+                                                            Container(
 
-                                  margin: EdgeInsets.only(left: 28),
+
                                   height: 32,
                                   width: 70,
-                                  alignment: Alignment.bottomCenter,
                                   decoration: BoxDecoration(
                                     color: Color(0xFF1B7CA2),
                                     borderRadius: BorderRadius.circular(10),
@@ -138,10 +147,11 @@ class _UserMakeRezervationState extends State<UserMakeRezervation> {
                                   ),
                                 ),
                       
-                            )        ],
+                            )     
+                                 ), ],
                             ) ,
                             Container(
-                              margin: EdgeInsets.fromLTRB(4, 0,40, 0),
+                              alignment: Alignment.center,
                               child:Text("Rezervasyon Oluştur",
                                 style: GoogleFonts.roboto(
                                   color: Color(0xFF606060),
@@ -158,7 +168,7 @@ class _UserMakeRezervationState extends State<UserMakeRezervation> {
                   ),
                   Container(
                     color:Color(0xFFFE5E5E5),
-                    height: MediaQuery.of(context).size.height,
+                    height: MediaQuery.of(context).size.height-118,
                     child: Column(
                       children: [
                         Container(
@@ -167,7 +177,7 @@ class _UserMakeRezervationState extends State<UserMakeRezervation> {
                           margin: EdgeInsets.only(top: 22),
 
                           alignment: Alignment.centerLeft,
-                          height:30,
+                          height:39,
                           child: Row(
                             children: [
 
@@ -196,10 +206,11 @@ class _UserMakeRezervationState extends State<UserMakeRezervation> {
                               Container(
                                 color: Colors.white,
                                 width:272,
-
+                                
                                 padding: EdgeInsets.only(left: 16),
                                 //height:,
                                 child: TextField(
+                                  
                                   controller: peopleContoller,
                                    textAlign: TextAlign.left,
                                    
@@ -227,7 +238,10 @@ class _UserMakeRezervationState extends State<UserMakeRezervation> {
         
         if(secilenTarih != null && secilenSaat != null){
            
-         textcontoller.text="emre";
+         textcontoller.text="Saat : ${secilenSaat.hour.toString()} : ${secilenSaat.
+                              minute.toString()}   Tarih : ${secilenTarih
+                              .day}-${secilenTarih.month}-${secilenTarih
+                              .year}";
         }
        
                                                   
@@ -237,7 +251,7 @@ class _UserMakeRezervationState extends State<UserMakeRezervation> {
                           margin: EdgeInsets.only(top: 22),
 
                           alignment: Alignment.centerLeft,
-                          height:30,
+                          height:39,
                           child: Row(
                             children: [
 
@@ -350,6 +364,6 @@ height: 200,
           ),
 
         )
-    );
+    ;
   }
 } //view

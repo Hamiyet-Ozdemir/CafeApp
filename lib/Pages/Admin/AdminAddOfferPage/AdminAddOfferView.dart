@@ -34,6 +34,11 @@ class _addCampaignState extends State<addCampaign> {
                         children: [
                           Row(
                             children:<Widget> [
+                               GestureDetector(
+                            onTap: ()  {
+                           
+                            Navigator.pop(context); } ,                       
+                            child:
                               Container(
                                 height:25,
                                 width: 25,
@@ -45,7 +50,7 @@ class _addCampaignState extends State<addCampaign> {
                                       fit: BoxFit.fill,
                                     )
                                 ),
-                              ),
+                              ),),
                               SizedBox(width: 57), //boşluk
 
 

@@ -3,6 +3,7 @@ import 'package:cafeapp/Pages/User/UserMakeRezervationPage/UserMakeRezervationVi
 import 'package:cafeapp/Pages/User/UserUpdateRezervations/UserUpdateRezervations.dart';
 import 'package:cafeapp/service/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,9 +16,9 @@ model=await AuthService().getRezervationByUser();
 class UserRezervationsState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-     CollectionReference ref=  FirebaseFirestore.instance.collection("user")
-    .doc("8lUaVak3E0QoWhv761INrKyxE7h2").
-     collection("rezervation");
+     FirebaseAuth _auth = FirebaseAuth.instance;
+       CollectionReference ref=  FirebaseFirestore.instance.collection("user").doc(_auth.currentUser.uid).
+     collection("reservation");
   click();
      
 
@@ -33,11 +34,16 @@ class UserRezervationsState extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               alignment: Alignment.centerLeft,
               child: new Row(children: [
+                 GestureDetector(
+                            onTap: ()  {
+                           
+                            Navigator.pop(context); } ,                       
+                            child:
                 Image.asset(
                   "assets/images/butonimage.png",
                   height: 28,
                   width: 28,
-                ),
+                ),),
                 Container(
                   margin: EdgeInsets.only(left: 58),
                   child: Text('Rezervasyonlar',
@@ -52,7 +58,7 @@ class UserRezervationsState extends StatelessWidget {
                     StreamBuilder<QuerySnapshot>(stream: ref.snapshots(),builder: (BuildContext context,AsyncSnapshot asyncSnapshot){
 
   
-if(model==null){
+if(asyncSnapshot.data==null){
   return CircularProgressIndicator();
 
 }
@@ -60,10 +66,10 @@ if(asyncSnapshot.hasError){
   return Center(child: Text("Bir hata oluştu, tekrar deneyiniz."),);
 }
 else{
-  if(model!=null){
+  if(asyncSnapshot.hasData){
     return  Flexible(child: 
  ListView.builder(
-     itemCount:model.length,
+     itemCount:asyncSnapshot.data.docs.length,
      itemBuilder: (context,index){
         return   Container(
                         margin: EdgeInsets.only(bottom: 8),
@@ -77,13 +83,13 @@ else{
                                   width: MediaQuery.of(context).size.width,
 
                                   child:
-                                   Row(
+                                   Stack(
                                     children: [
                                       Container(
                                         margin: EdgeInsets.only(
                                             top: 11, left: 27, bottom: 8),
                                         alignment: Alignment.centerLeft,
-                                        child: Text("İsim: ${model[index].cafeName}"),
+                                        child: Text("İsim: ${asyncSnapshot.data.docs[index].data()['cafeName']}"),
                                       ),
                                       GestureDetector(
                                       onTap: () {
@@ -94,26 +100,34 @@ else{
                                                UserUpdateRezervation(model[index].cafeRezervationId, 
                                                model[index].userRezervationId,
                                                 model[index].people, model[index].date,
-                                                 model[index].note,model[index].userName),
+                                                 model[index].note,model[index].userName,model[index].cafeId),
                                           ),
                                         );
                                       },child:  Container(
-                                         margin: EdgeInsets.only(
-                                           left: 180),
+                                         alignment: Alignment.centerRight,
+                                         margin: EdgeInsets.only(right: 80,top:11),
                                         child:
                                       Image.asset(
                                         "assets/images/duzenle.png",
                                         height: 20,
                                         width: 20,
-                                      )),),
+                                      )),), GestureDetector(
+                                      onTap: (){
+                                                AuthService().deleteRezervation(model[index].cafeId, 
+                                               model[index].cafeRezervationId, 
+                                               model[index].userRezervationId);
+                                        
+                                      },child:  
                                       Container(
-                                        margin: EdgeInsets.only(left: 10),
+                                         alignment: Alignment.centerRight,
+
+                                        margin: EdgeInsets.only(right: 40,top: 11),
                                         child:
                                       Image.asset(
                                           "assets/images/butonimage.png",
                                           height: 20,
                                           width: 20,
-                                          alignment: Alignment.centerRight)),
+                                          alignment: Alignment.centerRight)),),
                                     ],
                                   ),
                                 )
@@ -122,18 +136,18 @@ else{
                             Container(
                               margin: EdgeInsets.only(left: 27, bottom: 8),
                               alignment: Alignment.centerLeft,
-                              child: Text("Kişi Sayısı: ${model[index].people}"),
+                              child: Text("Kişi Sayısı: ${asyncSnapshot.data.docs[index].data()['people']}"),
                             ),
                             Container(
                               margin: EdgeInsets.only(left: 27, bottom: 8),
                               alignment: Alignment.centerLeft,
-                              child: Text("${model[index].date}"),
+                              child: Text("${asyncSnapshot.data.docs[index].data()['date']}"),
                             ),
                             Container(
                               margin: EdgeInsets.only(left: 27, bottom: 8),
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                  "Ekstra Not: ${model[index].note}"),
+                                  "Ekstra Not: ${asyncSnapshot.data.docs[index].data()['note']}"),
                             ),
                           ],
                         ),

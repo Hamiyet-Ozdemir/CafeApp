@@ -1,3 +1,4 @@
+import 'package:cafeapp/service/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'UserChangePasswordPage/UserChangePasswordView.dart';
@@ -50,7 +51,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         SizedBox(height: 3),
                         Text(
-                          "Ahmet Yılmaz",
+                         AuthService.userName,
                           style: GoogleFonts.roboto(
                               fontSize: 24, color: Color(0xFF000000)),
                         )

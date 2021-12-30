@@ -24,6 +24,11 @@ class _UserChangePassword extends State<UserChangePassword> {
               padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
               child: Row(
                 children: <Widget>[
+                   GestureDetector(
+                            onTap: ()  {
+                           
+                            Navigator.pop(context); } ,                       
+                            child:
                   Container(
                     height: 25,
                     width: 25,
@@ -33,7 +38,7 @@ class _UserChangePassword extends State<UserChangePassword> {
                       image: AssetImage('assets/images/butonimage.png'),
                       fit: BoxFit.fill,
                     )),
-                  ),
+                  ),),
 
                   SizedBox(width: 57), //boşluk
 
