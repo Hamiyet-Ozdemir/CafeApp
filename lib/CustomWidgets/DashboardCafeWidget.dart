@@ -1,9 +1,11 @@
+import 'package:cafeapp/Models/CafeModel.dart';
 import 'package:cafeapp/Pages/User/UserCafeDetailPage/UserCafeDetailView.dart';
 import 'package:cafeapp/Pages/User/UserMakeRezervationPage/UserMakeRezervationView.dart';
 import 'package:cafeapp/service/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 Image img;
 Image imgUp = Image.asset(
@@ -31,6 +33,18 @@ class _CafeCardWidgetState extends State<CafeCardWidget> {
   final int postId;
   
 
+  void addCafeToFavorites() async {
+    var uuid = Uuid();
+    FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser.uid)
+        .collection("FavoriteCafes")
+        .doc(AuthService.model[index].cafeId)
+        .set({'CafeId': AuthService.model[index].cafeId});
+  }
+
+  final int index;
+  final List<CafeModel> cafeModel;
   @override
   void initState() {
     super.initState();
@@ -70,8 +84,7 @@ class _CafeCardWidgetState extends State<CafeCardWidget> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     image: DecorationImage(
-                        image:
-                            NetworkImage(AuthService.model[postId].pictureUrl),
+                        image: NetworkImage(cafeModel[index].pictureUrl),
                         fit: BoxFit.fill),
                   ),
                 ),
@@ -96,6 +109,11 @@ class _CafeCardWidgetState extends State<CafeCardWidget> {
                
                    }
                       //User içine favorilere kaydedicek
+                      addCafeToFavorites();
+                      print(FirebaseAuth.instance.currentUser.uid);
+                      print("*****************");
+
+                      print(FirebaseAuth.instance.currentUser.uid);
                     },
                     child: Container(
                       alignment: Alignment.bottomRight,
@@ -111,7 +129,7 @@ class _CafeCardWidgetState extends State<CafeCardWidget> {
               child: Row(
                 children: [
                   Text(
-                    AuthService.model[postId].name,
+                    cafeModel[index].name,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,

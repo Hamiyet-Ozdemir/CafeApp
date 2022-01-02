@@ -8,16 +8,17 @@ import 'package:flutter/material.dart';
 import 'package:cafeapp/Pages/ForgetPasswordPage/VerificationView.dart';
 
 import 'package:cafeapp/Pages/User/BottomNavigationMainPage.dart';
-  void _showToast(BuildContext context,String msg) {
-    final scaffold = ScaffoldMessenger.of(context);
-    scaffold.showSnackBar(
-      SnackBar(
-        content:  Text(msg),
-      ),
-    );
-  }
+
+void _showToast(BuildContext context, String msg) {
+  final scaffold = ScaffoldMessenger.of(context);
+  scaffold.showSnackBar(
+    SnackBar(
+      content: Text(msg),
+    ),
+  );
+}
+
 class LoginState extends StatelessWidget {
-  
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   AuthService _authService = AuthService();
@@ -139,95 +140,143 @@ class LoginState extends StatelessWidget {
                                       color: Colors.grey[400], fontSize: 16)),
                             ),
                           ),
-                Container(height: MediaQuery.of(context).size.height*0.185, child:         Stack(children: [
-                            Container(
-                              height: 18,
-                              child: Align(
-                                alignment: Alignment.centerRight,
-                                child: FlatButton(
-                                  onPressed: () {
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.185,
+                            child: Stack(
+                              children: [
+                                Container(
+                                    height: 18,
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: FlatButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  VerificationState(),
+                                            ),
+                                          );
+                                        },
+                                        child: Text(
+                                          'Şifremi Unuttum',
+                                          style: TextStyle(
+                                              decoration:
+                                                  TextDecoration.underline,
+                                              color: Color.fromRGBO(
+                                                  158, 158, 174, 1),
+                                              fontSize: 12.06),
+                                        ),
+                                      ),
+                                    )),
+                                GestureDetector(
+                                  onTap: () {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            VerificationState(),
+                                            UserRegisterState(),
                                       ),
                                     );
                                   },
-                                  child: Text(
-                                    'Şifremi Unuttum',
-                                    style: TextStyle(
-                                        decoration: TextDecoration.underline,
-                                        color: Color.fromRGBO(158, 158, 174, 1),
-                                        fontSize: 12.06),
-                                  ),
-                                ),
-                              )),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => UserRegisterState(),
-                                ),
-                              );
-                            },
-                            child: Container(
-                                margin: EdgeInsets.only(
-                                  top: 20,
-                                ),
-                                height: 22,
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: FlatButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => UserRegisterState(),
+                                  child: Container(
+                                      margin: EdgeInsets.only(
+                                        top: 20,
+                                      ),
+                                      height: 22,
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: FlatButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    UserRegisterState(),
+                                              ),
+                                            );
+                                          },
+                                          child: Text(
+                                            'Kayıt Ol',
+                                            style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    27, 124, 162, 1),
+                                                fontSize: 16),
+                                          ),
                                         ),
-                                      );
-                                    },
-                                    child: Text(
-                                      'Kayıt Ol',
-                                      style: TextStyle(
-                                          color:
-                                              Color.fromRGBO(27, 124, 162, 1),
-                                          fontSize: 16),
-                                    ),
-                                  ),
-                                )),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => UserRegisterState(),
+                                      )),
                                 ),
-                              );
-                            },
-                            child: Container(
-                                margin: EdgeInsets.only(top: 10, bottom: 20),
-                                height: 22,
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: FlatButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              AdminLoginState(),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            UserRegisterState(),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                      margin:
+                                          EdgeInsets.only(top: 10, bottom: 20),
+                                      height: 22,
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: FlatButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    AdminLoginState(),
+                                              ),
+                                            );
+                                          },
+                                          child: Text(
+                                            'Yönetici Giriş',
+                                            style: TextStyle(
+                                                color: Color.fromRGBO(
+                                                    27, 124, 162, 1),
+                                                fontSize: 16),
+                                          ),
                                         ),
-                                      );
+                                      )),
+                                ),
+                                Container(
+                                  alignment: Alignment.bottomCenter,
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      String user =
+                                          await _authService.signInUser(
+                                              "m.parlak3858@gmail.com",
+                                              "111111");
+                                      if (user == "true") {
+                                        return Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    MainNavigationPageState()));
+                                      } else {
+                                        _showToast(context, user);
+                                      }
                                     },
-                                    child: Text(
-                                      'Yönetici Giriş',
-                                      style: TextStyle(
-                                          color:
-                                              Color.fromRGBO(27, 124, 162, 1),
-                                          fontSize: 16),
+                                    child: Container(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.083,
+                                      decoration: BoxDecoration(
+                                        color: Color.fromRGBO(240, 118, 24, 1),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "Giriş Yap",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 )),
@@ -268,11 +317,10 @@ class LoginState extends StatelessWidget {
                                       fontSize: 17,
                                       fontWeight: FontWeight.bold),
                                 ),
-                              ),
+                              ],
                             ),
-                          ),
-                          ),
-                        ],),)             ],
+                          )
+                        ],
                       ),
                     ),
                   )
