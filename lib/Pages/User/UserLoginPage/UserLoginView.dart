@@ -238,7 +238,7 @@ class LoginState extends StatelessWidget {
                             onTap: () async {
                             String user=await  _authService
                           .signInUser(
-                              "m.parlak3858@gmail.com","111111");
+                              "enestug68@gmail.com","111111");
                           if(user=="true"){
                              return Navigator.push(
                             context,

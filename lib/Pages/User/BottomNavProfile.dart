@@ -1,9 +1,19 @@
+import 'package:cafeapp/Pages/User/UserLoginPage/UserLoginView.dart';
 import 'package:cafeapp/service/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'UserChangePasswordPage/UserChangePasswordView.dart';
 import 'UserRezervationsPege/UserRezervationsView.dart';
 import 'UserUpdateProfileInfoPage/UserUpdateProfileInfoView.dart';
+import 'package:percent_indicator/percent_indicator.dart';
+void _showToast(BuildContext context, String msg) {
+  final scaffold = ScaffoldMessenger.of(context);
+  scaffold.showSnackBar(
+    SnackBar(
+      content: Text(msg),
+    ),
+  );
+}
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key key}) : super(key: key);
@@ -34,15 +44,20 @@ class ProfilePage extends StatelessWidget {
                       alignment: Alignment.center,
                       child: Column(children: [
                         Container(
-                          height: 100,
-                          width: 100,
-                          margin: EdgeInsets.only(top: 7, bottom: 2),
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/images/userPoint.png"),
-                              fit: BoxFit.fill,
-                            ),
-                          ),
+                          margin: EdgeInsets.only(top: 10),
+                         child: new CircularPercentIndicator(
+                  radius: 120.0,
+                  lineWidth: 12.0,
+                  percent: double.parse(AuthService.userPoint)/100,
+                  backgroundColor: Colors.grey,
+                  center: new Text(AuthService.userPoint,style: TextStyle(fontSize: 40,color: Color.fromRGBO(27, 124, 162, 1)),),
+                  progressColor: Color.fromRGBO(255, 143, 11, 1),
+                  circularStrokeCap: CircularStrokeCap.square,
+                  animation: true,
+                  animationDuration: 1200,
+                  
+                  
+                ),
                         ),
                         Text(
                           "Puan",
@@ -51,7 +66,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         SizedBox(height: 3),
                         Text(
-                         AuthService.userName,
+                          AuthService.userName,
                           style: GoogleFonts.roboto(
                               fontSize: 24, color: Color(0xFF000000)),
                         )
@@ -88,26 +103,23 @@ class ProfilePage extends StatelessWidget {
                         );
                       },
                       child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.only(top: 22),
-                      color: Colors.white,
-                      padding: EdgeInsets.only(left: 23, top: 13, bottom: 12),
-                      child: Text(
-                        "Bilgilerimi Güncelle",
-                        style: GoogleFonts.roboto(
-                            fontSize: 16, color: Colors.black),
+                        width: MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.only(top: 22),
+                        color: Colors.white,
+                        padding: EdgeInsets.only(left: 23, top: 13, bottom: 12),
+                        child: Text(
+                          "Bilgilerimi Güncelle",
+                          style: GoogleFonts.roboto(
+                              fontSize: 16, color: Colors.black),
+                        ),
                       ),
-                    ),),
+                    ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => UserChangePassword(
-                             
-                            ),
-                          ),
-                        );
+                        FirebaseAuth.instance.sendPasswordResetEmail(
+                            email: FirebaseAuth.instance.currentUser.email);
+                        _showToast(context,
+                            "Şifre Değiştirme Linki Mail Adresinize Gönderildi");
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width,
@@ -121,15 +133,24 @@ class ProfilePage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.only(top: 22),
-                      color: Colors.white,
-                      padding: EdgeInsets.only(left: 23, top: 13, bottom: 12),
-                      child: Text(
-                        "Çıkış Yap",
-                        style: GoogleFonts.roboto(
-                            fontSize: 16, color: Color(0xFFE41A1A)),
+                    GestureDetector(
+                      onTap: () async {
+                        await AuthService().signOut();
+                        Navigator.of(context).pushAndRemoveUntil(
+                            new MaterialPageRoute(
+                                builder: (context) => new LoginState()),
+                            (route) => false);
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.only(top: 22),
+                        color: Colors.white,
+                        padding: EdgeInsets.only(left: 23, top: 13, bottom: 12),
+                        child: Text(
+                          "Çıkış Yap",
+                          style: GoogleFonts.roboto(
+                              fontSize: 16, color: Color(0xFFE41A1A)),
+                        ),
                       ),
                     ),
                   ],

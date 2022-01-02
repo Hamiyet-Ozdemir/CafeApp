@@ -161,7 +161,7 @@
 <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY"/>
 <uses-permission android:name="android.permission.WRITE_VOICEMAIL"/>
    <application
-        android:label="cafeapp"
+        android:label="CafeApp"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

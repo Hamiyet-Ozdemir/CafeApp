@@ -17,18 +17,19 @@ class AuthService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 static String adminName="";
 static String userName="";
+static String userPoint="";
 
 static List<CafeModel> model;
 
-
   //kullanıcı giriş yap fonksiyonu
   Future<String> signInUser(String email, String password) async {
+  
     model = await getDocs();
-
    try {
       var user = await _auth.signInWithEmailAndPassword(
         email: email, password: password);
-        
+          await getFavCafeList();
+
   var userr=await _firestore
         .collection("usersAndAdmins").doc(user.user.uid).get();
       bool isUser=false;
@@ -46,6 +47,7 @@ static List<CafeModel> model;
         .doc(user.user.uid)
         .get();
         userName=deneme['nameSurname'].toString();
+        userPoint=deneme['userPoint'].toString();
  
      
         return "true";
@@ -69,6 +71,7 @@ static List<CafeModel> model;
   }
      //admin giriş yap fonksiyonu
       Future<String> signInAdmin(String email, String password) async {
+
 
    try {
       var user = await _auth.signInWithEmailAndPassword(
@@ -257,7 +260,7 @@ String uid=uuid.v1().toString();
                                 'adminId':adminId,
                                 'pictureUrl':pictureUrl,
                                 'pdfUrl':pdfUrl,
-                                'cafeId':uid
+                                'cafeId':uid.replaceAll(" ", "")
                                 
                               }).then((value) => print("cafe added"));
 
@@ -280,7 +283,6 @@ String randomName(){
   }
   return randomName;
 }
-
 
 //rezervasyon ekle
   void addRezervation(String peoplecounter,String cafeId,String note,String date,String cafeName) async{
@@ -359,4 +361,69 @@ void deleteRezervation(
 
 }
 
+
+
+
+
+
+static List<String> FavoriteCafeList = List<String>();
+
+Future<void> getFavCafeList() async{
+
+
+    Stream<QuerySnapshot> ref1 = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(_auth.currentUser.uid)
+        .collection("FavoriteCafes")
+        .snapshots();
+
+    ref1.forEach((QuerySnapshot element) {
+      if (element == null) return;
+else{
+  FavoriteCafeList.clear();
+    for (int count = 0; count < element.docs.length; count++) {
+        FavoriteCafeList.add(element.docs[count]["cafeId"]);
+      }
+}
+    
+    });
+
+  }
+
+void addCafeToFavorites(String cafeId) async {
+    
+    FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser.uid)
+        .collection("FavoriteCafes")
+        .doc(cafeId)
+        .set({'cafeId': cafeId});
+
+           FirebaseFirestore.instance
+        .collection("cafe")
+        .doc(cafeId)
+        .collection("FavoritedUser")
+        .doc(FirebaseAuth.instance.currentUser.uid)
+        .set({'userId': FirebaseAuth.instance.currentUser.uid});
+                AuthService.FavoriteCafeList.add(cafeId);
+
+  } 
+  Future<void> deleteCafeToFavorites(String cafeId) async {
+    
+    FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser.uid)
+        .collection("FavoriteCafes")
+        .doc(cafeId).delete();
+
+           FirebaseFirestore.instance
+        .collection("cafe")
+        .doc(cafeId)
+        .collection("FavoritedUser")
+        .doc(FirebaseAuth.instance.currentUser.uid).delete();
+        AuthService.FavoriteCafeList.remove(cafeId);
+  } 
+
+
+  
 }
