@@ -6,19 +6,24 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 class CreateComment extends StatefulWidget{
   final String cafeId;
+  final String cafeName;
 
-  const CreateComment(this.cafeId,{Key key}) : super(key: key);
-  State<CreateComment> createState()=> CreateCommentState(cafeId);
+  const CreateComment(this.cafeId,this.cafeName,{Key key}) : super(key: key);
+  State<CreateComment> createState()=> CreateCommentState(cafeId,cafeName);
 }
 
 class CreateCommentState extends State<CreateComment> {
 
 
-  CreateCommentState(String cafeId){this.cafeId=cafeId;}
+  CreateCommentState(String cafeId,String cafeName){
+    this.cafeId=cafeId;
+    this.cafeName=cafeName;
+  }
 
   //firebase get username
   String username=AuthService.userName;
   String cafeId="";
+  String cafeName="";
   int firstStarColor=0xFFC4C4C4;
   int secondStarColor=0xFFC4C4C4;
   int thirdStarColor=0xFFC4C4C4;
@@ -30,7 +35,7 @@ class CreateCommentState extends State<CreateComment> {
   //aynı şekilde buna da nereden geliyosa orada cafeid vermelisin
 
 
-
+  String time =DateTime.now().hour.toString() + ":" + DateTime.now().minute.toString() + ":" + DateTime.now().second.toString();
   final String assetName="assets/icons/Star.svg";
   int index;
 
@@ -98,8 +103,7 @@ class CreateCommentState extends State<CreateComment> {
 
   @override
   Widget build(BuildContext context) {
-    DateTime now = DateTime.now();
-   String time =now.hour.toString() + ":" + now.minute.toString() + ":" + now.second.toString();
+
     return Scaffold(
       backgroundColor: Color(0xFFF7F8FB),
       body: Column(
@@ -133,7 +137,7 @@ class CreateCommentState extends State<CreateComment> {
                           Container(
                             margin: EdgeInsets.only(left: 56),
                             height: 28,
-                            child: Text('Starbucks Coffe',
+                            child: Text(cafeName,
                                 style: GoogleFonts.roboto(
                                   fontSize: 23,
                                   fontWeight: FontWeight.bold,
@@ -142,6 +146,7 @@ class CreateCommentState extends State<CreateComment> {
                          GestureDetector(
                            onTap: (){
                              AuthService().createComment(cafeId, username, index, time, comment.text, 0, 0);
+                             Navigator.pop(context);
                            },
                            child:  Container(
                              margin: EdgeInsets.only(left: 27),

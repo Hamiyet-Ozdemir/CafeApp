@@ -472,10 +472,9 @@ void addCafeToFavorites(String cafeId) async {
 
   //yorum oluşturma
   Future<void> createComment(
-      String cafeId, String username,int point,String date, String comment,int like,int unlike) async {
+      String cafeId, String username,String date, String comment,int like,int unlike) async {
     await FirebaseFirestore.instance.collection("cafe").doc(cafeId).collection("yorumlar").doc().set({
       'username': username,
-      'point': point,
       'date': date,
       'comment': comment,
       'like': like,
@@ -484,7 +483,6 @@ void addCafeToFavorites(String cafeId) async {
 
     await FirebaseFirestore.instance.collection("user").doc(FirebaseAuth.instance.currentUser.uid).collection("yorumlar").doc().set({
       'username': username,
-      'point': point,
       'date': date,
       'comment': comment,
       'like': like,
