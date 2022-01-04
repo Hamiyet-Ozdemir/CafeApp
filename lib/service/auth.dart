@@ -231,7 +231,7 @@ for (var i = 0; i < data.length; i++) {
     var pictureUrl=taskSnapshot.ref.getDownloadURL().then(
           (value) => print("Done: $value"),
     );
-    await FirebaseFirestore.instance.collection("cafe").doc(cafeId).collection("kampanyalar").doc().update({
+    await FirebaseFirestore.instance.collection("cafe").doc(cafeId).collection("kampanyalar").doc().set({
       'offerTitle': offerTitle,
       'offerDetail': offerDetail,
       'offerTag': offerTag,

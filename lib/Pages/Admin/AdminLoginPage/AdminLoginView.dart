@@ -1,5 +1,6 @@
 import 'package:cafeapp/Pages/Admin/AdminBottomNavigationBar/AdminBottomNavBar.dart';
 import 'package:cafeapp/Pages/Admin/AdminSignUpPage/AdminSignUpView.dart';
+import 'package:cafeapp/Pages/Admin/AdminUpdateOfferPage/AdminUpdateOfferView.dart';
 import 'package:cafeapp/Pages/Admin/ForgetPasswordPage/ForgetPasswordView.dart';
 import 'package:cafeapp/service/auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -206,7 +207,7 @@ class AdminLoginState extends StatelessWidget {
                              return Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => AdminMainNavigationPageState()));
+                                builder: (context) => AdminUpdateOffer("0dcdaba0-6814-11ec-866d-39c22d4360a5")));
                           }
                           else{
                                    _showToast(context,user);

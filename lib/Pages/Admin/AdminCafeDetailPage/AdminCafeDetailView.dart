@@ -159,7 +159,7 @@ class AdminCafeDetailState extends StatelessWidget {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => addCampaign(),
+                                            builder: (context) => AdminUpdateOffer("0dcdaba0-6814-11ec-866d-39c22d4360a5"),
                                           ),
                                         );
                                       },

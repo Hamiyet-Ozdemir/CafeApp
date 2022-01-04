@@ -29,7 +29,8 @@ class AdminUpdateOfferState extends State<AdminUpdateOffer> {
   //update yapmak için parametreleri offermodel deki updateoffer a gönder çalıştır sonra sayfaya cafe id ile gel
 
   AdminUpdateOfferState(String cafeId){this.cafeId=cafeId;}
-  String cafeId;
+
+  String cafeId="";
   String setButton="Yayınla";
   final TextEditingController offerTitle=TextEditingController();
   final TextEditingController offerDetail=TextEditingController();
@@ -106,8 +107,9 @@ class AdminUpdateOfferState extends State<AdminUpdateOffer> {
                               ),
                              GestureDetector(
                                onTap:() {
+
                                  AuthService().createOffer(cafeId,offerTitle.text, offerDetail.text, offerTag.text, description.text, File(pickedFile.path));
-                                 Navigator.pop(context);
+                                 //Navigator.pop(context);
                                },
                                child:  Container(
                                  margin: EdgeInsets.only(left: 28),
@@ -251,7 +253,7 @@ class AdminUpdateOfferState extends State<AdminUpdateOffer> {
                                         ),
                                       ),
                                       GestureDetector(
-                                        onTap: (){
+                                        onTap: ()  {
                                           _getFromGallery();
                                         },
                                         child:  Container(
