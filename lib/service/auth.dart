@@ -10,7 +10,7 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage ;
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
-//kl
+
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -424,6 +424,50 @@ void addCafeToFavorites(String cafeId) async {
         AuthService.FavoriteCafeList.remove(cafeId);
   } 
 
+  Future<void> createOffer(String cafeId, String offerTitle ,String offerDetail ,String offerTag ,String description ,PickedFile pickedFile) async {
+     var uuid = Uuid();
+    File _imageFile=File(pickedFile.path);
+    String fileName = randomName()+"."+_imageFile.path.split('.').last;
+    
+    firebase_storage.Reference firebaseStorageRef =
+    firebase_storage.FirebaseStorage.instance.ref().child('offerImages/$fileName');
 
+    firebase_storage.UploadTask uploadTask = firebaseStorageRef.putFile(_imageFile);
+  
+
+  var dowPictureUrl = await (await uploadTask).ref.getDownloadURL();
+    String pictureUrl = dowPictureUrl.toString();
+    await FirebaseFirestore.instance.collection("cafe").doc(cafeId).collection("kampanyalar").doc().set({
+      'offerTitle': offerTitle,
+      'offerDetail': offerDetail,
+      'offerTag': offerTag,
+      'description': description,
+      'pictureUrl': pictureUrl
+    });
+  }
+
+
+  //yorum oluşturma
+  Future<void> createComment(
+      String cafeId, String username,int point,String date, String comment,int like,int unlike) async {
+    await FirebaseFirestore.instance.collection("cafe").doc(cafeId).collection("yorumlar").doc().set({
+      'username': username,
+      'point': point,
+      'date': date,
+      'comment': comment,
+      'like': like,
+      'unlike': unlike
+    });
+
+    await FirebaseFirestore.instance.collection("user").doc(FirebaseAuth.instance.currentUser.uid).collection("yorumlar").doc().set({
+      'username': username,
+      'point': point,
+      'date': date,
+      'comment': comment,
+      'like': like,
+      'unlike': unlike
+    });
+
+  }
   
 }

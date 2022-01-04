@@ -95,8 +95,8 @@ class _FavoritesPageState extends State<FavoritesPage> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            UserCafeDetailState(
-                                   
+                                            UserCafeDetail(
+                                   cafeId:asyncSnapshot.data.docs[index]["cafeId"]
                                         ),
                                       ),
                                     );

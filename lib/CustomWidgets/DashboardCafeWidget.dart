@@ -49,7 +49,7 @@ class _CafeCardWidgetState extends State<CafeCardWidget> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => UserCafeDetailState(),
+            builder: (context) => UserCafeDetail(cafeId:AuthService.model[postId].cafeId),
           ),
         );
       },

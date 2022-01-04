@@ -1,3 +1,4 @@
+import 'package:cafeapp/Pages/Admin/AdminLoginPage/AdminLoginView.dart';
 import 'package:cafeapp/Pages/Admin/AdminUpdateProfileInfoPage/AdminUpdateProfileInfoView.dart';
 import 'package:cafeapp/Pages/Admin/ForgetPasswordPage/ForgetPasswordView.dart';
 import 'package:cafeapp/Pages/User/UserLoginPage/UserLoginView.dart';
@@ -107,7 +108,7 @@ class _AdminProfileState extends State<AdminProfile>{
                         await AuthService().signOut();
                         Navigator.of(context).pushAndRemoveUntil(
                             new MaterialPageRoute(
-                                builder: (context) => new LoginState()),
+                                builder: (context) => new AdminLoginState()),
                             (route) => false);
                       },child:
                   Container(
