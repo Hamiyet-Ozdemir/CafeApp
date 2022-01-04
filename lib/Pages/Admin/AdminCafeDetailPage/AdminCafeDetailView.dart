@@ -87,22 +87,33 @@ class _AdminCafeDetailState extends State<AdminCafeDetail> {
                               margin: EdgeInsets.only(top: 21, bottom: 9),
                               padding: EdgeInsets.only(left: 23, right: 10),
                               child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+
                                 children: [
+                                  Container(
+                                    margin: EdgeInsets.only(left: 10),
+                                    alignment: Alignment.centerLeft,
+                                    child:
                                   Text(
-                                    asyncSnapshot.data.data()["name"],
+                                    asyncSnapshot.data.data()["name"].toString().toUpperCase(),
                                     style: GoogleFonts.roboto(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 23,
                                         color: Colors.black),
-                                  ),
-                                  SizedBox(width: 65),
+                                  ),),
+                                 Container(
+                                   alignment: Alignment.centerRight,
+                                    margin: EdgeInsets.only(right: 30),
+
+                                   child:
+
                                   GestureDetector(
                                     onTap: () {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              AdminCafeMenuState(),
+                                              AdminCafeMenu( url:asyncSnapshot.data.data()["pdfUrl"]),
                                         ),
                                       );
                                     },
@@ -118,7 +129,8 @@ class _AdminCafeDetailState extends State<AdminCafeDetail> {
                                         ),
                                       ),
                                     ),
-                                  )
+                                  ),
+                                  ),
                                 ],
                               ),
                             )
@@ -285,10 +297,12 @@ else{
                                 )),
                                 Container(
                                   height: 45,
+                                   width: MediaQuery.of(context).size.width*0.9,
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
+                                        
                                       image: CachedNetworkImageProvider(asyncSnapshot1.data.docs[index]['pictureUrl'].toString()),
-                                    ),),
+                                    fit: BoxFit.fill),),
                                 ),
                                 Container(
                                   child: Row(

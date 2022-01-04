@@ -84,16 +84,24 @@ class _UserCafeDetailState extends State<UserCafeDetail> {
                       height: 30,
                       margin: EdgeInsets.only(top: 21, bottom: 9),
                       padding: EdgeInsets.only(left: 23, right: 10),
-                      child: Row(
+                      child: Stack(
                         children: [
-                          Text(
-                            asyncSnapshot.data.data()["name"],
+                          Container(
+                            alignment: Alignment.centerLeft,
+                         child: Text(
+                            asyncSnapshot.data.data()["name"].toString(),
                             style: GoogleFonts.roboto(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 23,
                                 color: Colors.black),
-                          ),
+                          )),
+                          Container(
+                            alignment: Alignment.centerRight,
+                            margin: EdgeInsets.only(left: 200),
+                            child:
+Row(children: [
                           Image.asset(
+                            
                             "assets/images/Star.png",
                             height: 15,
                             width: 15,
@@ -117,16 +125,20 @@ class _UserCafeDetailState extends State<UserCafeDetail> {
                             "assets/images/Star_Empty.png",
                             height: 15,
                             width: 15,
-                          ),
+                          ),])),
                           Container(
-                            margin: EdgeInsets.only(left: 4),
-                            height: 15,
+                            alignment: Alignment.centerRight,
+                            margin: EdgeInsets.only(right: 70),
+                           
                             child: Text('4.1',
                                 style: GoogleFonts.roboto(
                                   fontSize: 12,
                                 )),
                           ),
-                          SizedBox(width: 65),
+                       Container(
+                         alignment: Alignment.centerRight,
+                         margin: EdgeInsets.only(right: 20),
+                         child:
                       GestureDetector(
                                       onTap: () {
                                         Navigator.push(
@@ -140,6 +152,7 @@ class _UserCafeDetailState extends State<UserCafeDetail> {
                                         );
                                       },
                          child:    Container(
+                         
                             width: 30,
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -149,7 +162,7 @@ class _UserCafeDetailState extends State<UserCafeDetail> {
                               ),
                             ),
                           ),
-                       ),
+                       ),),
                         ],
                       ),
                     )
@@ -250,6 +263,7 @@ else{
                                     ),
                                        ],
                                 )),
+                                
                                 Container(
                                   height: 45,
                                   width: MediaQuery.of(context).size.width*0.9,

@@ -77,7 +77,7 @@ class _forgetPasswordState extends State<ForgetPasswordView> {
                   ),
                   child: Center(
                     child: Text(
-                      "Doğrulama Kodu Gönder",
+                      "Şifre Değiştirme Linki Gönder",
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),

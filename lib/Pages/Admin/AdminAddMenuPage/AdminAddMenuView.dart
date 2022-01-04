@@ -10,14 +10,19 @@ import 'package:image_picker/image_picker.dart';
 
 
 
-class AdminCafeMenuState extends StatefulWidget {
+class AdminCafeMenu extends StatefulWidget {
+  final String url;
+  AdminCafeMenu({String url}) : this.url = url;
   @override
-  _AdminCafeMenuState createState() => _AdminCafeMenuState();
+  _AdminCafeMenuState createState() => _AdminCafeMenuState(url);
 }
 
-class _AdminCafeMenuState extends State<AdminCafeMenuState> {
+class _AdminCafeMenuState extends State<AdminCafeMenu> {
   Directory selectedDirectory;
+   _AdminCafeMenuState(this.url);
 
+  //cafe id çek burada
+  final String url;
 final myController = TextEditingController();
 _getFromGallery() async {
   PickedFile pickedFile = await ImagePicker().getImage(
@@ -152,7 +157,7 @@ _getFromGallery() async {
       pageSnap: false,
       
                 ).fromUrl(
-               "https://firebasestorage.googleapis.com/v0/b/fir-c129d.appspot.com/o/cafeMenuPdf%2F6732573117962598893482664962668033329972.pdf?alt=media&token=2211e3e6-b054-4927-b6c2-9222ed60245d",
+               url,
 
         placeholder: (double progress) => Center(child: Text('$progress %')),
         errorWidget: (dynamic error) => Center(child: Text(error.toString())),

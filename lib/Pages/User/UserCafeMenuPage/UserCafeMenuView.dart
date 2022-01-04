@@ -57,8 +57,7 @@ class _UserCafeMenuState extends State<UserCafeMenu> {
       pageSnap: false,
       
                 ).fromUrl(
-               "https://firebasestorage.googleapis.com/v0/b/fir-c129d.appspot.com/o/cafeMenuPdf%2F6732573117962598893482664962668033329972.pdf?alt=media&token=2211e3e6-b054-4927-b6c2-9222ed60245d",
-
+url,
         placeholder: (double progress) => Center(child: Text('$progress %')),
         errorWidget: (dynamic error) => Center(child: Text(error.toString())),
         
