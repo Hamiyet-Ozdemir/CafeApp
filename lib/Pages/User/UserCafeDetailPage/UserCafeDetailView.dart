@@ -84,8 +84,12 @@ class _UserCafeDetailState extends State<UserCafeDetail> {
                       height: 30,
                       margin: EdgeInsets.only(top: 21, bottom: 9),
                       padding: EdgeInsets.only(left: 23, right: 10),
-                      child: Stack(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          Stack(
+                          children:[
+
                           Container(
                             alignment: Alignment.centerLeft,
                          child: Text(
@@ -99,7 +103,7 @@ class _UserCafeDetailState extends State<UserCafeDetail> {
                             alignment: Alignment.centerRight,
                             margin: EdgeInsets.only(left: 200),
                             child:
-Row(children: [
+                          Row(children: [
                           Image.asset(
                             
                             "assets/images/Star.png",
@@ -135,6 +139,9 @@ Row(children: [
                                   fontSize: 12,
                                 )),
                           ),
+
+                       ]),
+
                        Container(
                          alignment: Alignment.centerRight,
                          margin: EdgeInsets.only(right: 20),

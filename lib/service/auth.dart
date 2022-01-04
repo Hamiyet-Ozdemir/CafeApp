@@ -446,6 +446,29 @@ void addCafeToFavorites(String cafeId) async {
     });
   }
 
+  Future<void> updateOffer(String docId,String cafeId, String offerTitle ,String offerDetail ,String offerTag ,String description ,PickedFile pickedFile) async {
+     var uuid = Uuid();
+    File _imageFile=File(pickedFile.path);
+    String fileName = randomName()+"."+_imageFile.path.split('.').last;
+
+    firebase_storage.Reference firebaseStorageRef =
+    firebase_storage.FirebaseStorage.instance.ref().child('offerImages/$fileName');
+
+    firebase_storage.UploadTask uploadTask = firebaseStorageRef.putFile(_imageFile);
+
+
+  var dowPictureUrl = await (await uploadTask).ref.getDownloadURL();
+    String pictureUrl = dowPictureUrl.toString();
+    await FirebaseFirestore.instance.collection("cafe").doc(cafeId).collection("kampanyalar").doc(docId).update({
+
+      'offerTitle': offerTitle,
+      'offerDetail': offerDetail,
+      'offerTag': offerTag,
+      'description': description,
+      'pictureUrl': pictureUrl
+    });
+  }
+
 
   //yorum oluşturma
   Future<void> createComment(
