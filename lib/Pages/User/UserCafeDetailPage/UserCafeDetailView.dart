@@ -252,10 +252,11 @@ else{
                                 )),
                                 Container(
                                   height: 45,
+                                  width: MediaQuery.of(context).size.width*0.9,
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
                                       image: CachedNetworkImageProvider(asyncSnapshot1.data.docs[index]['pictureUrl'].toString()),
-                                    ),),
+                                    fit: BoxFit.fill),),
                                 ),
                                 Container(
                                   child: Row(

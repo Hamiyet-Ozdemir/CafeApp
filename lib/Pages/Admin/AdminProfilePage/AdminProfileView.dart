@@ -106,7 +106,10 @@ class _AdminProfileState extends State<AdminProfile>{
                     GestureDetector(
                       onTap: () async {
                         await AuthService().signOut();
-                        Navigator.of(context).popUntil((route) => route.isFirst,);
+                        Navigator.of(context).pushAndRemoveUntil(
+                            new MaterialPageRoute(
+                                builder: (context) => new AdminLoginState()),
+                            (route) => false);
                       },child:
                   Container(
                     width: MediaQuery.of(context).size.width,
