@@ -17,18 +17,19 @@ class AuthService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 static String adminName="";
 static String userName="";
+static String userPoint="";
 
 static List<CafeModel> model;
 
-
   //kullanıcı giriş yap fonksiyonu
   Future<String> signInUser(String email, String password) async {
+  
     model = await getDocs();
-
    try {
       var user = await _auth.signInWithEmailAndPassword(
         email: email, password: password);
-        
+          await getFavCafeList();
+
   var userr=await _firestore
         .collection("usersAndAdmins").doc(user.user.uid).get();
       bool isUser=false;
@@ -46,6 +47,7 @@ static List<CafeModel> model;
         .doc(user.user.uid)
         .get();
         userName=deneme['nameSurname'].toString();
+        userPoint=deneme['userPoint'].toString();
  
      
         return "true";
@@ -69,6 +71,7 @@ static List<CafeModel> model;
   }
      //admin giriş yap fonksiyonu
       Future<String> signInAdmin(String email, String password) async {
+
 
    try {
       var user = await _auth.signInWithEmailAndPassword(
@@ -218,57 +221,11 @@ for (var i = 0; i < data.length; i++) {
   }
 
 
-
-
-  //kampana ekleme fonksiyonu
-  Future<void> createOffer(String cafeId, String offerTitle ,String offerDetail ,String offerTag ,String description ,File picturePath) async {
-    firebase_storage.Reference firebaseStorageRef =
-    firebase_storage.FirebaseStorage.instance.ref().child('offerImages/${picturePath.path}');
-
-    firebase_storage.UploadTask uploadTask = firebaseStorageRef.putFile(picturePath);
-    firebase_storage.TaskSnapshot taskSnapshot = await uploadTask;
-
-    var pictureUrl=taskSnapshot.ref.getDownloadURL().then(
-          (value) => print("Done: $value"),
-    );
-    await FirebaseFirestore.instance.collection("cafe").doc(cafeId).collection("kampanyalar").doc().update({
-      'offerTitle': offerTitle,
-      'offerDetail': offerDetail,
-      'offerTag': offerTag,
-      'description': description,
-      'pictureUrl': pictureUrl
-    });
-  }
-
-
-  //yorum oluşturma
-  Future<void> createComment(
-      String cafeId, String username,int point,String date, String comment,int like,int unlike) async {
-    await FirebaseFirestore.instance.collection("cafe").doc(cafeId).collection("yorumlar").doc().set({
-      'username': username,
-      'point': point,
-      'date': date,
-      'comment': comment,
-      'like': like,
-      'unlike': unlike
-    });
-
-    await FirebaseFirestore.instance.collection("user").doc(FirebaseAuth.instance.currentUser.uid).collection("yorumlar").doc().set({
-      'username': username,
-      'point': point,
-      'date': date,
-      'comment': comment,
-      'like': like,
-      'unlike': unlike
-    });
-
-  }
-
-
   //kafe ekle
   void addCafe(PickedFile pickedFile,String name,String cafeAddress,String safeId,String openClock,
 String closeClock,String description,String phoneNumber,String menu,
 String picture,String adminId,File file) async{
+
 
    var uuid = Uuid();
     File _imageFile=File(pickedFile.path);
@@ -303,7 +260,7 @@ String uid=uuid.v1().toString();
                                 'adminId':adminId,
                                 'pictureUrl':pictureUrl,
                                 'pdfUrl':pdfUrl,
-                                'cafeId':uid
+                                'cafeId':uid.replaceAll(" ", "")
                                 
                               }).then((value) => print("cafe added"));
 
@@ -326,7 +283,6 @@ String randomName(){
   }
   return randomName;
 }
-
 
 //rezervasyon ekle
   void addRezervation(String peoplecounter,String cafeId,String note,String date,String cafeName) async{
@@ -405,4 +361,113 @@ void deleteRezervation(
 
 }
 
+
+
+
+
+
+static List<String> FavoriteCafeList = List<String>();
+
+Future<void> getFavCafeList() async{
+
+
+    Stream<QuerySnapshot> ref1 = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(_auth.currentUser.uid)
+        .collection("FavoriteCafes")
+        .snapshots();
+
+    ref1.forEach((QuerySnapshot element) {
+      if (element == null) return;
+else{
+  FavoriteCafeList.clear();
+    for (int count = 0; count < element.docs.length; count++) {
+        FavoriteCafeList.add(element.docs[count]["cafeId"]);
+      }
+}
+    
+    });
+
+  }
+
+void addCafeToFavorites(String cafeId) async {
+    
+    FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser.uid)
+        .collection("FavoriteCafes")
+        .doc(cafeId)
+        .set({'cafeId': cafeId});
+
+           FirebaseFirestore.instance
+        .collection("cafe")
+        .doc(cafeId)
+        .collection("FavoritedUser")
+        .doc(FirebaseAuth.instance.currentUser.uid)
+        .set({'userId': FirebaseAuth.instance.currentUser.uid});
+                AuthService.FavoriteCafeList.add(cafeId);
+
+  } 
+  Future<void> deleteCafeToFavorites(String cafeId) async {
+    
+    FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser.uid)
+        .collection("FavoriteCafes")
+        .doc(cafeId).delete();
+
+           FirebaseFirestore.instance
+        .collection("cafe")
+        .doc(cafeId)
+        .collection("FavoritedUser")
+        .doc(FirebaseAuth.instance.currentUser.uid).delete();
+        AuthService.FavoriteCafeList.remove(cafeId);
+  } 
+
+  Future<void> createOffer(String cafeId, String offerTitle ,String offerDetail ,String offerTag ,String description ,PickedFile pickedFile) async {
+     var uuid = Uuid();
+    File _imageFile=File(pickedFile.path);
+    String fileName = randomName()+"."+_imageFile.path.split('.').last;
+    
+    firebase_storage.Reference firebaseStorageRef =
+    firebase_storage.FirebaseStorage.instance.ref().child('offerImages/$fileName');
+
+    firebase_storage.UploadTask uploadTask = firebaseStorageRef.putFile(_imageFile);
+  
+
+  var dowPictureUrl = await (await uploadTask).ref.getDownloadURL();
+    String pictureUrl = dowPictureUrl.toString();
+    await FirebaseFirestore.instance.collection("cafe").doc(cafeId).collection("kampanyalar").doc().set({
+      'offerTitle': offerTitle,
+      'offerDetail': offerDetail,
+      'offerTag': offerTag,
+      'description': description,
+      'pictureUrl': pictureUrl
+    });
+  }
+
+
+  //yorum oluşturma
+  Future<void> createComment(
+      String cafeId, String username,int point,String date, String comment,int like,int unlike) async {
+    await FirebaseFirestore.instance.collection("cafe").doc(cafeId).collection("yorumlar").doc().set({
+      'username': username,
+      'point': point,
+      'date': date,
+      'comment': comment,
+      'like': like,
+      'unlike': unlike
+    });
+
+    await FirebaseFirestore.instance.collection("user").doc(FirebaseAuth.instance.currentUser.uid).collection("yorumlar").doc().set({
+      'username': username,
+      'point': point,
+      'date': date,
+      'comment': comment,
+      'like': like,
+      'unlike': unlike
+    });
+
+  }
+  
 }

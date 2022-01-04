@@ -1,5 +1,7 @@
+import 'package:cafeapp/Pages/Admin/AdminLoginPage/AdminLoginView.dart';
 import 'package:cafeapp/Pages/Admin/AdminUpdateProfileInfoPage/AdminUpdateProfileInfoView.dart';
 import 'package:cafeapp/Pages/Admin/ForgetPasswordPage/ForgetPasswordView.dart';
+import 'package:cafeapp/Pages/User/UserLoginPage/UserLoginView.dart';
 import 'package:cafeapp/service/auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -101,12 +103,11 @@ class _AdminProfileState extends State<AdminProfile>{
                       ),
                     ),
                   ),),
-                     GestureDetector(
-                                      onTap: () {
-                                        _authService.signOut();
-                                       
-                                        
-                                      },child:
+                    GestureDetector(
+                      onTap: () async {
+                        await AuthService().signOut();
+                        Navigator.of(context).popUntil((route) => route.isFirst,);
+                      },child:
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.only(top: 22),

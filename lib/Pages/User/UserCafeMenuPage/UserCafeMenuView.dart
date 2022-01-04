@@ -2,8 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 import 'package:google_fonts/google_fonts.dart';
+class UserCafeMenu extends StatefulWidget {
+  final String url;
+  UserCafeMenu({String url}) : this.url = url;
+  @override
+  _UserCafeMenuState createState() => _UserCafeMenuState(url);
+}
 
-class UserCafeMenuState extends StatelessWidget {
+class _UserCafeMenuState extends State<UserCafeMenu> {
+    _UserCafeMenuState(this.url);
+
+  //cafe id çek burada
+  final String url;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

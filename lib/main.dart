@@ -17,11 +17,11 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  String cafe="";
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: AdminUpdateOffer(cafe),
+      home: LoginState(),
     );
   }
 }

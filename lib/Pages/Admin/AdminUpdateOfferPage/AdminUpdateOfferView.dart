@@ -106,7 +106,7 @@ class AdminUpdateOfferState extends State<AdminUpdateOffer> {
                               ),
                              GestureDetector(
                                onTap:() {
-                                 AuthService().createOffer(cafeId,offerTitle.text, offerDetail.text, offerTag.text, description.text, File(pickedFile.path));
+                                 AuthService().createOffer(cafeId,offerTitle.text, offerDetail.text, offerTag.text, description.text, pickedFile);
                                  Navigator.pop(context);
                                },
                                child:  Container(

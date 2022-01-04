@@ -182,7 +182,8 @@ class BodyLayout extends StatelessWidget{
             ],
           ),
         )
-, StreamBuilder<QuerySnapshot>(stream: ref.snapshots(),builder: (BuildContext context,AsyncSnapshot asyncSnapshot){
+, 
+StreamBuilder<QuerySnapshot>(stream: ref.snapshots(),builder: (BuildContext context,AsyncSnapshot asyncSnapshot){
   
 if(asyncSnapshot.data==null){
   return CircularProgressIndicator();
@@ -211,9 +212,9 @@ else{
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                AdminCafeDetailState(
-                                            
-                                            ),
+                                         AdminCafeDetail(cafeId:
+                                            asyncSnapshot.data.docs[index].data()['cafeId'].toString()
+                                         ,)
                                           ),
                                         );
                                       },child:Container(

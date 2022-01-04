@@ -1,11 +1,27 @@
 import 'package:cafeapp/Pages/User/UserCafeDetailPage/UserCafeDetailView.dart';
 import 'package:cafeapp/Pages/User/UserMakeRezervationPage/UserMakeRezervationView.dart';
 import 'package:cafeapp/service/auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+Image img;
+Image imgUp = Image.asset(
+    "assets/images/favorites_icon.png",
+    width: 40,
+    height: 40,
+  );
+  Image imgDown = Image.asset(
+    "assets/images/favorited_icon.png",
+    width: 40,
+    height: 40,
+  );
 class CafeCardWidget extends StatefulWidget {
   final int
-      postId; // <--- generates the error, "Field doesn't override an inherited getter or setter"
+      postId;
+      
+      
+       // <--- generates the error, "Field doesn't override an inherited getter or setter"
   CafeCardWidget({int postId}) : this.postId = postId;
   _CafeCardWidgetState createState() => _CafeCardWidgetState(postId);
 }
@@ -13,15 +29,27 @@ class CafeCardWidget extends StatefulWidget {
 class _CafeCardWidgetState extends State<CafeCardWidget> {
   _CafeCardWidgetState(this.postId);
   final int postId;
+  
 
   @override
+  void initState() {
+    super.initState();
+    img = imgUp;
+  }
+ 
+  @override
   Widget build(BuildContext context) {
+    if (AuthService.FavoriteCafeList.indexOf(AuthService.model[postId].cafeId)!=-1) {
+      img=imgDown;
+    } else {
+      img=imgUp;
+    }
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => UserCafeDetailState(),
+            builder: (context) => UserCafeDetail(cafeId:AuthService.model[postId].cafeId),
           ),
         );
       },
@@ -47,18 +75,32 @@ class _CafeCardWidgetState extends State<CafeCardWidget> {
                         fit: BoxFit.fill),
                   ),
                 ),
+                
+                
+                
                 GestureDetector(
                     onTap: () {
+                   if (AuthService.FavoriteCafeList.indexOf(AuthService.model[postId].cafeId)==-1) {
+                            setState(() {
+    img=imgUp;
+                                              
+                                            });
+                        AuthService().addCafeToFavorites(AuthService.model[postId].cafeId);
+               
+                   } else {
+                            setState(() {
+    img=imgDown;
+                                              
+                                            });
+                        AuthService().deleteCafeToFavorites(AuthService.model[postId].cafeId);
+               
+                   }
                       //User içine favorilere kaydedicek
                     },
                     child: Container(
                       alignment: Alignment.bottomRight,
                       margin: EdgeInsets.only(bottom: 20,right: 20),
-                      child: Image.asset(
-                        "assets/images/favorites_icon.png",
-                        width: 40,
-                        height: 40,
-                      ),
+                      child: img
                     ))
               ],
             ),
