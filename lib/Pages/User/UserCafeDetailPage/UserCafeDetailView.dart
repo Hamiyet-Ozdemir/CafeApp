@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cafeapp/Pages/User/UserCafeMenuPage/UserCafeMenuView.dart';
 import 'package:cafeapp/Pages/User/UserCreateCommentPage/UserCreateCommentView.dart';
+import 'package:cafeapp/Pages/User/UserMakeRezervationPage/UserMakeRezervationView.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -103,7 +104,6 @@ class _UserCafeDetailState extends State<UserCafeDetail> {
                                 color: Colors.black),
                           )),
                           Container(
-                            alignment: Alignment.centerRight,
                             margin: EdgeInsets.only(left: 200),
                             child:
                           Row(children: [
@@ -132,16 +132,16 @@ class _UserCafeDetailState extends State<UserCafeDetail> {
                             "assets/images/Star_Empty.png",
                             height: 15,
                             width: 15,
-                          ),])),
-                          Container(
+                          ),  Container(
                             alignment: Alignment.centerRight,
-                            margin: EdgeInsets.only(right: 70),
+                            margin: EdgeInsets.only(right: 10),
                            
                             child: Text('4.1',
                                 style: GoogleFonts.roboto(
                                   fontSize: 12,
                                 )),
-                          ),
+                          ),])),
+                        
 
                        ]),
 
@@ -352,7 +352,15 @@ else{
                                         fit: BoxFit.fill,
                                       ),
                                     ),
-                                  ),
+                                  ), GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => UserMakeRezervation(cafeId,asyncSnapshot.data.data()["name"].toString()),
+                            ),
+                          );
+                        },child:
                                   Container(
                                     height: 20,
                                     child: Text(
@@ -360,7 +368,7 @@ else{
                                       style: GoogleFonts.roboto(
                                           color: Colors.black, fontSize: 14),
                                     ),
-                                  )
+                                  ))
                                 ],
                               ),
                             ),
@@ -624,6 +632,7 @@ else{
                                                           width: 15,
                                                         ),
                                                         Container(
+
                                                           margin:
                                                               EdgeInsets.only(
                                                                   left: 4),
