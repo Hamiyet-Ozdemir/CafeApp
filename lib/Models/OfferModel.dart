@@ -4,8 +4,9 @@ import 'package:cafeapp/Pages/Admin/AdminUpdateOfferPage/AdminUpdateOfferView.da
 
 class OfferModel {
 
-  void updateString(String docId,String cafeId, String offerTitle, String offerDetail,String offerTag, String description, File picturePath) {
+  void updateString(String docId,String cafeId, String offerTitle, String offerDetail,String offerTag, String description, File picturePath,String cafeName) {
     AdminUpdateOfferState.setButton = "Güncelle";
+    AdminUpdateOfferState.cafeName=cafeName;
     AdminUpdateOfferState.docId = docId;
     AdminUpdateOfferState.offerTitleHintText = offerTitle;
     AdminUpdateOfferState.offerDetailHintText = offerDetail;
@@ -15,8 +16,10 @@ class OfferModel {
     AdminUpdateOfferState(cafeId).cafeId = cafeId;
   }
 
-  void createString(String cafeId) {
+  void createString(String cafeId,String cafeName) {
     AdminUpdateOfferState.setButton = "Yayınla";
+    AdminUpdateOfferState.cafeName=cafeName;
+
     AdminUpdateOfferState.offerTitleHintText = "Kampanya Başlığı";
     AdminUpdateOfferState.offerDetailHintText = "Kampanta Detayı";
     AdminUpdateOfferState.offerTagHintText = "Etiket";

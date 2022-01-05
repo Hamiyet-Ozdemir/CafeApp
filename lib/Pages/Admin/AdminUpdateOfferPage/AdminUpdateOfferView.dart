@@ -31,6 +31,7 @@ class AdminUpdateOfferState extends State<AdminUpdateOffer> {
   final TextEditingController description = TextEditingController();
   final TextEditingController picturePath = TextEditingController();
 
+static String cafeName="";
   static String offerTitleHintText = "Kampanya Başlığı";
   static String offerDetailHintText = "Kampanta Detayı";
   static String offerTagHintText = "Etiket";
@@ -87,7 +88,7 @@ class AdminUpdateOfferState extends State<AdminUpdateOffer> {
                         ),
                       ),
                       SizedBox(width: 57), //boşluk
-                      Text("Starbucks Coffe",
+                      Text(cafeName,
                           style: GoogleFonts.roboto(
                             fontStyle: FontStyle.normal,
                             fontSize: 25,

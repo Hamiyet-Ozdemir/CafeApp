@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cafeapp/Models/OfferModel.dart';
 import 'package:cafeapp/Pages/Admin/AdminAddMenuPage/AdminAddMenuView.dart';
-import 'package:cafeapp/Pages/Admin/AdminAddOfferPage/AdminAddOfferView.dart';
 import 'package:cafeapp/Pages/Admin/AdminCommentDetailPage/AdminCommentDetailView.dart';
 import 'package:cafeapp/Pages/Admin/AdminUpdateOfferPage/AdminUpdateOfferView.dart';
 import 'package:cafeapp/service/auth.dart';
@@ -119,7 +118,9 @@ class _AdminCafeDetailState extends State<AdminCafeDetail> {
                                                   AdminCafeMenu(
                                                      asyncSnapshot.data
                                                           .data()["pdfUrl"],asyncSnapshot.data
-                                                          .data()["cafeId"]),
+                                                          .data()["cafeId"],asyncSnapshot.data
+                                            .data()["name"]
+                                            ),
                                             ),
                                           );
                                         },
@@ -202,7 +203,9 @@ class _AdminCafeDetailState extends State<AdminCafeDetail> {
                                           GestureDetector(
                                               onTap: () {
                                                 OfferModel()
-                                                    .createString(cafeId);
+                                                    .createString(cafeId, asyncSnapshot.data
+                                            .data()["name"]
+                                            .toString());
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
@@ -325,7 +328,9 @@ class _AdminCafeDetailState extends State<AdminCafeDetail> {
                                                                       GestureDetector(
                                                                           onTap:
                                                                               () {
-                                                                            OfferModel().updateString( asyncSnapshot1.data.docs[index].id, cafeId, asyncSnapshot1.data.docs[index]["offerTitle"],asyncSnapshot1.data.docs[index]["offerDetail"] , asyncSnapshot1.data.docs[index]["offerTag"],asyncSnapshot1.data.docs[index]["description"] ,null );
+                                                                            OfferModel().updateString( asyncSnapshot1.data.docs[index].id, cafeId, asyncSnapshot1.data.docs[index]["offerTitle"],asyncSnapshot1.data.docs[index]["offerDetail"] , asyncSnapshot1.data.docs[index]["offerTag"],asyncSnapshot1.data.docs[index]["description"] ,null, asyncSnapshot.data
+                                            .data()["name"]
+                                            .toString() );
                                                                             Navigator.push(
                                                                               context,
                                                                               MaterialPageRoute(
