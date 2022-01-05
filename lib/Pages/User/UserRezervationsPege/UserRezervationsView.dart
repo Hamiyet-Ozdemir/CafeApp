@@ -1,5 +1,4 @@
 import 'package:cafeapp/Models/CafeModel.dart';
-import 'package:cafeapp/Pages/User/UserMakeRezervationPage/UserMakeRezervationView.dart';
 import 'package:cafeapp/Pages/User/UserUpdateRezervations/UserUpdateRezervations.dart';
 import 'package:cafeapp/service/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

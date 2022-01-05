@@ -3,11 +3,9 @@ import 'package:cafeapp/Models/OfferModel.dart';
 import 'package:cafeapp/Pages/Admin/AdminAddMenuPage/AdminAddMenuView.dart';
 import 'package:cafeapp/Pages/Admin/AdminCommentDetailPage/AdminCommentDetailView.dart';
 import 'package:cafeapp/Pages/Admin/AdminUpdateOfferPage/AdminUpdateOfferView.dart';
-import 'package:cafeapp/service/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AdminCafeDetail extends StatefulWidget {

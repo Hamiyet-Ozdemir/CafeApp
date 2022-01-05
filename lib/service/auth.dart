@@ -7,7 +7,6 @@ import 'package:cafeapp/Models/CafeModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage ;
-import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 
@@ -366,12 +365,12 @@ void deleteRezervation(
 
 
 
-static List<String> FavoriteCafeList = List<String>();
+static List<String> favoriteCafeList = List<String>();
 
 Future<void> getFavCafeList() async{
 
 
-    Stream<QuerySnapshot> ref1 = await FirebaseFirestore.instance
+    Stream<QuerySnapshot> ref1 =  FirebaseFirestore.instance
         .collection("user")
         .doc(_auth.currentUser.uid)
         .collection("FavoriteCafes")
@@ -380,9 +379,9 @@ Future<void> getFavCafeList() async{
     ref1.forEach((QuerySnapshot element) {
       if (element == null) return;
 else{
-  FavoriteCafeList.clear();
+  favoriteCafeList.clear();
     for (int count = 0; count < element.docs.length; count++) {
-        FavoriteCafeList.add(element.docs[count]["cafeId"]);
+        favoriteCafeList.add(element.docs[count]["cafeId"]);
       }
 }
     
@@ -405,7 +404,7 @@ void addCafeToFavorites(String cafeId) async {
         .collection("FavoritedUser")
         .doc(FirebaseAuth.instance.currentUser.uid)
         .set({'userId': FirebaseAuth.instance.currentUser.uid});
-                AuthService.FavoriteCafeList.add(cafeId);
+                AuthService.favoriteCafeList.add(cafeId);
 
   } 
   Future<void> deleteCafeToFavorites(String cafeId) async {
@@ -421,11 +420,10 @@ void addCafeToFavorites(String cafeId) async {
         .doc(cafeId)
         .collection("FavoritedUser")
         .doc(FirebaseAuth.instance.currentUser.uid).delete();
-        AuthService.FavoriteCafeList.remove(cafeId);
+        AuthService.favoriteCafeList.remove(cafeId);
   } 
 
   Future<void> createOffer(String cafeId, String offerTitle ,String offerDetail ,String offerTag ,String description ,PickedFile pickedFile) async {
-     var uuid = Uuid();
     File _imageFile=File(pickedFile.path);
     String fileName = randomName()+"."+_imageFile.path.split('.').last;
     
@@ -447,7 +445,6 @@ void addCafeToFavorites(String cafeId) async {
   }
 
   Future<void> updateOffer(String docId,String cafeId, String offerTitle ,String offerDetail ,String offerTag ,String description ,PickedFile pickedFile) async {
-     var uuid = Uuid();
     File _imageFile=File(pickedFile.path);
     String fileName = randomName()+"."+_imageFile.path.split('.').last;
 

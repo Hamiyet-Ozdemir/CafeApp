@@ -1,11 +1,7 @@
-import 'package:cafeapp/CustomWidgets/DashboardCafeWidget.dart';
 import 'package:cafeapp/Pages/User/UserCafeDetailPage/UserCafeDetailView.dart';
 import 'package:cafeapp/service/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:cafeapp/Models/CafeModel.dart';
-import 'package:uuid/uuid.dart';
-import 'UserMakeRezervationPage/UserMakeRezervationView.dart';
 
 class FavoritesPage extends StatefulWidget {
   _FavoritesPageState createState() => _FavoritesPageState();
@@ -19,7 +15,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
   );
   @override
   Widget build(BuildContext context) {
-    if (AuthService.FavoriteCafeList.length>0) {
+    if (AuthService.favoriteCafeList.length>0) {
        return Scaffold(
       body: Container(
         color: Color.fromRGBO(247, 248, 251, 1),
@@ -72,7 +68,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 stream: FirebaseFirestore.instance
                     .collection("cafe")
                     .where('cafeId',
-                        whereIn: AuthService.FavoriteCafeList)
+                        whereIn: AuthService.favoriteCafeList)
                     
                     .snapshots(),
                 builder: (BuildContext context, AsyncSnapshot asyncSnapshot) {

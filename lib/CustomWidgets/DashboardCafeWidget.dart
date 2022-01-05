@@ -1,8 +1,6 @@
 import 'package:cafeapp/Pages/User/UserCafeDetailPage/UserCafeDetailView.dart';
 import 'package:cafeapp/Pages/User/UserMakeRezervationPage/UserMakeRezervationView.dart';
 import 'package:cafeapp/service/auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 Image img;
@@ -39,7 +37,7 @@ class _CafeCardWidgetState extends State<CafeCardWidget> {
  
   @override
   Widget build(BuildContext context) {
-    if (AuthService.FavoriteCafeList.indexOf(AuthService.model[postId].cafeId)!=-1) {
+    if (AuthService.favoriteCafeList.indexOf(AuthService.model[postId].cafeId)!=-1) {
       img=imgDown;
     } else {
       img=imgUp;
@@ -80,7 +78,7 @@ class _CafeCardWidgetState extends State<CafeCardWidget> {
                 
                 GestureDetector(
                     onTap: () {
-                   if (AuthService.FavoriteCafeList.indexOf(AuthService.model[postId].cafeId)==-1) {
+                   if (AuthService.favoriteCafeList.indexOf(AuthService.model[postId].cafeId)==-1) {
                             setState(() {
     img=imgUp;
                                               

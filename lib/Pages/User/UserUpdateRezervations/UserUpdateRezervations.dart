@@ -1,7 +1,6 @@
 import 'package:cafeapp/service/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 
@@ -72,7 +71,6 @@ class _UserUpdateRezervationState extends State<UserUpdateRezervation> {
   TimeOfDay secilenSaat = TimeOfDay.fromDateTime(DateTime.now());
   @override
   Widget build(BuildContext context) {
-    String date1=date;
 textcontoller.text=date;
     return Scaffold(
 

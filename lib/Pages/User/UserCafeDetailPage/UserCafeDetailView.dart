@@ -3,10 +3,8 @@ import 'package:cafeapp/Pages/User/UserCafeMenuPage/UserCafeMenuView.dart';
 import 'package:cafeapp/Pages/User/UserCreateCommentPage/UserCreateCommentView.dart';
 import 'package:cafeapp/Pages/User/UserMakeRezervationPage/UserMakeRezervationView.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 class UserCafeDetail extends StatefulWidget {
 final String cafeId;

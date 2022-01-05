@@ -1,11 +1,8 @@
 import 'package:cafeapp/Pages/Admin/AdminLoginPage/AdminLoginView.dart';
 import 'package:cafeapp/Pages/Admin/AdminUpdateProfileInfoPage/AdminUpdateProfileInfoView.dart';
 import 'package:cafeapp/Pages/Admin/ForgetPasswordPage/ForgetPasswordView.dart';
-import 'package:cafeapp/Pages/User/UserLoginPage/UserLoginView.dart';
 import 'package:cafeapp/service/auth.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AdminProfile extends StatefulWidget {
@@ -13,7 +10,6 @@ class AdminProfile extends StatefulWidget {
   _AdminProfileState createState() => _AdminProfileState();
 }
 class _AdminProfileState extends State<AdminProfile>{
-  AuthService _authService=AuthService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

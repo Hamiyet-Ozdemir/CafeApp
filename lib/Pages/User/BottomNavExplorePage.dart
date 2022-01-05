@@ -1,5 +1,4 @@
 import 'package:cafeapp/CustomWidgets/DashboardCafeWidget.dart';
-import 'package:cafeapp/Models/CafeModel.dart';
 import 'package:cafeapp/service/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
