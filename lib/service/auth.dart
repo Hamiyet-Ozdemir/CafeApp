@@ -490,5 +490,24 @@ void addCafeToFavorites(String cafeId) async {
     });
 
   }
-  
+  Future<void> updateMenu(
+      String cafeId,File file) async {
+        String pdfName = randomName()+".pdf";
+                firebase_storage.Reference firebaseStorageRef1 =
+        firebase_storage.FirebaseStorage.instance.ref().child('cafeMenuPdf/$pdfName');
+    firebase_storage.UploadTask uploadTask1=firebaseStorageRef1.putFile(file);
+   
+ 
+var dowPdfUrl = await (await uploadTask1).ref.getDownloadURL();
+    String pdfUrl = dowPdfUrl.toString();
+
+
+
+    await FirebaseFirestore.instance.collection("cafe").doc(cafeId).update({
+      'pdfUrl': pdfUrl,
+      
+    });
+
+
+  }
 }

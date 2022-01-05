@@ -1,6 +1,9 @@
 import 'dart:io';
+import 'dart:math';
 
+import 'package:cafeapp/service/auth.dart';
 import 'package:easy_folder_picker/FolderPicker.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,45 +15,32 @@ import 'package:image_picker/image_picker.dart';
 
 class AdminCafeMenu extends StatefulWidget {
   final String url;
-  AdminCafeMenu({String url}) : this.url = url;
+  final String cafeId;
+  AdminCafeMenu(String url,String cafeId) : this.url = url,this.cafeId=cafeId;
   @override
-  _AdminCafeMenuState createState() => _AdminCafeMenuState(url);
+  _AdminCafeMenuState createState() => _AdminCafeMenuState(url,cafeId);
 }
 
 class _AdminCafeMenuState extends State<AdminCafeMenu> {
   Directory selectedDirectory;
-   _AdminCafeMenuState(this.url);
+   _AdminCafeMenuState(this.url,this.cafeId);
 
   //cafe id çek burada
   final String url;
-final myController = TextEditingController();
-_getFromGallery() async {
-  PickedFile pickedFile = await ImagePicker().getImage(
-    source: ImageSource.gallery,
-    maxWidth: 1800,
-    maxHeight: 1800,
-  );
-  if (pickedFile != null) {
-    File imageFile = File(pickedFile.path);
-    myController.text = imageFile.toString();
-  }
-}
-  Future<void> _pickDirectory(BuildContext context) async {
-    Directory directory = selectedDirectory;
-    if (directory == null) {
-      directory = Directory(FolderPicker.ROOTPATH);
-    }
+  final String cafeId;
+final myPdfController = TextEditingController();
+File file;
 
-    Directory newDirectory = await FolderPicker.pick(
-        allowFolderCreation: true,
-        context: context,
-        rootDirectory: directory,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10))));
-    setState(() {
-      selectedDirectory = newDirectory;
-      print(selectedDirectory);
-    });
+void _getDocuments() async {
+  
+ 
+   FilePickerResult result = await FilePicker.platform.pickFiles( type: FileType.custom,
+      allowedExtensions: ['pdf']);
+file=File(result.paths.first);
+  
+ 
+ 
+  myPdfController.text=result.paths.first;
   }
   @override
   Widget build(BuildContext context) {
@@ -86,7 +76,12 @@ _getFromGallery() async {
                             fontWeight: FontWeight.bold,
                           )
                       ),
-                    ),
+                    ),GestureDetector(
+                      onTap: () {
+                                              AuthService().updateMenu(cafeId, file);
+                                              Navigator.pop(context);
+                                            },
+                      child:
                     Container(
                       margin: EdgeInsets.only(left: 27),
                       height: 28,
@@ -104,7 +99,7 @@ _getFromGallery() async {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                    )
+                    ))
                   ]
               ),
 
@@ -124,7 +119,7 @@ _getFromGallery() async {
                           width: 200,
                           child: TextField(
                             readOnly: true,
-                            controller: myController,
+                            controller: myPdfController,
                             textAlign: TextAlign.left,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
@@ -144,7 +139,7 @@ _getFromGallery() async {
                             ),
                             elevation: 8,
                             onPressed: () {
-                              _pickDirectory(context);
+                              _getDocuments();
                             },
                           ),
                         )

@@ -145,7 +145,7 @@ class CreateCommentState extends State<CreateComment> {
                           ),
                          GestureDetector(
                            onTap: (){
-                             AuthService().createComment(cafeId, username, index, time, comment.text, 0, 0);
+                             AuthService().createComment(cafeId,username,DateTime.now().toString(),comment.text, 0, 0);
                              Navigator.pop(context);
                            },
                            child:  Container(

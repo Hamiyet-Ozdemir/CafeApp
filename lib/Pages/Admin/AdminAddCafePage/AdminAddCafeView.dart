@@ -53,7 +53,8 @@ String randomName(){
 void _getDocuments() async {
   
  
-   FilePickerResult result = await FilePicker.platform.pickFiles();
+  FilePickerResult result = await FilePicker.platform.pickFiles( type: FileType.custom,
+      allowedExtensions: ['pdf']);
 file=File(result.paths.first);
   
   String fileName = '${randomName()}.pdf';
