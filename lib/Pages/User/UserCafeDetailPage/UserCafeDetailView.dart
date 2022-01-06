@@ -1,7 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cafeapp/CustomWidgets/DashboardCafeWidget.dart';
+import 'package:cafeapp/Pages/Admin/AdminCommentDetailPage/AdminCommentDetailView.dart';
 import 'package:cafeapp/Pages/User/UserCafeMenuPage/UserCafeMenuView.dart';
 import 'package:cafeapp/Pages/User/UserCreateCommentPage/UserCreateCommentView.dart';
 import 'package:cafeapp/Pages/User/UserMakeRezervationPage/UserMakeRezervationView.dart';
+import 'package:cafeapp/service/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,9 +18,16 @@ final String cafeId;
 
 class _UserCafeDetailState extends State<UserCafeDetail> {
     _UserCafeDetailState(this.cafeId);
-
+String getimage(){
+  if (AuthService.favoriteCafeList.indexOf(cafeId)!=-1) {
+    return "assets/images/like_active.png" ;
+  } else {
+    return "assets/images/like_unactive.png";
+  }
+}
   //cafe id çek burada
   final String cafeId;
+
   @override
 
   Widget build(BuildContext context) {
@@ -74,12 +84,14 @@ class _UserCafeDetailState extends State<UserCafeDetail> {
                         Positioned(
                           top: 10,
                           right: 10,
-                          child: Image.asset(
-                            "assets/images/like_unactive.png",
+                          child:
+                         
+                           Image.asset(
+                            getimage(),
                             width: 40,
                             height: 40,
-                          ),
-                        )
+                          ),),
+                        
                       ],
                     ),
                     Container(
@@ -554,7 +566,20 @@ else{
               itemCount: asyncSnapshot2.data.docs.length,
               itemBuilder: (BuildContext ctxt, int index) {
                 return 
-                Container(
+              GestureDetector(
+                onTap: () {
+                                   Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      AdminCommentDetail(cafeId,asyncSnapshot2.data
+                                                                .docs[index].id,asyncSnapshot.data
+                                            .data()["name"]
+                                            .toString()),
+                                                ),
+                                              );
+                                },
+                child:  Container(
                                       margin: EdgeInsets.only(top: 21),
                                       width: MediaQuery.of(context).size.width *
                                           0.93,
@@ -758,8 +783,8 @@ else{
                                                 ],
                                               )),
                                         ],
-                                      ));
-                                      
+                                      ))
+          ,);                             
               },
             ),
           ),

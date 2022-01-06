@@ -14,8 +14,8 @@ import 'package:uuid/uuid.dart';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-static String adminName="";
-static String userName="";
+static String adminName;
+static String userName;
 static String userPoint="";
 
 static List<CafeModel> model;
@@ -505,6 +505,36 @@ var dowPdfUrl = await (await uploadTask1).ref.getDownloadURL();
       
     });
 
+
+  }
+
+
+    Future<void> commentToComment(
+     
+      String username,String date, String comment,int like,int unlike,String commentId) async {
+         String userOrAdmin;
+      if (AuthService.adminName.isEmpty) {
+        userOrAdmin="user";
+      } else {
+        userOrAdmin="admin";
+
+      }
+    await FirebaseFirestore.instance.collection("commenttocomment").doc().set({
+      'username': username,
+      'date': date,
+      'comment': comment,
+      'like': like,
+      'unlike': unlike,
+      'commentId':commentId
+    });
+
+    await FirebaseFirestore.instance.collection(userOrAdmin).doc(FirebaseAuth.instance.currentUser.uid).collection("yorumlar").doc().set({
+      'username': username,
+      'date': date,
+      'comment': comment,
+      'like': like,
+      'unlike': unlike
+    });
 
   }
 }

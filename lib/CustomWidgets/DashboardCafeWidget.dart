@@ -42,7 +42,9 @@ class _CafeCardWidgetState extends State<CafeCardWidget> {
     } else {
       img=imgUp;
     }
-    return GestureDetector(
+    return 
+    
+    GestureDetector(
       onTap: () {
         Navigator.push(
           context,

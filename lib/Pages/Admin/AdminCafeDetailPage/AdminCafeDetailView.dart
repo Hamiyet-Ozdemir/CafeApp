@@ -239,7 +239,8 @@ class _AdminCafeDetailState extends State<AdminCafeDetail> {
                                             );
                                           } else {
                                             if (asyncSnapshot1.hasData) {
-                                              return Row(
+                                              return 
+                                              Row(
                                                 children: [
                                                   Expanded(
                                                     child: SizedBox(
@@ -643,7 +644,10 @@ class _AdminCafeDetailState extends State<AdminCafeDetail> {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      AdminCommentDetailState(),
+                                                      AdminCommentDetail(cafeId,asyncSnapshot2.data
+                                                                .docs[index].id,asyncSnapshot.data
+                                            .data()["name"]
+                                            .toString()),
                                                 ),
                                               );
                                             },
