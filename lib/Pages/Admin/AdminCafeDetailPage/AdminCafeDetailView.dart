@@ -260,7 +260,7 @@ class _AdminCafeDetailState extends State<AdminCafeDetail> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height -
-                                                              508,
+                                                              460,
                                                       child:
                                                           new ListView.builder(
                                                         scrollDirection:
@@ -656,7 +656,7 @@ class _AdminCafeDetailState extends State<AdminCafeDetail> {
                                                                         context)
                                                                     .size
                                                                     .height -
-                                                                463,
+                                                                405,
                                                             child: new ListView
                                                                 .builder(
                                                               reverse: true,
