@@ -100,16 +100,15 @@ else{
                                       ),
                                       GestureDetector(
                                       onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                               UserUpdateRezervation(model[index].cafeRezervationId, 
+                                         Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) =>   UserUpdateRezervation(model[index].cafeRezervationId, 
                                                model[index].userRezervationId,
                                                 model[index].people, model[index].date,
-                                                 model[index].note,model[index].userName,model[index].cafeId),
-                                          ),
-                                        );
+                                                 model[index].note,model[index].userName,model[index].cafeId),),
+                              (Route<dynamic> route) => true);
+                                        
                                       },child:  Container(
                                          alignment: Alignment.centerRight,
                                          margin: EdgeInsets.only(right: 80,top:11),

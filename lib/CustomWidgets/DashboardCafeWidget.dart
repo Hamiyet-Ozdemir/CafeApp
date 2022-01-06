@@ -46,12 +46,16 @@ class _CafeCardWidgetState extends State<CafeCardWidget> {
     
     GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => UserCafeDetail(cafeId:AuthService.model[postId].cafeId),
-          ),
-        );
+            Navigator.of(
+                                                                            context,
+                                                                            rootNavigator:
+                                                                                true)
+                                                                        .push(
+                                                                      MaterialPageRoute(
+                                                                        builder: (context) => UserCafeDetail(cafeId:AuthService.model[postId].cafeId),
+                                                                      ),
+                                                                    );
+      
       },
       child: Container(
         margin: EdgeInsets.only(left: 16, right: 16, bottom: 20),
@@ -179,12 +183,12 @@ class _CafeCardWidgetState extends State<CafeCardWidget> {
                     ),
                     GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => UserMakeRezervation(AuthService.model[postId].cafeId,AuthService.model[postId].name),
-                            ),
-                          );
+                           Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) => UserMakeRezervation(AuthService.model[postId].cafeId,AuthService.model[postId].name),),
+                              (Route<dynamic> route) => true);
+                         
                         },
                         child: Container(
                           width: 120,

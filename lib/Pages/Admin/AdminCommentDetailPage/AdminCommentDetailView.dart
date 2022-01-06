@@ -31,11 +31,14 @@ class _AdminCommentDetailState extends State<AdminCommentDetail> {
         .collection("cafe")
         .doc(cafeId)
         .collection("yorumlar");
+      
 String name;
 if (AuthService.adminName==null) {
   name=AuthService.userName;
+
 } else {
   name=AuthService.adminName;
+
 }
     var commentRef = cafesRef.doc(commentId);
     
@@ -82,6 +85,8 @@ if (AuthService.adminName==null) {
                               0,
                               0,
                               commentId);
+                              commentController.text="";
+                          
                         
                         },
                         child: Container(
@@ -205,7 +210,7 @@ if (AuthService.adminName==null) {
                                                     .first,
                                                 style: GoogleFonts.roboto(
                                                   color: Color(0xFF7C7C7C),
-                                                  fontSize: 13,
+                                                  fontSize: 14,
                                                   //figma 12 yazıyodu kodda güncelledim fontsize ı
                                                 ),
                                               ),
@@ -223,7 +228,7 @@ if (AuthService.adminName==null) {
                                                 .data()["comment"],
                                             style: GoogleFonts.roboto(
                                               color: Color(0xFF000000),
-                                              fontSize: 13,
+                                              fontSize: 14,
                                               //figma 12 yazıyodu burada da güncelledim fontsize ı
                                             ),
                                           ),
@@ -295,7 +300,7 @@ if (AuthService.adminName==null) {
                                                               width: 0)),
                                               hintStyle: TextStyle(
                                                   color: Colors.grey[400],
-                                                  fontSize: 13)),
+                                                  fontSize: 14)),
                                         ),
                                       ),
                                     ],
@@ -343,7 +348,7 @@ if (AuthService.adminName==null) {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .height -
-                                                              320,
+                                                              265,
                                                       child:
                                                           new ListView.builder(
                                                         scrollDirection:
@@ -358,11 +363,11 @@ if (AuthService.adminName==null) {
                                                          Container(
 
                           padding: EdgeInsets.only(left: 41),
-
+                          
                           width: MediaQuery.of(context).size.width * 0.93,
                           decoration: BoxDecoration(
                               color: Color(0xFFF8F8F8),
-                             
+                             boxShadow: [BoxShadow(blurRadius: 5,color: Colors.black,offset: Offset(1,5))],
                               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5),bottomRight: Radius.circular(5))
                           ),
                           child:Column(
@@ -471,7 +476,7 @@ if (AuthService.adminName==null) {
                                       ),
                                       hintStyle: TextStyle(
                                           color: Colors.grey[400],
-                                          fontSize: 13)),
+                                          fontSize: 14)),
                                 ),
                               ),
 

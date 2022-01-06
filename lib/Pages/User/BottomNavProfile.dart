@@ -74,12 +74,11 @@ class ProfilePage extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => UserRezervationsState(),
-                          ),
-                        );
+                       Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) =>      UserRezervationsState()),
+                              (Route<dynamic> route) => true);
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width,
@@ -95,12 +94,11 @@ class ProfilePage extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => UserUpdateProfileInfo(),
-                          ),
-                        );
+                       Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) =>      UserUpdateProfileInfo()),
+                              (Route<dynamic> route) => true);
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width,
@@ -136,10 +134,11 @@ class ProfilePage extends StatelessWidget {
                     GestureDetector(
                       onTap: () async {
                         await AuthService().signOut();
-                        Navigator.of(context).pushAndRemoveUntil(
-                            new MaterialPageRoute(
-                                builder: (context) => new LoginState()),
-                            (route) => false);
+                       Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) => LoginState()),
+                              (Route<dynamic> route) => false);
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width,

@@ -73,15 +73,11 @@ class BodyLayout extends StatelessWidget{
                 children: [
                  GestureDetector(
                                       onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                AdminProfile(
-                                            
-                                            ),
-                                          ),
-                                        );
+                                        Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) =>  AdminProfile()),
+                              (Route<dynamic> route) => true);
                                       },
                                       child:  Container(
                     margin: EdgeInsets.only(top: 30),
@@ -155,12 +151,11 @@ class BodyLayout extends StatelessWidget{
                                 ),
                                 GestureDetector(
                                     onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => AddCafeState(),
-                                        ),
-                                      );
+                                      Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) =>  AddCafeState()),
+                              (Route<dynamic> route) => true);
                                     },
                                     child: Container(
                                       height: 20,
@@ -214,15 +209,14 @@ else{
                       children: [
                           GestureDetector(
                                       onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                         AdminCafeDetail(cafeId:
+                                         Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) => AdminCafeDetail(cafeId:
                                             asyncSnapshot.data.docs[index].data()['cafeId'].toString()
-                                         ,)
-                                          ),
-                                        );
+                                         ,)),
+                              (Route<dynamic> route) => true);
+                                       
                                       },child:Container(
                           child: Column(
                             children: [ Container(

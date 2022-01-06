@@ -1,6 +1,7 @@
 import 'package:cafeapp/Pages/Admin/AdminLoginPage/AdminLoginView.dart';
 import 'package:cafeapp/Pages/Admin/AdminUpdateProfileInfoPage/AdminUpdateProfileInfoView.dart';
 import 'package:cafeapp/Pages/Admin/ForgetPasswordPage/ForgetPasswordView.dart';
+import 'package:cafeapp/Pages/User/UserLoginPage/UserLoginView.dart';
 import 'package:cafeapp/service/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -51,15 +52,11 @@ class _AdminProfileState extends State<AdminProfile>{
                   ),
  GestureDetector(
                                       onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                adminProfileUpdateInfo(
-                                            
-                                            ),
-                                          ),
-                                        );
+                                       Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) => adminProfileUpdateInfo()),
+                              (Route<dynamic> route) => true);
                                       },child:
                   Container(
                     width: MediaQuery.of(context).size.width,
@@ -76,15 +73,11 @@ class _AdminProfileState extends State<AdminProfile>{
                   ),),
                    GestureDetector(
                                       onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                ForgetPasswordView(
-                                            
-                                            ),
-                                          ),
-                                        );
+                                       Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) => ForgetPasswordView()),
+                              (Route<dynamic> route) => true);
                                       },child:
                   Container(
                     width: MediaQuery.of(context).size.width,
@@ -102,10 +95,11 @@ class _AdminProfileState extends State<AdminProfile>{
                     GestureDetector(
                       onTap: () async {
                         await AuthService().signOut();
-                        Navigator.of(context).pushAndRemoveUntil(
-                            new MaterialPageRoute(
-                                builder: (context) => new AdminLoginState()),
-                            (route) => false);
+                        Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) => LoginState()),
+                              (Route<dynamic> route) => false);
                       },child:
                   Container(
                     width: MediaQuery.of(context).size.width,

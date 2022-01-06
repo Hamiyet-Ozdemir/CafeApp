@@ -95,15 +95,14 @@ class _FavoritesPageState extends State<FavoritesPage> {
                               itemBuilder: (context, index) {
                                 return GestureDetector(
                                   onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            UserCafeDetail(
+                                    Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) =>       UserCafeDetail(
                                    cafeId:asyncSnapshot.data.docs[index]["cafeId"]
-                                        ),
-                                      ),
-                                    );
+                                        ),),
+                              (Route<dynamic> route) => true);
+                                    
                                   },
                                   child: Container(
                                     margin: EdgeInsets.only(

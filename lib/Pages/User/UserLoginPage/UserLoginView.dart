@@ -146,13 +146,11 @@ class LoginState extends StatelessWidget {
                                 alignment: Alignment.centerRight,
                                 child: FlatButton(
                                   onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            VerificationState(),
-                                      ),
-                                    );
+                                   Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) =>    VerificationState()),
+                              (Route<dynamic> route) => true);
                                   },
                                   child: Text(
                                     'Şifremi Unuttum',
@@ -165,12 +163,11 @@ class LoginState extends StatelessWidget {
                               )),
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => UserSignUp(),
-                                ),
-                              );
+                             Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) =>    UserSignUp()),
+                              (Route<dynamic> route) => true);
                             },
                             child: Container(
                                 margin: EdgeInsets.only(
@@ -181,12 +178,11 @@ class LoginState extends StatelessWidget {
                                   alignment: Alignment.centerRight,
                                   child: FlatButton(
                                     onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => UserSignUp(),
-                                        ),
-                                      );
+                                     Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) =>   UserSignUp()),
+                              (Route<dynamic> route) => true);
                                     },
                                     child: Text(
                                       'Kayıt Ol',
@@ -200,12 +196,11 @@ class LoginState extends StatelessWidget {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => UserSignUp(),
-                                ),
-                              );
+                              Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) =>   UserSignUp()),
+                              (Route<dynamic> route) => true);
                             },
                             child: Container(
                                 margin: EdgeInsets.only(top: 10, bottom: 20),
@@ -214,13 +209,11 @@ class LoginState extends StatelessWidget {
                                   alignment: Alignment.centerLeft,
                                   child: FlatButton(
                                     onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              AdminLoginState(),
-                                        ),
-                                      );
+                                      Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) =>   AdminLoginState()),
+                              (Route<dynamic> route) => true);
                                     },
                                     child: Text(
                                       'Yönetici Giriş',

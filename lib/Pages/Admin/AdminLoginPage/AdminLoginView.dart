@@ -144,13 +144,11 @@ class AdminLoginState extends StatelessWidget {
                                 alignment: Alignment.centerRight,
                                 child: FlatButton(
                                   onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            VerificationState(),
-                                      ),
-                                    );
+                                   Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) =>  VerificationState()),
+                              (Route<dynamic> route) => true);
                                   },
                                   child: Text(
                                     'Şifremi Unuttum',
@@ -163,12 +161,11 @@ class AdminLoginState extends StatelessWidget {
                               )),
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ForgetPasswordView(),
-                                ),
-                              );
+                             Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) =>  ForgetPasswordView()),
+                              (Route<dynamic> route) => true);
                             },
                             child: Container(
                                 margin: EdgeInsets.only(
@@ -179,13 +176,11 @@ class AdminLoginState extends StatelessWidget {
                                   alignment: Alignment.centerRight,
                                   child: FlatButton(
                                     onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              AdminSignUp(),
-                                        ),
-                                      );
+                                     Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) =>  AdminSignUp()),
+                              (Route<dynamic> route) => true);
                                     },
                                     child: Text(
                                       'Kayıt Ol',

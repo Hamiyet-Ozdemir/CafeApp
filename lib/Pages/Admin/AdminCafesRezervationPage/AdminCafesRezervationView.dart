@@ -93,11 +93,10 @@ class AdminCafesRezervationPage extends StatelessWidget {
                                     child: Column(children: [
                                       GestureDetector(
                                         onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  AdminCafeRezervationDetailPage(
+                                           Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) =>  AdminCafeRezervationDetailPage(
                                                 cafeId: asyncSnapshot
                                                     .data.docs[index]
                                                     .data()['cafeId']
@@ -105,9 +104,9 @@ class AdminCafesRezervationPage extends StatelessWidget {
                                                           .data.docs[index]
                                                           .data()['name']
                                                           .toString(),
-                                              ),
-                                            ),
-                                          );
+                                              ),),
+                              (Route<dynamic> route) => true);
+                                        
                                         },
                                         child: Container(
                                           margin: EdgeInsets.only(

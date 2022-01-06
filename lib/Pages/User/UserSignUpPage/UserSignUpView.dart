@@ -242,13 +242,11 @@ class UserSignUpState extends  State<UserSignUp> {
                                         child: Align(
                                           child: FlatButton(
                                             onPressed: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      AdminSignUp(),
-                                                ),
-                                              );
+                                             Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) =>   AdminSignUp()),
+                              (Route<dynamic> route) => true);
                                             },
                                             child: Text(
                                               'Yönetici Kayıt',

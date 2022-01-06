@@ -33,8 +33,10 @@ class _AdminCafeDetailState extends State<AdminCafeDetail> {
         .collection("cafe")
         .doc(cafeId)
         .collection("kampanyalar");
-    CollectionReference ref1=FirebaseFirestore.instance.collection("cafe").doc(cafeId).collection("yorumlar");
-
+    CollectionReference ref1 = FirebaseFirestore.instance
+        .collection("cafe")
+        .doc(cafeId)
+        .collection("yorumlar");
 
     return DefaultTabController(
       length: 3,
@@ -110,18 +112,18 @@ class _AdminCafeDetailState extends State<AdminCafeDetail> {
                                       margin: EdgeInsets.only(right: 30),
                                       child: GestureDetector(
                                         onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  AdminCafeMenu(
-                                                     asyncSnapshot.data
-                                                          .data()["pdfUrl"],asyncSnapshot.data
-                                                          .data()["cafeId"],asyncSnapshot.data
-                                            .data()["name"]
-                                            ),
-                                            ),
-                                          );
+                                           Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) => AdminCafeMenu(
+                                                      asyncSnapshot.data
+                                                          .data()["pdfUrl"],
+                                                      asyncSnapshot.data
+                                                          .data()["cafeId"],
+                                                      asyncSnapshot.data
+                                                          .data()["name"]),),
+                              (Route<dynamic> route) => true);
+                                        
                                         },
                                         child: Container(
                                           width: 30,
@@ -201,18 +203,18 @@ class _AdminCafeDetailState extends State<AdminCafeDetail> {
                                           ),
                                           GestureDetector(
                                               onTap: () {
-                                                OfferModel()
-                                                    .createString(cafeId, asyncSnapshot.data
-                                            .data()["name"]
-                                            .toString());
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        AdminUpdateOffer(
-                                                            cafeId),
-                                                  ),
-                                                );
+                                                OfferModel().createString(
+                                                    cafeId,
+                                                    asyncSnapshot.data
+                                                        .data()["name"]
+                                                        .toString());
+                                                        Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) =>  AdminUpdateOffer(
+                                                            cafeId),),
+                              (Route<dynamic> route) => true);
+                                                
                                               },
                                               child: Container(
                                                 height: 20,
@@ -232,14 +234,16 @@ class _AdminCafeDetailState extends State<AdminCafeDetail> {
                                             AsyncSnapshot asyncSnapshot1) {
                                           if (asyncSnapshot1.data == null) {
                                             return Container(
-          alignment: Alignment.center,
-           margin: EdgeInsets.all(20),
-                child: CircularProgressIndicator(
-                backgroundColor: Colors.grey,
-                valueColor: new AlwaysStoppedAnimation<Color>(Colors.purple),
-                strokeWidth: 5,
-                ),
-        );
+                                              alignment: Alignment.center,
+                                              margin: EdgeInsets.all(20),
+                                              child: CircularProgressIndicator(
+                                                backgroundColor: Colors.grey,
+                                                valueColor:
+                                                    new AlwaysStoppedAnimation<
+                                                        Color>(Colors.purple),
+                                                strokeWidth: 5,
+                                              ),
+                                            );
                                           }
                                           if (asyncSnapshot1.hasError) {
                                             return Center(
@@ -248,8 +252,7 @@ class _AdminCafeDetailState extends State<AdminCafeDetail> {
                                             );
                                           } else {
                                             if (asyncSnapshot1.hasData) {
-                                              return 
-                                              Row(
+                                              return Row(
                                                 children: [
                                                   Expanded(
                                                     child: SizedBox(
@@ -336,15 +339,22 @@ class _AdminCafeDetailState extends State<AdminCafeDetail> {
                                                                       GestureDetector(
                                                                           onTap:
                                                                               () {
-                                                                            OfferModel().updateString( asyncSnapshot1.data.docs[index].id, cafeId, asyncSnapshot1.data.docs[index]["offerTitle"],asyncSnapshot1.data.docs[index]["offerDetail"] , asyncSnapshot1.data.docs[index]["offerTag"],asyncSnapshot1.data.docs[index]["description"] ,null, asyncSnapshot.data
-                                            .data()["name"]
-                                            .toString() );
-                                                                            Navigator.push(
-                                                                              context,
-                                                                              MaterialPageRoute(
-                                                                                builder: (context) => AdminUpdateOffer(cafeId),
-                                                                              ),
-                                                                            );
+                                                                            OfferModel().updateString(
+                                                                                asyncSnapshot1.data.docs[index].id,
+                                                                                cafeId,
+                                                                                asyncSnapshot1.data.docs[index]["offerTitle"],
+                                                                                asyncSnapshot1.data.docs[index]["offerDetail"],
+                                                                                asyncSnapshot1.data.docs[index]["offerTag"],
+                                                                                asyncSnapshot1.data.docs[index]["description"],
+                                                                                null,
+                                                                                asyncSnapshot.data.data()["name"].toString());
+                                                                                 Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) =>  AdminUpdateOffer(
+                                                            cafeId),),
+                              (Route<dynamic> route) => true);
+                                                                          
                                                                           },
                                                                           child:
                                                                               Container(
@@ -609,262 +619,193 @@ class _AdminCafeDetailState extends State<AdminCafeDetail> {
                                         mainAxisSize: MainAxisSize.min,
                                         children: <Widget>[
                                           //comment
-                                                 StreamBuilder<QuerySnapshot>(
-                                        stream: ref1.snapshots(),
-                                        builder: (BuildContext context,
-                                            AsyncSnapshot asyncSnapshot2) {
-                                            
-                                          if (asyncSnapshot2.data == null) {
-                                            return Container(
-          alignment: Alignment.center,
-           margin: EdgeInsets.all(20),
-                child: CircularProgressIndicator(
-                backgroundColor: Colors.grey,
-                valueColor: new AlwaysStoppedAnimation<Color>(Colors.purple),
-                strokeWidth: 5,
-                ),
-        );
-                                          }
-                                          if (asyncSnapshot2.hasError) {
-                                            return Center(
-                                              child: Text(
-                                                  "Bir hata oluştu, tekrar deneyiniz."),
-                                            );
-                                          } else {
-                                            if (asyncSnapshot2.hasData) {
-                                             
-                                               
-                                              return Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: SizedBox(
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height -
-                                                              463,
-                                                      child:
-                                                          new ListView.builder(
-                                                            reverse: true,
-                                                        scrollDirection:
-                                                            Axis.vertical,
-                                                        itemCount:
-                                                            asyncSnapshot2.data
-                                                                .docs.length,
-                                                        itemBuilder:
-                                                            (BuildContext ctxt,
-                                                                int index) {
-                                                          return 
-                                                                    GestureDetector(
-                                            onTap: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      AdminCommentDetail(cafeId,asyncSnapshot2.data
-                                                                .docs[index].id,asyncSnapshot.data
-                                            .data()["name"]
-                                            .toString()),
-                                                ),
-                                              );
-                                            },
-                                            child: Container(
-                                                margin:
-                                                    EdgeInsets.only(top: 21),
-                                                padding:
-                                                    EdgeInsets.only(bottom: 15),
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.93,
-                                                decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius: BorderRadius.only(
-                                                        topLeft:
-                                                            Radius.circular(15),
-                                                        topRight:
-                                                            Radius.circular(15),
-                                                        bottomLeft:
-                                                            Radius.circular(5),
-                                                        bottomRight:
-                                                            Radius.circular(
-                                                                5))),
-                                                child: Column(
-                                                  children: [
-                                                    Container(
-                                                        margin: EdgeInsets.only(
-                                                            top: 9),
-                                                        width:
-                                                            MediaQuery.of(context)
-                                                                    .size
-                                                                    .width *
-                                                                0.93,
-                                                        decoration: BoxDecoration(
-                                                            borderRadius: BorderRadius.only(
-                                                                topLeft: Radius
-                                                                    .circular(
-                                                                        15),
-                                                                topRight:
-                                                                    Radius.circular(
-                                                                        15),
-                                                                bottomLeft:
-                                                                    Radius.circular(
-                                                                        5),
-                                                                bottomRight:
-                                                                    Radius.circular(
-                                                                        5))),
-                                                        child: Column(
-                                                          children: [
-                                                            Container(
-                                                              alignment:
-                                                                  Alignment
-                                                                      .topLeft,
-                                                              height: 15,
-                                                              width: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .width *
-                                                                  0.93,
-                                                              margin: EdgeInsets
-                                                                  .only(
-                                                                      left: 15,
-                                                                      top: 18,
-                                                                      bottom:
-                                                                          8),
-                                                              child: new Row(
-                                                                children: [
-                                                                  Image.asset(
-                                                                    "assets/images/Star.png",
-                                                                    height: 15,
-                                                                    width: 15,
-                                                                  ),
-                                                                  Image.asset(
-                                                                    "assets/images/Star.png",
-                                                                    height: 15,
-                                                                    width: 15,
-                                                                  ),
-                                                                  Image.asset(
-                                                                    "assets/images/Star.png",
-                                                                    height: 15,
-                                                                    width: 15,
-                                                                  ),
-                                                                  Image.asset(
-                                                                    "assets/images/Star.png",
-                                                                    height: 15,
-                                                                    width: 15,
-                                                                  ),
-                                                                  Image.asset(
-                                                                    "assets/images/Star_Empty.png",
-                                                                    height: 15,
-                                                                    width: 15,
-                                                                  ),
-                                                                  Container(
-                                                                    margin: EdgeInsets
-                                                                        .only(
-                                                                            left:
-                                                                                4),
-                                                                    height: 15,
-                                                                    child: Text(
-                                                                        '4.1',
-                                                                        style: GoogleFonts
-                                                                            .roboto(
-                                                                          fontSize:
-                                                                              12,
-                                                                        )),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              alignment:
-                                                                  Alignment
-                                                                      .topLeft,
-                                                              height: 15,
-                                                              width: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .width *
-                                                                  0.93,
-                                                              margin: EdgeInsets
-                                                                  .only(
-                                                                      left: 15,
-                                                                      bottom:
-                                                                          8),
-                                                              child: Row(
-                                                                children: [
-                                                                  Container(
-                                                                    child: Text(
-                                                                       asyncSnapshot2.data.docs[index]["username"].toString(),
-                                                                      style: GoogleFonts
-                                                                          .roboto(
-                                                                        color: Color(
-                                                                            0xFFF07618),
-                                                                        fontSize:
-                                                                            13,
-                                                                        //figma 12 yazıyodu kodda güncelledim fontsize ı
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  Container(
-                                                                    margin: EdgeInsets
-                                                                        .only(
-                                                                            left:
-                                                                                12),
-                                                                    child: Text(
-                                                                       asyncSnapshot2.data.docs[index]["date"].toString().split(".").first,
-                                                                      style: GoogleFonts
-                                                                          .roboto(
-                                                                        color: Color(
-                                                                            0xFF7C7C7C),
-                                                                        fontSize:
-                                                                            14,
-                                                                        //figma 12 yazıyodu kodda güncelledim fontsize ı
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              margin: EdgeInsets
-                                                                  .only(
-                                                                      left: 15,
-                                                                      right:
-                                                                          15),
-                                                                          child:Align(
-                                                                            alignment: Alignment.centerLeft,
-                                                              child: Text(
-                                                                asyncSnapshot2.data.docs[index]["comment"].toString(),
-                                                                style:
-                                                                    GoogleFonts
-                                                                        .roboto(
-                                                                  color: Color(
-                                                                      0xFF000000),
-                                                                  fontSize: 14,
-                                                                  //figma 12 yazıyodu burada da güncelledim fontsize ı
-                                                                ),
-                                                              ),)
-                                                            ),
-                                                          ],
-                                                        )),
-                                                  ],
-                                                )),
-                                          );
-                                         },
-                                                      ),
+                                          StreamBuilder<QuerySnapshot>(
+                                              stream: ref1.snapshots(),
+                                              builder: (BuildContext context,
+                                                  AsyncSnapshot
+                                                      asyncSnapshot2) {
+                                                if (asyncSnapshot2.data ==
+                                                    null) {
+                                                  return Container(
+                                                    alignment: Alignment.center,
+                                                    margin: EdgeInsets.all(20),
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      backgroundColor:
+                                                          Colors.grey,
+                                                      valueColor:
+                                                          new AlwaysStoppedAnimation<
+                                                                  Color>(
+                                                              Colors.purple),
+                                                      strokeWidth: 5,
                                                     ),
-                                                  )
-                                                ],
-                                              );
-                                            } else {
-                                              return Center(
-                                                child:
-                                                    CircularProgressIndicator(),
-                                              );
-                                            }
-                                          }
-                                        })
-                            ],
+                                                  );
+                                                }
+                                                if (asyncSnapshot2.hasError) {
+                                                  return Center(
+                                                    child: Text(
+                                                        "Bir hata oluştu, tekrar deneyiniz."),
+                                                  );
+                                                } else {
+                                                  if (asyncSnapshot2.hasData) {
+                                                    return Row(
+                                                      children: [
+                                                        Expanded(
+                                                          child: SizedBox(
+                                                            height: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height -
+                                                                463,
+                                                            child: new ListView
+                                                                .builder(
+                                                              reverse: true,
+                                                              scrollDirection:
+                                                                  Axis.vertical,
+                                                              itemCount:
+                                                                  asyncSnapshot2
+                                                                      .data
+                                                                      .docs
+                                                                      .length,
+                                                              itemBuilder:
+                                                                  (BuildContext
+                                                                          ctxt,
+                                                                      int index) {
+                                                                return GestureDetector(
+                                                                  onTap: () {
+                                                                    Navigator.of(
+                                                                            context,
+                                                                            rootNavigator:
+                                                                                true)
+                                                                        .push(
+                                                                      MaterialPageRoute(
+                                                                        builder: (context) => AdminCommentDetail(
+                                                                            cafeId,
+                                                                            asyncSnapshot2.data.docs[index].id,
+                                                                            asyncSnapshot.data.data()["name"].toString()),
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                  child: Container(
+                                                                      margin: EdgeInsets.only(top: 21),
+                                                                      padding: EdgeInsets.only(bottom: 15),
+                                                                      width: MediaQuery.of(context).size.width * 0.93,
+                                                                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15), bottomLeft: Radius.circular(5), bottomRight: Radius.circular(5))),
+                                                                      child: Column(
+                                                                        children: [
+                                                                          Container(
+                                                                              margin: EdgeInsets.only(top: 9),
+                                                                              width: MediaQuery.of(context).size.width * 0.93,
+                                                                              decoration: BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15), bottomLeft: Radius.circular(5), bottomRight: Radius.circular(5))),
+                                                                              child: Column(
+                                                                                children: [
+                                                                                  Container(
+                                                                                    alignment: Alignment.topLeft,
+                                                                                    height: 15,
+                                                                                    width: MediaQuery.of(context).size.width * 0.93,
+                                                                                    margin: EdgeInsets.only(left: 15, top: 18, bottom: 8),
+                                                                                    child: new Row(
+                                                                                      children: [
+                                                                                        Image.asset(
+                                                                                          "assets/images/Star.png",
+                                                                                          height: 15,
+                                                                                          width: 15,
+                                                                                        ),
+                                                                                        Image.asset(
+                                                                                          "assets/images/Star.png",
+                                                                                          height: 15,
+                                                                                          width: 15,
+                                                                                        ),
+                                                                                        Image.asset(
+                                                                                          "assets/images/Star.png",
+                                                                                          height: 15,
+                                                                                          width: 15,
+                                                                                        ),
+                                                                                        Image.asset(
+                                                                                          "assets/images/Star.png",
+                                                                                          height: 15,
+                                                                                          width: 15,
+                                                                                        ),
+                                                                                        Image.asset(
+                                                                                          "assets/images/Star_Empty.png",
+                                                                                          height: 15,
+                                                                                          width: 15,
+                                                                                        ),
+                                                                                        Container(
+                                                                                          margin: EdgeInsets.only(left: 4),
+                                                                                          height: 15,
+                                                                                          child: Text('4.1',
+                                                                                              style: GoogleFonts.roboto(
+                                                                                                fontSize: 12,
+                                                                                              )),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ),
+                                                                                  Container(
+                                                                                    alignment: Alignment.topLeft,
+                                                                                    height: 15,
+                                                                                    width: MediaQuery.of(context).size.width * 0.93,
+                                                                                    margin: EdgeInsets.only(left: 15, bottom: 8),
+                                                                                    child: Row(
+                                                                                      children: [
+                                                                                        Container(
+                                                                                          child: Text(
+                                                                                            asyncSnapshot2.data.docs[index]["username"].toString(),
+                                                                                            style: GoogleFonts.roboto(
+                                                                                              color: Color(0xFFF07618),
+                                                                                              fontSize: 13,
+                                                                                              //figma 12 yazıyodu kodda güncelledim fontsize ı
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                        Container(
+                                                                                          margin: EdgeInsets.only(left: 12),
+                                                                                          child: Text(
+                                                                                            asyncSnapshot2.data.docs[index]["date"].toString().split(".").first,
+                                                                                            style: GoogleFonts.roboto(
+                                                                                              color: Color(0xFF7C7C7C),
+                                                                                              fontSize: 14,
+                                                                                              //figma 12 yazıyodu kodda güncelledim fontsize ı
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ),
+                                                                                  Container(
+                                                                                      margin: EdgeInsets.only(left: 15, right: 15),
+                                                                                      child: Align(
+                                                                                        alignment: Alignment.centerLeft,
+                                                                                        child: Text(
+                                                                                          asyncSnapshot2.data.docs[index]["comment"].toString(),
+                                                                                          style: GoogleFonts.roboto(
+                                                                                            color: Color(0xFF000000),
+                                                                                            fontSize: 14,
+                                                                                            //figma 12 yazıyodu burada da güncelledim fontsize ı
+                                                                                          ),
+                                                                                        ),
+                                                                                      )),
+                                                                                ],
+                                                                              )),
+                                                                        ],
+                                                                      )),
+                                                                );
+                                                              },
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    );
+                                                  } else {
+                                                    return Center(
+                                                      child:
+                                                          CircularProgressIndicator(),
+                                                    );
+                                                  }
+                                                }
+                                              })
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -880,14 +821,14 @@ class _AdminCafeDetailState extends State<AdminCafeDetail> {
               );
             } else {
               return Container(
-          alignment: Alignment.center,
-           margin: EdgeInsets.all(20),
+                alignment: Alignment.center,
+                margin: EdgeInsets.all(20),
                 child: CircularProgressIndicator(
-                backgroundColor: Colors.grey,
-                valueColor: new AlwaysStoppedAnimation<Color>(Colors.purple),
-                strokeWidth: 5,
+                  backgroundColor: Colors.grey,
+                  valueColor: new AlwaysStoppedAnimation<Color>(Colors.purple),
+                  strokeWidth: 5,
                 ),
-        );
+              );
             }
           }),
     );

@@ -161,15 +161,14 @@ String getimage(){
                          child:
                       GestureDetector(
                                       onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                UserCafeMenu(
+                                        Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) =>      UserCafeMenu(
                                             url:asyncSnapshot.data.data()["pdfUrl"]
-                                            ),
-                                          ),
-                                        );
+                                            ),),
+                              (Route<dynamic> route) => true);
+                                      
                                       },
                          child:    Container(
                          
@@ -372,12 +371,12 @@ else{
                                     ),
                                   ), GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => UserMakeRezervation(cafeId,asyncSnapshot.data.data()["name"].toString()),
-                            ),
-                          );
+                          Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) =>     UserMakeRezervation(cafeId,asyncSnapshot.data.data()["name"].toString()),),
+                              (Route<dynamic> route) => true);
+                          
                         },child:
                                   Container(
                                     height: 20,
@@ -527,9 +526,12 @@ else{
                             ),
                             GestureDetector(
                               onTap: (){
-                                Navigator.push(context, MaterialPageRoute(
-                                  builder: (context) => CreateComment(cafeId, asyncSnapshot.data.data()["name"].toString())
-                                ));
+                                 Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) =>    CreateComment(cafeId, asyncSnapshot.data.data()["name"].toString())),
+                              (Route<dynamic> route) => true);
+                              
                               },
                               child:   Container(
                                 margin: EdgeInsets.only(left: 63),
@@ -584,16 +586,15 @@ else{
                 return 
               GestureDetector(
                 onTap: () {
-                                   Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      AdminCommentDetail(cafeId,asyncSnapshot2.data
+                  Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) =>     AdminCommentDetail(cafeId,asyncSnapshot2.data
                                                                 .docs[index].id,asyncSnapshot.data
                                             .data()["name"]
-                                            .toString()),
-                                                ),
-                                              );
+                                            .toString()),),
+                              (Route<dynamic> route) => true);
+                                 
                                 },
                 child:  Container(
                                       margin: EdgeInsets.only(top: 21),
