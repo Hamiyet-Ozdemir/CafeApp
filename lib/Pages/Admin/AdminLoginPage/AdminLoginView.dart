@@ -201,7 +201,7 @@ class AdminLoginState extends StatelessWidget {
                             onTap: () async {
                             String user=await  _authService
                           .signInAdmin(
-                              "emree68.12@gmail.com","111111");
+                              _emailController.text,_passwordController.text);
                           if(user=="true"){
                              return Navigator.push(
                             context,

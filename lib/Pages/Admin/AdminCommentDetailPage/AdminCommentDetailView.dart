@@ -31,7 +31,12 @@ class _AdminCommentDetailState extends State<AdminCommentDetail> {
         .collection("cafe")
         .doc(cafeId)
         .collection("yorumlar");
-
+String name;
+if (AuthService.adminName==null) {
+  name=AuthService.userName;
+} else {
+  name=AuthService.adminName;
+}
     var commentRef = cafesRef.doc(commentId);
     
     return Scaffold(
@@ -71,7 +76,7 @@ class _AdminCommentDetailState extends State<AdminCommentDetail> {
                         onTap: () async {
                            AuthService().commentToComment(
                             
-                              AuthService.adminName,
+                              name,
                               DateTime.now().toString(),
                               commentController.text,
                               0,

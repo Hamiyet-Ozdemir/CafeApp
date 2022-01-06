@@ -513,7 +513,7 @@ var dowPdfUrl = await (await uploadTask1).ref.getDownloadURL();
      
       String username,String date, String comment,int like,int unlike,String commentId) async {
          String userOrAdmin;
-      if (AuthService.adminName.isEmpty) {
+      if (AuthService.adminName==null) {
         userOrAdmin="user";
       } else {
         userOrAdmin="admin";
