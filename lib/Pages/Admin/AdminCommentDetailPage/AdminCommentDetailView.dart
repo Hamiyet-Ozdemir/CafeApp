@@ -82,7 +82,7 @@ if (AuthService.adminName==null) {
                               0,
                               0,
                               commentId);
-                          Navigator.pop(context);
+                        
                         },
                         child: Container(
                           margin: EdgeInsets.only(left: 27),
@@ -190,7 +190,7 @@ if (AuthService.adminName==null) {
                                                     .data()["username"],
                                                 style: GoogleFonts.roboto(
                                                   color: Color(0xFFF07618),
-                                                  fontSize: 14,
+                                                  fontSize: 13,
                                                   //figma 12 yazıyodu kodda güncelledim fontsize ı
                                                 ),
                                               ),
@@ -205,7 +205,7 @@ if (AuthService.adminName==null) {
                                                     .first,
                                                 style: GoogleFonts.roboto(
                                                   color: Color(0xFF7C7C7C),
-                                                  fontSize: 14,
+                                                  fontSize: 13,
                                                   //figma 12 yazıyodu kodda güncelledim fontsize ı
                                                 ),
                                               ),
@@ -223,7 +223,7 @@ if (AuthService.adminName==null) {
                                                 .data()["comment"],
                                             style: GoogleFonts.roboto(
                                               color: Color(0xFF000000),
-                                              fontSize: 14,
+                                              fontSize: 13,
                                               //figma 12 yazıyodu burada da güncelledim fontsize ı
                                             ),
                                           ),
@@ -301,7 +301,15 @@ if (AuthService.adminName==null) {
                                     ],
                                   ));
                             } else {
-                              return CircularProgressIndicator();
+                              return Container(
+          alignment: Alignment.center,
+           margin: EdgeInsets.all(20),
+                child: CircularProgressIndicator(
+                backgroundColor: Colors.grey,
+                valueColor: new AlwaysStoppedAnimation<Color>(Colors.purple),
+                strokeWidth: 5,
+                ),
+        );
                             }
                           }),
                       //answer
@@ -311,7 +319,15 @@ if (AuthService.adminName==null) {
                                         builder: (BuildContext context,
                                             AsyncSnapshot asyncSnapshot1) {
                                           if (asyncSnapshot1.data == null) {
-                                            return CircularProgressIndicator();
+                                            return Container(
+          alignment: Alignment.center,
+           margin: EdgeInsets.all(20),
+                child: CircularProgressIndicator(
+                backgroundColor: Colors.grey,
+                valueColor: new AlwaysStoppedAnimation<Color>(Colors.purple),
+                strokeWidth: 5,
+                ),
+        );
                                           }
                                           if (asyncSnapshot1.hasError) {
                                             return Center(
@@ -346,6 +362,7 @@ if (AuthService.adminName==null) {
                           width: MediaQuery.of(context).size.width * 0.93,
                           decoration: BoxDecoration(
                               color: Color(0xFFF8F8F8),
+                             
                               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5),bottomRight: Radius.circular(5))
                           ),
                           child:Column(
@@ -363,7 +380,7 @@ if (AuthService.adminName==null) {
                                         asyncSnapshot1.data.docs[index]["username"],
                                         style: GoogleFonts.roboto(
                                           color: Color(0xFFF07618),
-                                          fontSize: 14,
+                                          fontSize: 13,
                                           //figma 12 yazıyodu kodda güncelledim fontsize ı
                                         ),
 

@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class AdminCafeDetail extends StatefulWidget {
   final String cafeId;
@@ -230,7 +231,15 @@ class _AdminCafeDetailState extends State<AdminCafeDetail> {
                                         builder: (BuildContext context,
                                             AsyncSnapshot asyncSnapshot1) {
                                           if (asyncSnapshot1.data == null) {
-                                            return CircularProgressIndicator();
+                                            return Container(
+          alignment: Alignment.center,
+           margin: EdgeInsets.all(20),
+                child: CircularProgressIndicator(
+                backgroundColor: Colors.grey,
+                valueColor: new AlwaysStoppedAnimation<Color>(Colors.purple),
+                strokeWidth: 5,
+                ),
+        );
                                           }
                                           if (asyncSnapshot1.hasError) {
                                             return Center(
@@ -606,7 +615,15 @@ class _AdminCafeDetailState extends State<AdminCafeDetail> {
                                             AsyncSnapshot asyncSnapshot2) {
                                             
                                           if (asyncSnapshot2.data == null) {
-                                            return CircularProgressIndicator();
+                                            return Container(
+          alignment: Alignment.center,
+           margin: EdgeInsets.all(20),
+                child: CircularProgressIndicator(
+                backgroundColor: Colors.grey,
+                valueColor: new AlwaysStoppedAnimation<Color>(Colors.purple),
+                strokeWidth: 5,
+                ),
+        );
                                           }
                                           if (asyncSnapshot2.hasError) {
                                             return Center(
@@ -862,7 +879,15 @@ class _AdminCafeDetailState extends State<AdminCafeDetail> {
                 ),
               );
             } else {
-              return CircularProgressIndicator();
+              return Container(
+          alignment: Alignment.center,
+           margin: EdgeInsets.all(20),
+                child: CircularProgressIndicator(
+                backgroundColor: Colors.grey,
+                valueColor: new AlwaysStoppedAnimation<Color>(Colors.purple),
+                strokeWidth: 5,
+                ),
+        );
             }
           }),
     );

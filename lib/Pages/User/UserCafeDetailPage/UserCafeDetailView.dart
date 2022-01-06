@@ -227,7 +227,15 @@ String getimage(){
            {
   
 if(asyncSnapshot1.data==null){
-  return CircularProgressIndicator();
+  return Container(
+          alignment: Alignment.center,
+           margin: EdgeInsets.all(20),
+                child: CircularProgressIndicator(
+                backgroundColor: Colors.grey,
+                valueColor: new AlwaysStoppedAnimation<Color>(Colors.purple),
+                strokeWidth: 5,
+                ),
+        );
 
 }
 if(asyncSnapshot1.hasError){
@@ -548,7 +556,15 @@ else{
            {
   
 if(asyncSnapshot2.data==null){
-  return CircularProgressIndicator();
+  return Container(
+          alignment: Alignment.center,
+           margin: EdgeInsets.all(20),
+                child: CircularProgressIndicator(
+                backgroundColor: Colors.grey,
+                valueColor: new AlwaysStoppedAnimation<Color>(Colors.purple),
+                strokeWidth: 5,
+                ),
+        );
 
 }
 if(asyncSnapshot2.hasError){
@@ -814,7 +830,15 @@ else{
       );
     
                      } else {
-                       return CircularProgressIndicator();
+                       return Container(
+          alignment: Alignment.center,
+           margin: EdgeInsets.all(20),
+                child: CircularProgressIndicator(
+                backgroundColor: Colors.grey,
+                valueColor: new AlwaysStoppedAnimation<Color>(Colors.purple),
+                strokeWidth: 5,
+                ),
+        );
                      }                  }) );
   }
 }

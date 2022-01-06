@@ -66,7 +66,15 @@ class AdminCafesRezervationPage extends StatelessWidget {
                  
 
                     if (asyncSnapshot.data == null) {
-                      return CircularProgressIndicator();
+                      return Container(
+          alignment: Alignment.center,
+           margin: EdgeInsets.all(20),
+                child: CircularProgressIndicator(
+                backgroundColor: Colors.grey,
+                valueColor: new AlwaysStoppedAnimation<Color>(Colors.purple),
+                strokeWidth: 5,
+                ),
+        );
                     }
                     if (asyncSnapshot.hasError) {
                       return Center(

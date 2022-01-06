@@ -83,7 +83,15 @@ class AdminCafeRezervationDetailPage extends StatelessWidget {
 
   
 if(asyncSnapshot.data==null){
-  return CircularProgressIndicator();
+  return Container(
+          alignment: Alignment.center,
+           margin: EdgeInsets.all(20),
+                child: CircularProgressIndicator(
+                backgroundColor: Colors.grey,
+                valueColor: new AlwaysStoppedAnimation<Color>(Colors.purple),
+                strokeWidth: 5,
+                ),
+        );
 
 }
 if(asyncSnapshot.hasError){
@@ -91,7 +99,16 @@ if(asyncSnapshot.hasError){
 }
 else{
   if(asyncSnapshot.hasData){
-    return  Flexible(child: 
+   if (asyncSnapshot.data.docs.length<1) {
+     return 
+            Container(
+              height: MediaQuery.of(context).size.height/1.5,
+              child: Container(
+              alignment: Alignment.center,
+              child: Text("Rezervasyon Bulunmamaktadır"),),);
+     
+   } else {
+      return  Flexible(child: 
  ListView.builder(
      itemCount:asyncSnapshot.data.docs.length,
      itemBuilder: (context,index){
@@ -145,6 +162,7 @@ else{
         })
 );
 
+   }
   }
   else{
     return Center(child: CircularProgressIndicator(),);
