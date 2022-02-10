@@ -1,8 +1,10 @@
 # CafeApp
 
 Proje Amacı
-Kişiler kafelere gidip boş yer aramak yerine oturduğu yerden hoşuna gidebilecekkafeleri uygulama içerisinde görüntüleyebilecektir. Kafelere diğer kullanıcılar
-tarafından yapılmış olan çeşitli yorumlar ile kafe hakkında fikir edilebilmektedir. Kafelerin menülerine, kampanyalarına, açık olduğu saat aralığına, konum bilgilerine ve en önemlisi yoğunluk durumlarına (yüzde kaç dolu veya boş olma durumu)
+
+
+Kişiler kafelere gidip boş yer aramak yerine oturduğu yerden hoşuna gidebilecekkafeleri uygulama içerisinde görüntüleyebilecektir.
+Kafelere diğer kullanıcılar tarafından yapılmış olan çeşitli yorumlar ile kafe hakkında fikir edilebilmektedir. Kafelerin menülerine, kampanyalarına, açık olduğu saat aralığına, konum bilgilerine ve en önemlisi yoğunluk durumlarına (yüzde kaç dolu veya boş olma durumu)
 bakılacaktır. Bu sayede kullanıcı kafede yer bulma sıkıntısı yaşamadan gitmek istediği kafeye gün ve saat bilgileri girerek rezervasyon oluşturabilecektir. Bu
 rezervasyonu isterse sonrasında güncelleyip değiştirebilecek. Ayrıca kullanıcı 
 beğendiği ve sürekli gitmek isteyebileceği kafeleri favorilerine ekleyebilir ve istediği zaman bu kafelere rezervasyonlar yapabilmektedir.
